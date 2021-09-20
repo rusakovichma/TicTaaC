@@ -1,0 +1,65 @@
+assets:
+	- personal-data
+		sensitivity: sensitive
+		description: name, email
+	- image-file
+		sensitivity: sensitive
+	- comments
+		sensitivity: non-sensitive
+elements:
+	- interactor
+		name: User
+		produced-assets:
+			- personal-data
+			- image-file
+			- comments
+	- proxy-server
+		name: Proxy Server
+		processed-assets:
+			- personal-data
+			- image-file
+			- comments
+	- web-server
+		name: API Server
+			- personal-data
+			- image-file
+			- comments
+	- database:
+		name: PostgreSQL
+		stored-assets:
+			- personal-data
+			- image-file
+			- comments
+boundaries:
+	- dmz:
+            - Proxy Server
+    - internal-network:
+		elements:
+		    - API Server
+			- PostgreSQL
+	- internet
+			- User
+data-flows:
+	- User -> Proxy Server
+		authentication-method: openid
+		authorization: read-write
+		account-management: external-sso
+		trasfered-assets:
+			- personal-data
+			- image-file
+			- comments
+	- Proxy Server -> API Server
+		authentication-method: certificate
+		authorization: read-write
+		trasfered-assets:
+			- personal-data
+			- image-file
+			- comments
+	- API Server -> PostgreSQL
+		authentication-method: credentials
+		authorization: admin
+		account-management: local-account
+		trasfered-assets:
+			- personal-data
+			- image-file
+			- comments	
