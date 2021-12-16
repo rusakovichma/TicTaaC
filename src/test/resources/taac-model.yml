@@ -21,10 +21,11 @@ elements:
 			- comments
 	- web-server
 		name: API Server
+		processed-assets:
 			- personal-data
 			- image-file
 			- comments
-	- database:
+	- database
 		name: PostgreSQL
 		stored-assets:
 			- personal-data
@@ -32,34 +33,39 @@ elements:
 			- comments
 boundaries:
 	- dmz:
-            - Proxy Server
+		elements:
+			- proxy-server
     - internal-network:
 		elements:
-		    - API Server
-			- PostgreSQL
+		    - web-server
+			- database
 	- internet
-			- User
+		elements:
+			- interactor
 data-flows:
-	- User -> Proxy Server
+	- interactor -> proxy-server
 		authentication-method: openid
 		authorization: read-write
 		account-management: external-sso
-		trasfered-assets:
+		encryption: yes
+		transferred-assets:
 			- personal-data
 			- image-file
 			- comments
-	- Proxy Server -> API Server
+	- proxy-server -> web-server
 		authentication-method: certificate
 		authorization: read-write
-		trasfered-assets:
+		encryption: no
+		transferred-assets:
 			- personal-data
 			- image-file
 			- comments
-	- API Server -> PostgreSQL
+	- web-server -> database
 		authentication-method: credentials
 		authorization: admin
+		encryption: yes
 		account-management: local-account
-		trasfered-assets:
+		transferred-assets:
 			- personal-data
 			- image-file
 			- comments	
