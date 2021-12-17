@@ -1,6 +1,6 @@
 package com.github.rusakovichma.tictaac.parser.impl;
 
-import com.github.rusakovichma.tictaac.parser.Parser;
+import com.github.rusakovichma.tictaac.parser.NodeParser;
 import com.github.rusakovichma.tictaac.parser.model.Node;
 import com.github.rusakovichma.tictaac.parser.model.NodeTree;
 import com.github.rusakovichma.tictaac.parser.model.NodeType;
@@ -13,7 +13,7 @@ import java.util.function.Consumer;
 
 import static com.github.rusakovichma.tictaac.util.FileUtil.readLineByLine;
 
-public class NodeTreeParser implements Parser {
+public class NodeTreeParser implements NodeParser {
 
     private Node findClosestSibling(NodeTree tree, Node newNode) {
         if (tree.isEmpty()) {
