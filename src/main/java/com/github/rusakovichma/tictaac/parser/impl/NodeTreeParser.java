@@ -7,11 +7,12 @@ import com.github.rusakovichma.tictaac.parser.model.NodeType;
 import com.github.rusakovichma.tictaac.util.StringUtils;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.function.Consumer;
 
-import static com.github.rusakovichma.tictaac.util.FileUtil.readLineByLine;
+import static com.github.rusakovichma.tictaac.util.InputStreamUtil.readLineByLine;
 
 public class NodeTreeParser implements NodeParser {
 
@@ -58,7 +59,7 @@ public class NodeTreeParser implements NodeParser {
     }
 
     @Override
-    public NodeTree getNodeTree(String file) throws IOException {
+    public NodeTree getNodeTree(InputStream inputStream) throws IOException {
         final NodeTree tree = new NodeTree();
 
         Consumer<String> fileLineConsumer = line -> {
@@ -115,7 +116,7 @@ public class NodeTreeParser implements NodeParser {
             tree.add(newNode);
         };
 
-        readLineByLine(file, fileLineConsumer);
+        readLineByLine(inputStream, fileLineConsumer);
 
         return tree;
     }

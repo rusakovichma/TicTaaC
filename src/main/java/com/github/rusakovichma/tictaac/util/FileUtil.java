@@ -1,6 +1,9 @@
 package com.github.rusakovichma.tictaac.util;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.function.Consumer;
@@ -16,6 +19,12 @@ public class FileUtil {
         try (Stream<String> stream = Files.lines(Paths.get(file))) {
             stream.forEach(lineStringConsumer);
         }
+    }
+
+    public static InputStream fileToInputStream(String filePath)
+            throws IOException {
+        File file = new File(filePath);
+        return new FileInputStream(file);
     }
 
 }
