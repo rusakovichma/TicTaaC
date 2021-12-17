@@ -7,11 +7,11 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ParserImplTest {
+class NodeTreeParserTest {
 
     @Test
     void getNodeTreeTest() throws IOException {
-        NodeTree tree = new ParserImpl().getNodeTree("src/test/resources/taac-model.yml");
+        NodeTree tree = new NodeTreeParser().getNodeTree("src/test/resources/taac-model.yml");
         assertTrue(tree.size() == 71);
     }
 }

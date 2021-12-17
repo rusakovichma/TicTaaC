@@ -13,7 +13,7 @@ import java.util.function.Consumer;
 
 import static com.github.rusakovichma.tictaac.util.FileUtil.readLineByLine;
 
-public class ParserImpl implements Parser {
+public class NodeTreeParser implements Parser {
 
     private Node findClosestSibling(NodeTree tree, Node newNode) {
         if (tree.isEmpty()) {
@@ -26,7 +26,7 @@ public class ParserImpl implements Parser {
             Node sibling = reversedIterator.next();
 
             //already parent or more mature node
-            if (newNode.getIndentLength() > sibling.getIndentLength()){
+            if (newNode.getIndentLength() > sibling.getIndentLength()) {
                 break;
             }
 
@@ -81,7 +81,7 @@ public class ParserImpl implements Parser {
 
             Node newNode = new Node();
             newNode.setNodeType(nodeType);
-            newNode.setContent(line);
+            newNode.setContent(line.trim());
             newNode.setIndentLength(indentLength);
 
             if (indentLength == 0) {
