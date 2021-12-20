@@ -1,16 +1,15 @@
 package com.github.rusakovichma.tictaac.parser.model;
 
-import java.util.LinkedList;
-
 public class Node {
 
     private int indentLength;
     private int nodeLevel;
     private Node parent;
     private Node nextSibling;
-    private LinkedList<Node> descendants;
+    private NodeTree descendants;
     private String content;
     private NodeType nodeType;
+    private boolean collection;
 
     public int getIndentLength() {
         return indentLength;
@@ -52,11 +51,11 @@ public class Node {
         this.nodeLevel = nodeLevel;
     }
 
-    public LinkedList<Node> getDescendants() {
+    public NodeTree getDescendants() {
         return descendants;
     }
 
-    public void setDescendants(LinkedList<Node> descendants) {
+    public void setDescendants(NodeTree descendants) {
         this.descendants = descendants;
     }
 
@@ -66,5 +65,26 @@ public class Node {
 
     public void setNodeType(NodeType nodeType) {
         this.nodeType = nodeType;
+    }
+
+    public String getConventionalName() {
+        return this.getNodeType().getConventionalName(this.getContent());
+    }
+
+    public String getNodeValue() {
+        return this.getNodeType().getValue(content);
+    }
+
+    public String getConventionalNodeValue() {
+        NodeType type = this.getNodeType();
+        return type.getConventionalName(type.getValue(content));
+    }
+
+    public boolean isCollection() {
+        return collection;
+    }
+
+    public void setCollection(boolean collection) {
+        this.collection = collection;
     }
 }

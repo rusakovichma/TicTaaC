@@ -1,12 +1,14 @@
 package com.github.rusakovichma.tictaac.model.threatmodel;
 
+import com.github.rusakovichma.tictaac.model.threatmodel.annotation.FlowSource;
+import com.github.rusakovichma.tictaac.model.threatmodel.annotation.FlowTarget;
 import com.github.rusakovichma.tictaac.model.threatmodel.annotation.Ref;
 import com.github.rusakovichma.tictaac.model.threatmodel.dataflow.AccountManagement;
 import com.github.rusakovichma.tictaac.model.threatmodel.dataflow.AuthenticationMethod;
 import com.github.rusakovichma.tictaac.model.threatmodel.dataflow.Authorization;
 import com.github.rusakovichma.tictaac.model.threatmodel.dataflow.Encryption;
 
-import java.util.Set;
+import java.util.LinkedList;
 
 public class DataFlow {
 
@@ -16,11 +18,12 @@ public class DataFlow {
     private AccountManagement accountManagement;
 
     @Ref(rootCollection = "assets")
-    private Set<Asset> transferredAssets;
+    private LinkedList<Asset> transferredAssets;
 
-    @Ref(rootCollection = "elements")
+    @FlowSource
     private Element source;
-    @Ref(rootCollection = "elements")
+
+    @FlowTarget
     private Element target;
 
     public AuthenticationMethod getAuthenticationMethod() {
@@ -55,11 +58,11 @@ public class DataFlow {
         this.accountManagement = accountManagement;
     }
 
-    public Set<Asset> getTransferredAssets() {
+    public LinkedList<Asset> getTransferredAssets() {
         return transferredAssets;
     }
 
-    public void setTransferredAssets(Set<Asset> transferredAssets) {
+    public void setTransferredAssets(LinkedList<Asset> transferredAssets) {
         this.transferredAssets = transferredAssets;
     }
 

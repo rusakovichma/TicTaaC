@@ -36,10 +36,10 @@ elements:
 			- image-file
 			- comments
 boundaries:
-	- dmz:
+	- dmz
 		elements:
 			- proxy-server
-    - internal-network:
+    - internal-network
 		elements:
 		    - web-server
 			- database

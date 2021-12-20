@@ -2,6 +2,7 @@ package com.github.rusakovichma.tictaac.parser.impl;
 
 import com.github.rusakovichma.tictaac.parser.NodeParser;
 import com.github.rusakovichma.tictaac.parser.model.Node;
+import com.github.rusakovichma.tictaac.parser.model.NodeHelper;
 import com.github.rusakovichma.tictaac.parser.model.NodeTree;
 import com.github.rusakovichma.tictaac.parser.model.NodeType;
 import com.github.rusakovichma.tictaac.util.StringUtils;
@@ -9,7 +10,6 @@ import com.github.rusakovichma.tictaac.util.StringUtils;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.function.Consumer;
 
 import static com.github.rusakovichma.tictaac.util.InputStreamUtil.readLineByLine;
@@ -51,7 +51,7 @@ public class NodeTreeParser implements NodeParser {
         if (parent != null) {
             desc.setNodeLevel(parent.getNodeLevel() + 1);
             if (parent.getDescendants() == null) {
-                parent.setDescendants(new LinkedList<>());
+                parent.setDescendants(new NodeTree());
             }
             parent.getDescendants().add(desc);
         }
@@ -84,6 +84,10 @@ public class NodeTreeParser implements NodeParser {
             newNode.setNodeType(nodeType);
             newNode.setContent(line.trim());
             newNode.setIndentLength(indentLength);
+
+            if (nodeType == NodeType.property) {
+                newNode.setCollection(NodeHelper.isCollectionProperty(line));
+            }
 
             if (indentLength == 0) {
                 newNode.setNodeLevel(0);

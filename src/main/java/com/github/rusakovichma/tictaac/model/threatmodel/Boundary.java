@@ -3,15 +3,15 @@ package com.github.rusakovichma.tictaac.model.threatmodel;
 import com.github.rusakovichma.tictaac.model.threatmodel.annotation.Id;
 import com.github.rusakovichma.tictaac.model.threatmodel.annotation.Ref;
 
+import java.util.LinkedList;
 import java.util.Objects;
-import java.util.Set;
 
 public class Boundary {
 
     @Id
     private String id;
     @Ref(rootCollection = "elements")
-    private Set<Element> elements;
+    private LinkedList<Element> elements;
 
     public String getId() {
         return id;
@@ -21,11 +21,11 @@ public class Boundary {
         this.id = id;
     }
 
-    public Set<Element> getElements() {
+    public LinkedList<Element> getElements() {
         return elements;
     }
 
-    public void setElements(Set<Element> elements) {
+    public void setElements(LinkedList<Element> elements) {
         this.elements = elements;
     }
 

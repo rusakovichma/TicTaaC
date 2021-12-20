@@ -4,21 +4,27 @@ import com.github.rusakovichma.tictaac.model.threatmodel.Asset;
 import com.github.rusakovichma.tictaac.model.threatmodel.Boundary;
 import com.github.rusakovichma.tictaac.model.threatmodel.DataFlow;
 import com.github.rusakovichma.tictaac.model.threatmodel.Element;
+import com.github.rusakovichma.tictaac.model.threatmodel.annotation.RootCollection;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class ThreatModel {
 
-    private List<Asset> assets;
-    private List<Element> elements;
-    private List<Boundary> boundaries;
-    private List<DataFlow> dataFlows;
+    @RootCollection
+    private LinkedList<Asset> assets;
+    @RootCollection
+    private LinkedList<Element> elements;
+    @RootCollection
+    private LinkedList<Boundary> boundaries;
+    @RootCollection
+    private LinkedList<DataFlow> dataFlows;
 
     public List<Asset> getAssets() {
         return assets;
     }
 
-    public void setAssets(List<Asset> assets) {
+    public void setAssets(LinkedList<Asset> assets) {
         this.assets = assets;
     }
 
@@ -26,7 +32,7 @@ public class ThreatModel {
         return elements;
     }
 
-    public void setElements(List<Element> elements) {
+    public void setElements(LinkedList<Element> elements) {
         this.elements = elements;
     }
 
@@ -34,7 +40,7 @@ public class ThreatModel {
         return boundaries;
     }
 
-    public void setBoundaries(List<Boundary> boundaries) {
+    public void setBoundaries(LinkedList<Boundary> boundaries) {
         this.boundaries = boundaries;
     }
 
@@ -42,7 +48,7 @@ public class ThreatModel {
         return dataFlows;
     }
 
-    public void setDataFlows(List<DataFlow> dataFlows) {
+    public void setDataFlows(LinkedList<DataFlow> dataFlows) {
         this.dataFlows = dataFlows;
     }
 }
