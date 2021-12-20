@@ -71,8 +71,7 @@ public class NodeTreeParser implements NodeParser {
             try {
                 indentLength = StringUtils.getStartingIndentLength(line);
             } catch (IOException e) {
-                e.printStackTrace();
-                return;
+                throw new IllegalStateException(e);
             }
 
             NodeType nodeType = NodeType.getType(line);

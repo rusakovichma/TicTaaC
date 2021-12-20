@@ -162,9 +162,7 @@ abstract class AbstractModelMapper<M> implements ModelMapper<M> {
 
                         processFieldsOfRootCollectionObject(newRootCollectionObject, rootCollectionElementNode);
                     }
-
                 }
-
             }
         } catch (Exception ex) {
             throw new RuntimeException(ex);
