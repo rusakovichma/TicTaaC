@@ -5,5 +5,7 @@ public enum ElementType {
     proxyServer,
     webServer,
     database,
-    externalService
+    externalService,
+    internalService,
+    process
 }

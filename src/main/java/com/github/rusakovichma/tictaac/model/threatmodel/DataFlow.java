@@ -12,6 +12,8 @@ import java.util.LinkedList;
 
 public class DataFlow {
 
+    private String title;
+
     private AuthenticationMethod authenticationMethod;
     private Authorization authorization;
     private Encryption encryption;
@@ -80,5 +82,13 @@ public class DataFlow {
 
     public void setTarget(Element target) {
         this.target = target;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

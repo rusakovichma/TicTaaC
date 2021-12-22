@@ -12,6 +12,6 @@ class FileUtilTest {
     @Test
     void readLineByLine() throws IOException {
         Consumer<String> lineReader = string -> assertTrue(!string.isEmpty());
-        FileUtil.readLineByLine("src/test/resources/taac-model.yml", lineReader);
+        FileUtil.readLineByLine("src/test/resources/threat-model-test.yml", lineReader);
     }
 }

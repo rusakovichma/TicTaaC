@@ -13,9 +13,9 @@ class NodeTreeParserTest {
 
     @Test
     void getNodeTreeTest() throws IOException {
-        InputStream fileInputStream = FileUtil.fileToInputStream("src/test/resources/taac-model.yml");
+        InputStream fileInputStream = FileUtil.fileToInputStream("src/test/resources/threat-model-test.yml");
 
         NodeTree tree = new NodeTreeParser().getNodeTree(fileInputStream);
-        assertTrue(tree.size() == 75);
+        assertTrue(tree.size() == 78);
     }
 }

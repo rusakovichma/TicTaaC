@@ -14,7 +14,7 @@ class ThreatModelMapperTest {
 
     @Test
     void getModel() throws Exception {
-        InputStream fileInputStream = FileUtil.fileToInputStream("src/test/resources/taac-model.yml");
+        InputStream fileInputStream = FileUtil.fileToInputStream("src/test/resources/threat-model-test.yml");
 
         NodeTree tree = new NodeTreeParser().getNodeTree(fileInputStream);
         ThreatModelMapper mapper = new ThreatModelMapper(tree);

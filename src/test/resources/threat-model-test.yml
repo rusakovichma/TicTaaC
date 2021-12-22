@@ -48,6 +48,7 @@ boundaries:
 			- interactor
 data-flows:
 	- interactor -> proxy-server
+		title: Users Request
 		authentication-method: openid
 		authorization: read-write
 		account-management: external-sso
@@ -57,6 +58,7 @@ data-flows:
 			- image-file
 			- comments
 	- proxy-server -> web-server
+		title: Request to WebServer
 		authentication-method: certificate
 		authorization: read-write
 		encryption: no
@@ -65,6 +67,7 @@ data-flows:
 			- image-file
 			- comments
 	- web-server -> database
+		title: Database query
 		authentication-method: credentials
 		authorization: admin
 		encryption: yes
@@ -72,4 +75,4 @@ data-flows:
 		transferred-assets:
 			- personal-data
 			- image-file
-			- comments	
+			- comments
