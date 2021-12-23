@@ -37,13 +37,16 @@ elements:
 			- comments
 boundaries:
 	- dmz
+		category: demilitarized-zone
 		elements:
 			- proxy-server
     - internal-network
+		category: closed-perimeter
 		elements:
 		    - web-server
 			- database
 	- internet
+		category: global-network
 		elements:
 			- interactor
 data-flows:
