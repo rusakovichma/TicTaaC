@@ -7,7 +7,7 @@ assets:
 	- comments
 		sensitivity: non-sensitive
 elements:
-	- interactor
+	- legitimate-user
 		name: User
 		type: interactor
 		produced-assets:
@@ -48,9 +48,9 @@ boundaries:
 	- internet
 		category: global-network
 		elements:
-			- interactor
+			- legitimate-user
 data-flows:
-	- interactor -> proxy-server
+	- legitimate-user -> proxy-server
 		title: Users Request
 		authentication-method: openid
 		authorization: read-write

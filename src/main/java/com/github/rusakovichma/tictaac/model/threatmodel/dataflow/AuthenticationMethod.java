@@ -1,6 +1,7 @@
 package com.github.rusakovichma.tictaac.model.threatmodel.dataflow;
 
 public enum AuthenticationMethod {
+    anonymous,
     credentials,
     basic,
     digest,
