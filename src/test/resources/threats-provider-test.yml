@@ -11,7 +11,7 @@ threats:
   - threat-number-two
     title: Threat title 2
     severity: Medium
-    categories: informationDisclosure
+    categories: information-disclosure
     expression: flow crosses demilitarized-zone
     description: threat description 2
     remediation: threat 2 remediation practices

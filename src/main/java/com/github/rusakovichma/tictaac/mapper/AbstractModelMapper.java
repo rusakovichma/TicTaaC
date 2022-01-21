@@ -4,6 +4,7 @@ import com.github.rusakovichma.tictaac.model.threatmodel.annotation.*;
 import com.github.rusakovichma.tictaac.parser.model.Node;
 import com.github.rusakovichma.tictaac.parser.model.NodeHelper;
 import com.github.rusakovichma.tictaac.parser.model.NodeTree;
+import com.github.rusakovichma.tictaac.parser.model.NodeType;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -11,7 +12,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.util.*;
 
-import static com.github.rusakovichma.tictaac.util.ClassUtil.isCollection;
+import static com.github.rusakovichma.tictaac.util.ClassUtil.*;
 import static com.github.rusakovichma.tictaac.util.ReflectionUtil.*;
 
 abstract class AbstractModelMapper<M> implements ModelMapper<M> {
@@ -90,6 +91,20 @@ abstract class AbstractModelMapper<M> implements ModelMapper<M> {
         fieldOfNewObject.set(newObject, fieldValue);
     }
 
+    private void setEnumSetForField(Field fieldOfNewObject, Object newObject, Node propertyNode)
+            throws IllegalAccessException {
+        Object fieldValue = null;
+        if (propertyNode != null) {
+            Collection<Enum> enumColl = new ArrayList<>();
+            Arrays.stream(propertyNode.getNodeValue().split(","))
+                    .map(enumStr -> (Enum) createEnumInstance(NodeType.property.getConventionalName(enumStr.trim()),
+                            getCollectionParameterType(fieldOfNewObject)))
+                    .forEach(enumObj -> enumColl.add(enumObj));
+            fieldValue = EnumSet.copyOf(enumColl);
+        }
+        fieldOfNewObject.set(newObject, fieldValue);
+    }
+
     private void processFieldsOfRootCollectionObject(Object newRootCollectionObject, Node rootCollectionElementNode)
             throws IllegalAccessException, InvocationTargetException, NoSuchMethodException, InstantiationException {
         for (Field fieldOfNewObject : newRootCollectionObject.getClass().getDeclaredFields()) {
@@ -127,6 +142,11 @@ abstract class AbstractModelMapper<M> implements ModelMapper<M> {
                 continue;
             }
 
+            if (EnumSet.class.isAssignableFrom(fieldOfNewObject.getType())) {
+                setEnumSetForField(fieldOfNewObject, newRootCollectionObject, propertyNode);
+                continue;
+            }
+
             setPrimitiveForField(fieldOfNewObject, newRootCollectionObject, propertyNode);
         }
     }
@@ -136,7 +156,7 @@ abstract class AbstractModelMapper<M> implements ModelMapper<M> {
             for (Field rootField : rootObject.getClass().getDeclaredFields()) {
                 rootField.setAccessible(true);
 
-                Node rootCollectionNode = nodeTree.filterNode(new ArrayList<>(
+                Node rootNode = nodeTree.filterNode(new ArrayList<>(
                         Arrays.asList(
                                 node -> node.getNodeLevel() == 0,
                                 node -> rootField.getName().equals(node.getConventionalName())
@@ -152,7 +172,7 @@ abstract class AbstractModelMapper<M> implements ModelMapper<M> {
 
                     Type parameterType = getCollectionParameterType(rootField);
 
-                    NodeTree rootCollectionElementNodes = rootCollectionNode.getDescendants();
+                    NodeTree rootCollectionElementNodes = rootNode.getDescendants();
 
                     for (Node rootCollectionElementNode : rootCollectionElementNodes) {
 
@@ -162,6 +182,8 @@ abstract class AbstractModelMapper<M> implements ModelMapper<M> {
 
                         processFieldsOfRootCollectionObject(newRootCollectionObject, rootCollectionElementNode);
                     }
+                } else if (isPlainType(rootField.getType())) {
+                    setPrimitiveForField(rootField, rootObject, rootNode);
                 }
             }
         } catch (Exception ex) {
