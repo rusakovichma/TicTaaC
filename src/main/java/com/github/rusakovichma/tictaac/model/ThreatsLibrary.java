@@ -4,7 +4,7 @@ import com.github.rusakovichma.tictaac.model.threatmodel.annotation.RootCollecti
 
 import java.util.LinkedList;
 
-public class ThreatsSet {
+public class ThreatsLibrary {
 
     private String name;
     @RootCollection

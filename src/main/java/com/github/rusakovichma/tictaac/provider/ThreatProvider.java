@@ -1,9 +1,9 @@
 package com.github.rusakovichma.tictaac.provider;
 
-import com.github.rusakovichma.tictaac.model.ThreatsSet;
+import com.github.rusakovichma.tictaac.model.ThreatsLibrary;
 
 public interface ThreatProvider {
 
-    public ThreatsSet getThreats();
+    public ThreatsLibrary getThreatsLibrary();
 
 }
