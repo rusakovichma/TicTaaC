@@ -6,6 +6,7 @@ assets: # comment 1
 		sensitivity: sensitive # comment 2
 	- comments
 		sensitivity: non-sensitive
+# comment j
 elements:
 	- legitimate-user
 		name: User
@@ -50,6 +51,7 @@ boundaries: # comment 6
 		category: global-network # comment 8
 		elements:
 			- legitimate-user
+# comment x
 data-flows:
 	- legitimate-user -> proxy-server
 		title: Users Request
