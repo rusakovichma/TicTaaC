@@ -28,5 +28,16 @@ class ThreatsLibraryMapperTest {
 
     }
 
+    @Test
+    void checkOmitComments() throws Exception {
+        InputStream fileInputStream = FileUtil.fileToInputStream("src/test/resources/threats-provider-test.yml");
+
+        NodeTree tree = new NodeTreeParser().getNodeTree(fileInputStream);
+        ThreatsLibraryMapper mapper = new ThreatsLibraryMapper(tree);
+
+        ThreatsLibrary threatsLibrary = mapper.getModel();
+        assertTrue(!threatsLibrary.getThreats().get(0).getTitle().contains("# some comment 1"));
+    }
+
 
 }

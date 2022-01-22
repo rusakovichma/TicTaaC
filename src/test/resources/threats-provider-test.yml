@@ -1,13 +1,13 @@
 name: Threats rules set for test
-threats:
+threats: # some comment 2
   - threat-number-one
-    title: Threat title 1
+    title: Threat title 1 # some comment 1
     severity: High
     categories: spoofing, tampering
     expression: source.type = database or target.type = database
     description: threat description 1
     remediation: threat 1 remediation practices
-
+# just a comment
   - threat-number-two
     title: Threat title 2
     severity: Medium
@@ -15,3 +15,4 @@ threats:
     expression: flow crosses demilitarized-zone
     description: threat description 2
     remediation: threat 2 remediation practices
+# just a comment 2

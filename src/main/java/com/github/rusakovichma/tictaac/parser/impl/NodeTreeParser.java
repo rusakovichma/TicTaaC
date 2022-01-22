@@ -58,14 +58,20 @@ public class NodeTreeParser implements NodeParser {
         desc.setParent(parent);
     }
 
+    private String omitComments(String line) {
+        return line.replaceAll("#.*$", "");
+    }
+
     @Override
     public NodeTree getNodeTree(InputStream inputStream) throws IOException {
         final NodeTree tree = new NodeTree();
 
         Consumer<String> fileLineConsumer = line -> {
-            if (line == null || line.isEmpty()) {
+            if (line == null || line.trim().isEmpty()) {
                 return;
             }
+
+            line = omitComments(line);
 
             int indentLength;
             try {

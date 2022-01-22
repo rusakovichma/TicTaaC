@@ -18,4 +18,12 @@ class NodeTreeParserTest {
         NodeTree tree = new NodeTreeParser().getNodeTree(fileInputStream);
         assertTrue(tree.size() == 81);
     }
+
+    @Test
+    void getNodeTreeWithCommentsTest() throws IOException {
+        InputStream fileInputStream = FileUtil.fileToInputStream("src/test/resources/threat-model-test-with-comments.yml");
+
+        NodeTree tree = new NodeTreeParser().getNodeTree(fileInputStream);
+        assertTrue(tree.size() == 81);
+    }
 }
