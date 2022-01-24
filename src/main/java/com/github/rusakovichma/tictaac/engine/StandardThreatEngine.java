@@ -20,9 +20,9 @@ public class StandardThreatEngine implements ThreatEngine {
 
     @Override
     public Collection<Threat> generateThreats(ThreatModel threatModel) {
-        Collection<ThreatRule> threatsLibrary = threatProvider.getThreatsLibrary()
+        Collection<ThreatRule> threatRules = threatProvider.getThreatsLibrary()
                 .getRules();
 
-        return evaluationContext.eval(threatModel, threatsLibrary);
+        return evaluationContext.eval(threatModel, threatRules);
     }
 }
