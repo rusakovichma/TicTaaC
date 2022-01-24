@@ -1,13 +1,12 @@
 package com.github.rusakovichma.tictaac.model;
 
-import com.github.rusakovichma.tictaac.model.threatmodel.DataFlow;
-import com.github.rusakovichma.tictaac.model.threatmodel.annotation.Exclude;
 import com.github.rusakovichma.tictaac.model.threatmodel.annotation.Id;
 
 import java.util.EnumSet;
 
-public class Threat {
+public class ThreatRule {
 
+    @Id
     private String id;
     private String title;
     private ThreatSeverity severity;
@@ -15,8 +14,6 @@ public class Threat {
     private String expression;
     private String description;
     private String remediation;
-
-    private DataFlow dataFlow;
 
     public String getId() {
         return id;
@@ -72,13 +69,5 @@ public class Threat {
 
     public void setRemediation(String remediation) {
         this.remediation = remediation;
-    }
-
-    public DataFlow getDataFlow() {
-        return dataFlow;
-    }
-
-    public void setDataFlow(DataFlow dataFlow) {
-        this.dataFlow = dataFlow;
     }
 }

@@ -1,5 +1,7 @@
 name: Threats rules set for test
-threats: # some comment 2
+version: 0.1.1
+
+rules: # some comment 2
   - threat-number-one
     title: Threat title 1 # some comment 1
     severity: High

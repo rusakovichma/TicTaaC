@@ -7,8 +7,9 @@ import java.util.LinkedList;
 public class ThreatsLibrary {
 
     private String name;
+    private String version;
     @RootCollection
-    private LinkedList<Threat> threats;
+    private LinkedList<ThreatRule> rules;
 
     public String getName() {
         return name;
@@ -18,11 +19,19 @@ public class ThreatsLibrary {
         this.name = name;
     }
 
-    public LinkedList<Threat> getThreats() {
-        return threats;
+    public LinkedList<ThreatRule> getRules() {
+        return rules;
     }
 
-    public void setThreats(LinkedList<Threat> threats) {
-        this.threats = threats;
+    public void setRules(LinkedList<ThreatRule> rules) {
+        this.rules = rules;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
     }
 }

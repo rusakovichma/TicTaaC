@@ -22,9 +22,12 @@ class ThreatsLibraryMapperTest {
         ThreatsLibraryMapper mapper = new ThreatsLibraryMapper(tree);
 
         ThreatsLibrary threatsLibrary = mapper.getModel();
-        assertTrue(threatsLibrary.getThreats().size() == 2);
-        assertTrue(threatsLibrary.getThreats().get(0).getSeverity() == ThreatSeverity.High);
-        assertTrue(threatsLibrary.getThreats().get(1).getCategories().toArray()[0] == ThreatCategory.informationDisclosure);
+        assertTrue(threatsLibrary.getName().equals("Threats rules set for test"));
+        assertTrue(threatsLibrary.getVersion().equals("0.1.1"));
+
+        assertTrue(threatsLibrary.getRules().size() == 2);
+        assertTrue(threatsLibrary.getRules().get(0).getSeverity() == ThreatSeverity.High);
+        assertTrue(threatsLibrary.getRules().get(1).getCategories().toArray()[0] == ThreatCategory.informationDisclosure);
 
     }
 
@@ -36,7 +39,7 @@ class ThreatsLibraryMapperTest {
         ThreatsLibraryMapper mapper = new ThreatsLibraryMapper(tree);
 
         ThreatsLibrary threatsLibrary = mapper.getModel();
-        assertTrue(!threatsLibrary.getThreats().get(0).getTitle().contains("# some comment 1"));
+        assertTrue(!threatsLibrary.getRules().get(0).getTitle().contains("# some comment 1"));
     }
 
 

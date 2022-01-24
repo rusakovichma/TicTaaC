@@ -3,10 +3,10 @@ package com.github.rusakovichma.tictaac.engine;
 import com.github.rusakovichma.tictaac.engine.el.EvaluationContext;
 import com.github.rusakovichma.tictaac.model.Threat;
 import com.github.rusakovichma.tictaac.model.ThreatModel;
+import com.github.rusakovichma.tictaac.model.ThreatRule;
 import com.github.rusakovichma.tictaac.provider.ThreatProvider;
 
 import java.util.Collection;
-import java.util.stream.Collectors;
 
 public class StandardThreatEngine implements ThreatEngine {
 
@@ -20,13 +20,9 @@ public class StandardThreatEngine implements ThreatEngine {
 
     @Override
     public Collection<Threat> generateThreats(ThreatModel threatModel) {
-        Collection<Threat> threatsLibrary = threatProvider.getThreatsLibrary()
-                .getThreats();
+        Collection<ThreatRule> threatsLibrary = threatProvider.getThreatsLibrary()
+                .getRules();
 
-        evaluationContext.eval(threatModel, threatsLibrary);
-
-        return threatsLibrary.stream()
-                .filter(threat -> threat.getDataFlow() != null)
-                .collect(Collectors.toList());
+        return evaluationContext.eval(threatModel, threatsLibrary);
     }
 }
