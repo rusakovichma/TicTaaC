@@ -6,7 +6,7 @@ rules: # some comment 2
     title: Threat title 1 # some comment 1
     severity: High
     categories: spoofing, tampering
-    expression: source.type = database or target.type = database
+    expression: source.type == database or target.type == database
     description: threat description 1
     remediation: threat 1 remediation practices
 # just a comment

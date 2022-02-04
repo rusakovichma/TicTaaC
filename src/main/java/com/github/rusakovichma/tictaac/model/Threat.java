@@ -1,8 +1,6 @@
 package com.github.rusakovichma.tictaac.model;
 
 import com.github.rusakovichma.tictaac.model.threatmodel.DataFlow;
-import com.github.rusakovichma.tictaac.model.threatmodel.annotation.Exclude;
-import com.github.rusakovichma.tictaac.model.threatmodel.annotation.Id;
 
 import java.util.EnumSet;
 
@@ -12,7 +10,6 @@ public class Threat {
     private String title;
     private ThreatSeverity severity;
     private EnumSet<ThreatCategory> categories;
-    private String expression;
     private String description;
     private String remediation;
 
@@ -48,14 +45,6 @@ public class Threat {
 
     public void setCategories(EnumSet<ThreatCategory> categories) {
         this.categories = categories;
-    }
-
-    public String getExpression() {
-        return expression;
-    }
-
-    public void setExpression(String expression) {
-        this.expression = expression;
     }
 
     public String getDescription() {

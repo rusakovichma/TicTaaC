@@ -1,6 +1,6 @@
 package com.github.rusakovichma.tictaac.engine;
 
-import com.github.rusakovichma.tictaac.engine.el.EvaluationContext;
+import com.github.rusakovichma.tictaac.engine.el.EngineContext;
 import com.github.rusakovichma.tictaac.model.Threat;
 import com.github.rusakovichma.tictaac.model.ThreatModel;
 import com.github.rusakovichma.tictaac.model.ThreatRule;
@@ -11,11 +11,11 @@ import java.util.Collection;
 public class StandardThreatEngine implements ThreatEngine {
 
     private final ThreatProvider threatProvider;
-    private final EvaluationContext evaluationContext;
+    private final EngineContext engineContext;
 
-    public StandardThreatEngine(ThreatProvider threatProvider, EvaluationContext evaluationContext) {
+    public StandardThreatEngine(ThreatProvider threatProvider, EngineContext engineContext) {
         this.threatProvider = threatProvider;
-        this.evaluationContext = evaluationContext;
+        this.engineContext = engineContext;
     }
 
     @Override
@@ -23,6 +23,6 @@ public class StandardThreatEngine implements ThreatEngine {
         Collection<ThreatRule> threatRules = threatProvider.getThreatsLibrary()
                 .getRules();
 
-        return evaluationContext.eval(threatModel, threatRules);
+        return engineContext.eval(threatModel, threatRules);
     }
 }
