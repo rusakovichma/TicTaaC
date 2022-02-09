@@ -14,7 +14,8 @@ public class OrExpression extends CompoundExpression {
         exprAnother.interpret(context);
 
         boolean oneResult = (Boolean) context.getEvaluationResult(exprOne);
-        boolean anotherResult = (Boolean) context.getEvaluationResult(exprOne);
+        boolean anotherResult = (Boolean) context.getEvaluationResult(exprAnother);
+
         context.addEvaluationResult(this, oneResult || anotherResult);
     }
 }

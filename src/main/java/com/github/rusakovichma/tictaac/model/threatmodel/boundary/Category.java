@@ -4,5 +4,10 @@ public enum Category {
     globalNetwork,
     demilitarizedZone,
     corporateNetwork,
-    closedPerimeter
+    closedPerimeter;
+
+    @Override
+    public String toString() {
+        return this.name();
+    }
 }

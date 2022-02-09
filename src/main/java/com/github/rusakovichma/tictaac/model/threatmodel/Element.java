@@ -6,7 +6,6 @@ import com.github.rusakovichma.tictaac.model.threatmodel.element.ElementType;
 
 import java.util.LinkedList;
 import java.util.Objects;
-import java.util.Set;
 
 public class Element {
 

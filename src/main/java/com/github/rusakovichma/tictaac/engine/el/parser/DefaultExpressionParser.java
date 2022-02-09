@@ -18,20 +18,34 @@ public class DefaultExpressionParser implements ExpressionParser {
     private Deque<Expression> transExpr = new ArrayDeque<Expression>();
     private Deque<Expression> internalExpr = new ArrayDeque<Expression>();
     private List<ExpressionPreProcessor> preProcessors = new LinkedList<ExpressionPreProcessor>();
+    private Map<String, String> stringsHashCache = new HashMap<>();
 
 
     public DefaultExpressionParser(ExternalContext externalContext) {
         this.externalContext = externalContext;
+
+        preProcessors.add(new ExpressionSegregator(evaluationTemplate));
         preProcessors.add(new ExpressionEntitySeparator());
+        preProcessors.add(new StringHashReplacer(stringsHashCache));
     }
 
     private void eval() {
         Expression lastExpression = transExpr.pop();
 
+        if (lastExpression instanceof ValueComparable) {
+            ValueComparable valueComparable = (ValueComparable) lastExpression;
+            valueComparable.setValueToCompare(vals.pop());
+        }
+
         if (lastExpression instanceof ExpressionAware) {
             ExpressionAware expressionAware = (ExpressionAware) lastExpression;
             expressionAware.setExprOne(internalExpr.pop());
             expressionAware.setExprAnother(internalExpr.pop());
+        }
+
+        if (lastExpression instanceof ParametrableExpression) {
+            ParametrableExpression parametrableExpression = (ParametrableExpression) lastExpression;
+            parametrableExpression.setParameter(params.pop());
         }
 
         internalExpr.push(lastExpression);
@@ -42,7 +56,7 @@ public class DefaultExpressionParser implements ExpressionParser {
         if (parameter != null) {
             params.add(parameter);
         } else {
-            vals.add(Double.valueOf(entity));
+            vals.add(entity);
         }
     }
 
@@ -78,21 +92,20 @@ public class DefaultExpressionParser implements ExpressionParser {
                 case "OR":
                     transExpr.push(new OrExpression(evaluationContext));
                     break;
-                case "==": {
-                    transExpr.push(new EqualsExpression(evaluationContext));
+                case "==":
+                case "equals":
+                case "EQUALS": {
+                    transExpr.push(new ParamEqualsExpression(evaluationContext, stringsHashCache));
                     break;
                 }
                 case ")":
-                    //evaluate expression
                     eval();
                     break;
                 default:
                     processEntity(element);
             }
-
         }
 
-        //return result expression
         return internalExpr.pop();
     }
 

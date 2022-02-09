@@ -6,5 +6,10 @@ public enum ThreatCategory {
     repudiation,
     informationDisclosure,
     denialOfService,
-    elevationOfPrivilege
+    elevationOfPrivilege;
+
+    @Override
+    public String toString() {
+        return this.name();
+    }
 }

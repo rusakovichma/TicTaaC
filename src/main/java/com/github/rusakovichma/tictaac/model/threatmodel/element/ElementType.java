@@ -7,5 +7,10 @@ public enum ElementType {
     database,
     externalService,
     internalService,
-    process
+    process;
+
+    @Override
+    public String toString() {
+        return this.name();
+    }
 }

@@ -12,5 +12,10 @@ public enum AuthenticationMethod {
     saml,
     bearer,
     s3,
-    radius
+    radius;
+
+    @Override
+    public String toString() {
+        return this.name();
+    }
 }

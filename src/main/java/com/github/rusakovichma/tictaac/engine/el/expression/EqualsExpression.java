@@ -13,8 +13,9 @@ public class EqualsExpression extends CompoundExpression {
         exprOne.interpret(context);
         exprAnother.interpret(context);
 
-        Boolean oneResult = (Boolean) context.getEvaluationResult(exprOne);
-        Boolean anotherResult = (Boolean) context.getEvaluationResult(exprOne);
+        Object oneResult = context.getEvaluationResult(exprOne);
+        Object anotherResult = context.getEvaluationResult(exprOne);
+
         context.addEvaluationResult(this, oneResult.equals(anotherResult));
     }
 }
