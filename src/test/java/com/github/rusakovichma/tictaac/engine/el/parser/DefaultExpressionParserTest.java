@@ -23,6 +23,7 @@ class DefaultExpressionParserTest {
     @Test
     public void testParseSingleExression() throws Exception {
         externalContext.addParameter("source.type", "proxy-server");
+        externalContext.addParameter("target.type", "database");
 
         String expressionToParse = "source.type ==database";
         ExpressionParser parser = new DefaultExpressionParser(externalContext);
