@@ -30,6 +30,10 @@ public class DefaultExpressionParser implements ExpressionParser {
     }
 
     private void eval() {
+        if (transExpr.isEmpty()) {
+            return;
+        }
+
         Expression lastExpression = transExpr.pop();
 
         if (lastExpression instanceof ValueComparable) {
@@ -96,6 +100,11 @@ public class DefaultExpressionParser implements ExpressionParser {
                 case "equals":
                 case "EQUALS": {
                     transExpr.push(new ParamEqualsExpression(evaluationContext, stringsHashCache));
+                    break;
+                }
+                case "contain":
+                case "CONTAIN": {
+                    transExpr.push(new ParamContainExpression(evaluationContext));
                     break;
                 }
                 case ")":

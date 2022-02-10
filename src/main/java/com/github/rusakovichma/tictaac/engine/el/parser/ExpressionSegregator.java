@@ -11,7 +11,9 @@ public class ExpressionSegregator implements ExpressionPreProcessor {
     @Override
     public String preProcess(String expression) {
         return new StringBuilder(evaluationTemplate.getEvaluationStart())
+                .append(EvaluationTemplate.DELIMITER)
                 .append(expression)
+                .append(EvaluationTemplate.DELIMITER)
                 .append(evaluationTemplate.getEvaluationEnd())
                 .toString();
     }
