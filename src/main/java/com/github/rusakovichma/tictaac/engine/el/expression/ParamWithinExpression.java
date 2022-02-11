@@ -29,9 +29,7 @@ public class ParamWithinExpression extends ParamComparableExpression<Object, Obj
                 Element element = (Element) param;
                 if (boundaries.stream()
                         .filter(boundary -> boundary.getCategory() == boundaryCategory)
-                        .filter(boundary -> boundary.getElements().contains(element))
-                        .findAny()
-                        .isPresent()) {
+                        .anyMatch(boundary -> boundary.getElements().contains(element))) {
                     context.addEvaluationResult(this, true);
                     return;
                 }
