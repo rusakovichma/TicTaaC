@@ -52,6 +52,12 @@ public class DefaultExpressionParser implements ExpressionParser {
             parametrableExpression.setParameter(params.pop());
         }
 
+        if (lastExpression instanceof ContextAware) {
+            ContextAware contextAwareExpression = (ContextAware) lastExpression;
+            contextAwareExpression.setContextParam(
+                    externalContext.getParameter(contextAwareExpression.getContextParamName()));
+        }
+
         internalExpr.push(lastExpression);
     }
 
@@ -105,6 +111,11 @@ public class DefaultExpressionParser implements ExpressionParser {
                 case "contain":
                 case "CONTAIN": {
                     transExpr.push(new ParamContainExpression(evaluationContext));
+                    break;
+                }
+                case "within":
+                case "WITHIN": {
+                    transExpr.push(new ParamWithinExpression(evaluationContext));
                     break;
                 }
                 case ")":

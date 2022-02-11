@@ -2,7 +2,10 @@ package com.github.rusakovichma.tictaac.engine.el.parser;
 
 import com.github.rusakovichma.tictaac.engine.el.expression.Expression;
 import com.github.rusakovichma.tictaac.model.threatmodel.Asset;
+import com.github.rusakovichma.tictaac.model.threatmodel.Boundary;
+import com.github.rusakovichma.tictaac.model.threatmodel.Element;
 import com.github.rusakovichma.tictaac.model.threatmodel.asset.AssetSensitivity;
+import com.github.rusakovichma.tictaac.model.threatmodel.boundary.Category;
 import com.github.rusakovichma.tictaac.model.threatmodel.element.ElementType;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -125,5 +128,35 @@ class DefaultExpressionParserTest {
         Expression<Boolean> expression = parser.parse(expressionToParse);
 
         assertTrue(expression.getEvaluationResult());
+    }
+
+    @Test
+    public void testParseWithinCondition() throws Exception {
+        Element sourceEx = new Element();
+        sourceEx.setId("sourceId");
+        sourceEx.setName("source name");
+
+        LinkedList<Boundary> boundaries = new LinkedList<>();
+        Boundary boundary = new Boundary();
+        boundaries.add(boundary);
+        boundary.setId("id");
+        boundary.setCategory(Category.demilitarizedZone);
+        LinkedList<Element> elements = new LinkedList<>();
+        elements.add(sourceEx);
+        boundary.setElements(elements);
+
+        externalContext.addParameter("source", sourceEx);
+        externalContext.addParameter("boundaries", boundaries);
+
+        String expressionToParse = "source within demilitarized-zone";
+        ExpressionParser parser = new DefaultExpressionParser(externalContext);
+        Expression<Boolean> expression = parser.parse(expressionToParse);
+        assertTrue(expression.getEvaluationResult());
+
+        expressionToParse = "source within corporate-network";
+        parser = new DefaultExpressionParser(externalContext);
+        expression = parser.parse(expressionToParse);
+        assertFalse(expression.getEvaluationResult());
+
     }
 }
