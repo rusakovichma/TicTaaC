@@ -115,4 +115,15 @@ class DefaultExpressionParserTest {
 
         assertTrue(expression.getEvaluationResult());
     }
+
+    @Test
+    public void testParseMultipleConditions() throws Exception {
+        externalContext.addParameter("source.type", "proxy-server");
+
+        String expressionToParse = "(source.type ==database) or (source.type == web-server) or (source.type ==proxy-server)";
+        ExpressionParser parser = new DefaultExpressionParser(externalContext);
+        Expression<Boolean> expression = parser.parse(expressionToParse);
+
+        assertTrue(expression.getEvaluationResult());
+    }
 }
