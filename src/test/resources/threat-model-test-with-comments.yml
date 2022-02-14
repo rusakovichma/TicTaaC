@@ -25,6 +25,7 @@ elements:
 	- web-server
 		name: API Server
 		type: web-server
+		in-scope: false
 		processed-assets:
 			- personal-data
 			- image-file
@@ -77,6 +78,7 @@ data-flows:
 		authentication-method: credentials
 		authorization: admin
 		encryption: yes
+		in-scope: false
 		account-management: local-account
 		transferred-assets:
 			- personal-data

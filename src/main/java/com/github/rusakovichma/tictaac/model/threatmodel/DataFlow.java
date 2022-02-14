@@ -1,5 +1,6 @@
 package com.github.rusakovichma.tictaac.model.threatmodel;
 
+import com.github.rusakovichma.tictaac.model.threatmodel.annotation.DefaultValue;
 import com.github.rusakovichma.tictaac.model.threatmodel.annotation.FlowSource;
 import com.github.rusakovichma.tictaac.model.threatmodel.annotation.FlowTarget;
 import com.github.rusakovichma.tictaac.model.threatmodel.annotation.Ref;
@@ -18,6 +19,8 @@ public class DataFlow {
     private Authorization authorization;
     private Encryption encryption;
     private AccountManagement accountManagement;
+    @DefaultValue("true")
+    private Boolean inScope;
 
     @Ref(rootCollection = "assets")
     private LinkedList<Asset> transferredAssets;
@@ -90,5 +93,13 @@ public class DataFlow {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public Boolean getInScope() {
+        return inScope;
+    }
+
+    public void setInScope(Boolean inScope) {
+        this.inScope = inScope;
     }
 }

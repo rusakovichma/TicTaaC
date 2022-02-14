@@ -1,5 +1,6 @@
 package com.github.rusakovichma.tictaac.model.threatmodel;
 
+import com.github.rusakovichma.tictaac.model.threatmodel.annotation.DefaultValue;
 import com.github.rusakovichma.tictaac.model.threatmodel.annotation.Id;
 import com.github.rusakovichma.tictaac.model.threatmodel.annotation.Ref;
 import com.github.rusakovichma.tictaac.model.threatmodel.element.ElementType;
@@ -13,6 +14,8 @@ public class Element {
     private String id;
     private String name;
     private ElementType type;
+    @DefaultValue("true")
+    private Boolean inScope;
 
     @Ref(rootCollection = "assets")
     private LinkedList<Asset> producedAssets;
@@ -77,6 +80,14 @@ public class Element {
 
     public void setStoredAssets(LinkedList<Asset> storedAssets) {
         this.storedAssets = storedAssets;
+    }
+
+    public Boolean getInScope() {
+        return inScope;
+    }
+
+    public void setInScope(Boolean inScope) {
+        this.inScope = inScope;
     }
 
     @Override

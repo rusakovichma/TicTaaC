@@ -81,13 +81,28 @@ abstract class AbstractModelMapper<M> implements ModelMapper<M> {
     private void setPrimitiveForField(Field fieldOfNewObject, Object newObject, Node propertyNode)
             throws IllegalAccessException {
         Object fieldValue = null;
+
         if (propertyNode != null) {
             if (Enum.class.isAssignableFrom(fieldOfNewObject.getType())) {
                 fieldValue = createEnumInstance(propertyNode.getConventionalNodeValue(), fieldOfNewObject.getType());
             } else if (String.class.isAssignableFrom(fieldOfNewObject.getType())) {
                 fieldValue = propertyNode.getNodeValue();
+            } else if (Boolean.class.isAssignableFrom(fieldOfNewObject.getType())) {
+                fieldValue = Boolean.valueOf(propertyNode.getNodeValue());
+            }
+        } else if (fieldOfNewObject.isAnnotationPresent(DefaultValue.class)) {
+            String defaultValue = fieldOfNewObject.getAnnotation(DefaultValue.class).value();
+            if (defaultValue != null) {
+                if (Enum.class.isAssignableFrom(fieldOfNewObject.getType())) {
+                    fieldValue = createEnumInstance(defaultValue, fieldOfNewObject.getType());
+                } else if (String.class.isAssignableFrom(fieldOfNewObject.getType())) {
+                    fieldValue = defaultValue;
+                } else if (Boolean.class.isAssignableFrom(fieldOfNewObject.getType())) {
+                    fieldValue = Boolean.valueOf(defaultValue);
+                }
             }
         }
+
         fieldOfNewObject.set(newObject, fieldValue);
     }
 

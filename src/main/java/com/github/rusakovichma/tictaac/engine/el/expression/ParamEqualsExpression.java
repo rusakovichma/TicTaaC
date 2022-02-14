@@ -26,6 +26,10 @@ public class ParamEqualsExpression extends ParamComparableExpression<Object, Obj
             valueToCompare = NodeHelper.getConventionalName(valueToCompare.toString());
         }
 
+        if (param.getClass().isAssignableFrom(Boolean.class)) {
+            valueToCompare = Boolean.valueOf(valueToCompare.toString());
+        }
+
         if (valueToCompare != null && StringUtils.isDigest(valueToCompare.toString())) {
             valueToCompare = stringsHashCache.get(valueToCompare.toString());
         }

@@ -38,8 +38,11 @@ class ThreatModelMapperTest {
 
         assertTrue(threatModel.getAssets().size() == 3);
         assertTrue(threatModel.getElements().size() == 4);
+        assertFalse(threatModel.getElements().get(2).getInScope());
+
         assertTrue(threatModel.getBoundaries().size() == 3);
         assertTrue(threatModel.getDataFlows().size() == 3);
+        assertFalse(threatModel.getDataFlows().get(2).getInScope());
 
         assertTrue(!threatModel.getElements().get(1).getName().contains("# comment 2"));
     }

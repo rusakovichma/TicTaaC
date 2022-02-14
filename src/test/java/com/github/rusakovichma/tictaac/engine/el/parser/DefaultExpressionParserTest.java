@@ -159,4 +159,14 @@ class DefaultExpressionParserTest {
         assertFalse(expression.getEvaluationResult());
 
     }
+
+    @Test
+    public void testParseInScopeCondition() throws Exception {
+        externalContext.addParameter("source.inScope", true);
+
+        String expressionToParse = "source.inScope == true";
+        ExpressionParser parser = new DefaultExpressionParser(externalContext);
+        Expression<Boolean> expression = parser.parse(expressionToParse);
+        assertTrue(expression.getEvaluationResult());
+    }
 }
