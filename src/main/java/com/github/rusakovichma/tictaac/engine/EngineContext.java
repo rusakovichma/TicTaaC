@@ -1,4 +1,4 @@
-package com.github.rusakovichma.tictaac.engine.el;
+package com.github.rusakovichma.tictaac.engine;
 
 import com.github.rusakovichma.tictaac.model.Threat;
 import com.github.rusakovichma.tictaac.model.ThreatModel;

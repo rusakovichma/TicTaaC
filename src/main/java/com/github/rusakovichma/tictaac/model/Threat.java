@@ -3,6 +3,7 @@ package com.github.rusakovichma.tictaac.model;
 import com.github.rusakovichma.tictaac.model.threatmodel.DataFlow;
 
 import java.util.EnumSet;
+import java.util.Objects;
 
 public class Threat {
 
@@ -69,5 +70,18 @@ public class Threat {
 
     public void setRisk(ThreatRisk risk) {
         this.risk = risk;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Threat threat = (Threat) o;
+        return Objects.equals(title, threat.title) && risk == threat.risk && Objects.equals(categories, threat.categories) && Objects.equals(description, threat.description) && Objects.equals(remediation, threat.remediation);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, risk, categories, description, remediation);
     }
 }

@@ -5,7 +5,7 @@ import com.github.rusakovichma.tictaac.model.threatmodel.Asset;
 import com.github.rusakovichma.tictaac.model.threatmodel.Boundary;
 import com.github.rusakovichma.tictaac.model.threatmodel.Element;
 import com.github.rusakovichma.tictaac.model.threatmodel.asset.AssetSensitivity;
-import com.github.rusakovichma.tictaac.model.threatmodel.boundary.Category;
+import com.github.rusakovichma.tictaac.model.threatmodel.boundary.BoundaryCategory;
 import com.github.rusakovichma.tictaac.model.threatmodel.element.ElementType;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -140,7 +140,7 @@ class DefaultExpressionParserTest {
         Boundary boundary = new Boundary();
         boundaries.add(boundary);
         boundary.setId("id");
-        boundary.setCategory(Category.demilitarizedZone);
+        boundary.setCategory(BoundaryCategory.demilitarizedZone);
         LinkedList<Element> elements = new LinkedList<>();
         elements.add(sourceEx);
         boundary.setElements(elements);

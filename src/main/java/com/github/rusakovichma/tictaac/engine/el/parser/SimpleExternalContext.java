@@ -16,6 +16,10 @@ public class SimpleExternalContext implements ExternalContext {
         parameters.put(name, value);
     }
 
+    public void addParameters(Map<String, Object> params) {
+        parameters.putAll(params);
+    }
+
     public void clear() {
         parameters.clear();
     }

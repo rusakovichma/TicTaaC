@@ -2,7 +2,7 @@ package com.github.rusakovichma.tictaac.model.threatmodel;
 
 import com.github.rusakovichma.tictaac.model.threatmodel.annotation.Id;
 import com.github.rusakovichma.tictaac.model.threatmodel.annotation.Ref;
-import com.github.rusakovichma.tictaac.model.threatmodel.boundary.Category;
+import com.github.rusakovichma.tictaac.model.threatmodel.boundary.BoundaryCategory;
 
 import java.util.LinkedList;
 import java.util.Objects;
@@ -11,7 +11,7 @@ public class Boundary {
 
     @Id
     private String id;
-    private Category category;
+    private BoundaryCategory category;
     @Ref(rootCollection = "elements")
     private LinkedList<Element> elements;
 
@@ -23,11 +23,15 @@ public class Boundary {
         this.id = id;
     }
 
-    public Category getCategory() {
+    public BoundaryCategory getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public int getCategoryOrder() {
+        return category.getOrder();
+    }
+
+    public void setCategory(BoundaryCategory category) {
         this.category = category;
     }
 

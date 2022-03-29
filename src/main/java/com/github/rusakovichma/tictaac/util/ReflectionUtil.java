@@ -5,9 +5,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class ReflectionUtil {
 
@@ -59,5 +57,23 @@ public class ReflectionUtil {
     public static Method getCollectionAddMethod(Object collectionObject)
             throws NoSuchMethodException {
         return collectionObject.getClass().getDeclaredMethod("add", Object.class);
+    }
+
+    public static Map<String, Object> getFields(Object object, String prefix) {
+        try {
+            Class<?> c = object.getClass();
+            Map<String, Object> fieldsWithContext = new HashMap<>();
+            Collection<Field> fields = Arrays.asList(c.getDeclaredFields());
+            for (Field field : fields) {
+                field.setAccessible(true);
+                fieldsWithContext.put(
+                        String.format("%s.%s", prefix, field.getName()),
+                        field.get(object)
+                );
+            }
+            return fieldsWithContext;
+        } catch (IllegalArgumentException | IllegalAccessException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 }

@@ -3,7 +3,7 @@ package com.github.rusakovichma.tictaac.engine.el.expression;
 import com.github.rusakovichma.tictaac.engine.el.EvaluationContext;
 import com.github.rusakovichma.tictaac.model.threatmodel.Boundary;
 import com.github.rusakovichma.tictaac.model.threatmodel.Element;
-import com.github.rusakovichma.tictaac.model.threatmodel.boundary.Category;
+import com.github.rusakovichma.tictaac.model.threatmodel.boundary.BoundaryCategory;
 import com.github.rusakovichma.tictaac.parser.model.NodeHelper;
 
 import java.util.Collection;
@@ -22,7 +22,7 @@ public class ParamWithinExpression extends ParamComparableExpression<Object, Obj
         Object valueToCompare = getValueToCompare();
 
         if (valueToCompare != null) {
-            Category boundaryCategory = Enum.valueOf(Category.class,
+            BoundaryCategory boundaryCategory = Enum.valueOf(BoundaryCategory.class,
                     NodeHelper.getConventionalName(valueToCompare.toString()));
 
             if (boundaries != null) {
