@@ -161,12 +161,22 @@ class DefaultExpressionParserTest {
     }
 
     @Test
-    public void testParseInScopeCondition() throws Exception {
+    public void testParseSourceInScopeCondition() throws Exception {
         externalContext.addParameter("source.inScope", true);
 
         String expressionToParse = "source.inScope == true";
         ExpressionParser parser = new DefaultExpressionParser(externalContext);
         Expression<Boolean> expression = parser.parse(expressionToParse);
         assertTrue(expression.getEvaluationResult());
+    }
+
+    @Test
+    public void testParseFlowInScopeCondition() throws Exception {
+        externalContext.addParameter("flow.inScope", false);
+
+        String expressionToParse = "flow.inScope == true";
+        ExpressionParser parser = new DefaultExpressionParser(externalContext);
+        Expression<Boolean> expression = parser.parse(expressionToParse);
+        assertFalse(expression.getEvaluationResult());
     }
 }

@@ -12,6 +12,7 @@ public class ThreatRule {
     private ThreatSeverity severity;
     private EnumSet<ThreatCategory> categories;
     private String expression;
+    private String exclude;
     private String description;
     private String remediation;
 
@@ -53,6 +54,14 @@ public class ThreatRule {
 
     public void setExpression(String expression) {
         this.expression = expression;
+    }
+
+    public String getExclude() {
+        return exclude;
+    }
+
+    public void setExclude(String exclude) {
+        this.exclude = exclude;
     }
 
     public String getDescription() {
