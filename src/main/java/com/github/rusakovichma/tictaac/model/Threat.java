@@ -8,7 +8,7 @@ public class Threat {
 
     private String id;
     private String title;
-    private ThreatSeverity severity;
+    private ThreatRisk risk;
     private EnumSet<ThreatCategory> categories;
     private String description;
     private String remediation;
@@ -29,14 +29,6 @@ public class Threat {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public ThreatSeverity getSeverity() {
-        return severity;
-    }
-
-    public void setSeverity(ThreatSeverity severity) {
-        this.severity = severity;
     }
 
     public EnumSet<ThreatCategory> getCategories() {
@@ -69,5 +61,13 @@ public class Threat {
 
     public void setDataFlow(DataFlow dataFlow) {
         this.dataFlow = dataFlow;
+    }
+
+    public ThreatRisk getRisk() {
+        return risk;
+    }
+
+    public void setRisk(ThreatRisk risk) {
+        this.risk = risk;
     }
 }
