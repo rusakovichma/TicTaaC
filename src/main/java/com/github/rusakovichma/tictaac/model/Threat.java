@@ -1,6 +1,7 @@
 package com.github.rusakovichma.tictaac.model;
 
 import com.github.rusakovichma.tictaac.model.threatmodel.DataFlow;
+import com.github.rusakovichma.tictaac.util.StringUtils;
 
 import java.util.EnumSet;
 import java.util.Objects;
@@ -72,16 +73,33 @@ public class Threat {
         this.risk = risk;
     }
 
+    public String calculateHash() {
+        StringBuilder dump = new StringBuilder()
+                .append(title)
+                .append(risk.toString());
+
+        if (categories != null) {
+            for (ThreatCategory category : categories) {
+                dump.append(category.toString());
+            }
+        }
+
+        dump.append(description)
+                .append(remediation);
+
+        return StringUtils.sha1Hash(dump.toString());
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Threat threat = (Threat) o;
-        return Objects.equals(title, threat.title) && risk == threat.risk && Objects.equals(categories, threat.categories) && Objects.equals(description, threat.description) && Objects.equals(remediation, threat.remediation);
+        return Objects.equals(id, threat.id) && Objects.equals(title, threat.title) && risk == threat.risk && Objects.equals(categories, threat.categories) && Objects.equals(description, threat.description) && Objects.equals(remediation, threat.remediation) && Objects.equals(dataFlow, threat.dataFlow);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, risk, categories, description, remediation);
+        return Objects.hash(id, title, risk, categories, description, remediation, dataFlow);
     }
 }

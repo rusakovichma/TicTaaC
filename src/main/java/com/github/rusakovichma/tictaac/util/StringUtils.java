@@ -112,4 +112,17 @@ public class StringUtils {
         return str.matches("^[a-f0-9]{32}$");
     }
 
+    public static String sha1Hash(String string) {
+        String sha1 = "";
+        try {
+            MessageDigest crypt = MessageDigest.getInstance("SHA-1");
+            crypt.reset();
+            crypt.update(string.getBytes("UTF-8"));
+            sha1 = bytesToHex(crypt.digest());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return sha1;
+    }
+
 }

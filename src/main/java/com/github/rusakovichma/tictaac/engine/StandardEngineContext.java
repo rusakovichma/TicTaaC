@@ -59,34 +59,42 @@ public class StandardEngineContext implements EngineContext {
     }
 
     private void setThreatId(Threat threat) {
-        threat.setId(String.valueOf(threat.hashCode()));
+        threat.setId(threat.calculateHash());
     }
 
     private void processFlow(DataFlow flow) {
         SimpleExternalContext flowContext = new SimpleExternalContext();
 
         flowContext.addParameter("boundaries", threatModel.getBoundaries());
+
+        flowContext.addParameter("flow", flow);
         flowContext.addParameters(ReflectionUtil.getFields(flow, "flow"));
 
+        flowContext.addParameter("source", flow.getSource());
         flowContext.addParameters(ReflectionUtil.getFields(flow.getSource(), "source"));
+
+        flowContext.addParameter("target", flow.getTarget());
         flowContext.addParameters(ReflectionUtil.getFields(flow.getTarget(), "target"));
 
         DefaultExpressionParser parser = new DefaultExpressionParser(flowContext);
 
         for (ThreatRule rule : rules) {
-            if (((Expression<Boolean>) parser.parse(rule.getExpression()).getEvaluationResult())
-                    .getEvaluationResult()) {
+            Expression<Boolean> includeExpression = parser.parse(rule.getExpression());
+            if (includeExpression.getEvaluationResult()) {
+
                 if (rule.getExclude() != null && !rule.getExclude().trim().isEmpty()) {
-                    if (!(((Expression<Boolean>) parser.parse(rule.getExclude()).getEvaluationResult())
-                            .getEvaluationResult())) {
-
-                        Threat threat = new ThreatRuleMapper(rule, flow).getModel();
-                        setThreatRisk(threat, rule);
-                        setThreatId(threat);
-
-                        threats.add(threat);
+                    Expression<Boolean> excludeExpression = parser.parse(rule.getExclude());
+                    if (excludeExpression.getEvaluationResult()) {
+                        continue;
                     }
                 }
+
+                Threat threat = new ThreatRuleMapper(rule, flow).getModel();
+                setThreatRisk(threat, rule);
+                setThreatId(threat);
+
+                threats.add(threat);
+
             }
         }
     }

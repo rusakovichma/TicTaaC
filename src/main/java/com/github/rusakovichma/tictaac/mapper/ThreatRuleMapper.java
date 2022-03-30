@@ -16,9 +16,9 @@ public class ThreatRuleMapper implements ModelMapper<Threat> {
     private final Map<String, String> entities = new HashMap<>();
 
     private final void initEntities() {
-        entities.put("{flow.name}", flow.getTitle());
-        entities.put("{source.name}", flow.getSource().getName());
-        entities.put("{target.name}", flow.getTarget().getName());
+        entities.put("\\{flow.name\\}", flow.getTitle());
+        entities.put("\\{source.name\\}", flow.getSource().getName());
+        entities.put("\\{target.name\\}", flow.getTarget().getName());
     }
 
     private String solvePlaceholders(String field) {
