@@ -1,0 +1,7 @@
+{
+    "threat-model-name": "%s",
+    "date": "%s",
+    "threats":[
+        %s
+    ]
+}

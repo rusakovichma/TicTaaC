@@ -11,6 +11,9 @@ import java.util.List;
 
 public class ThreatModel {
 
+    private String name;
+    private String version;
+
     @RootCollection
     private LinkedList<Asset> assets;
     @RootCollection
@@ -19,6 +22,22 @@ public class ThreatModel {
     private LinkedList<Boundary> boundaries;
     @RootCollection
     private LinkedList<DataFlow> dataFlows;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
 
     public List<Asset> getAssets() {
         return assets;

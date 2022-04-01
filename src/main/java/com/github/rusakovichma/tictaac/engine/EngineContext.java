@@ -6,8 +6,8 @@ import com.github.rusakovichma.tictaac.model.ThreatRule;
 
 import java.util.Collection;
 
-public interface EngineContext {
+interface EngineContext {
 
-    public Collection<Threat> eval(ThreatModel threatModel, Collection<ThreatRule> rules);
+    Collection<Threat> eval(ThreatModel threatModel, Collection<ThreatRule> rules);
 
 }

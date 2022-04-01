@@ -21,6 +21,9 @@ class ThreatModelMapperTest {
 
         ThreatModel threatModel = mapper.getModel();
 
+        assertTrue("Threat Model Name".equals(threatModel.getName()));
+        assertTrue("1.0.1".equals(threatModel.getVersion()));
+
         assertTrue(threatModel.getAssets().size() == 3);
         assertTrue(threatModel.getElements().size() == 4);
         assertTrue(threatModel.getBoundaries().size() == 3);
@@ -35,6 +38,9 @@ class ThreatModelMapperTest {
         ThreatModelMapper mapper = new ThreatModelMapper(tree);
 
         ThreatModel threatModel = mapper.getModel();
+
+        assertTrue("Threat Model Name".equals(threatModel.getName()));
+        assertTrue("1.0.1".equals(threatModel.getVersion()));
 
         assertTrue(threatModel.getAssets().size() == 3);
         assertTrue(threatModel.getElements().size() == 4);

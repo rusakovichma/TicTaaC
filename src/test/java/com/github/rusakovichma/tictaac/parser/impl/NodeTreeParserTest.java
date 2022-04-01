@@ -16,7 +16,7 @@ class NodeTreeParserTest {
         InputStream fileInputStream = FileUtil.fileToInputStream("src/test/resources/threat-model-test.yml");
 
         NodeTree tree = new NodeTreeParser().getNodeTree(fileInputStream);
-        assertTrue(tree.size() == 81);
+        assertTrue(tree.size() == 83);
     }
 
     @Test
@@ -24,6 +24,6 @@ class NodeTreeParserTest {
         InputStream fileInputStream = FileUtil.fileToInputStream("src/test/resources/threat-model-test-with-comments.yml");
 
         NodeTree tree = new NodeTreeParser().getNodeTree(fileInputStream);
-        assertTrue(tree.size() == 83);
+        assertTrue(tree.size() == 85);
     }
 }

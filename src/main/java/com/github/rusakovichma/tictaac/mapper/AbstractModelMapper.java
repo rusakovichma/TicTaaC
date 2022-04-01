@@ -22,7 +22,7 @@ abstract class AbstractModelMapper<M> implements ModelMapper<M> {
 
     private final NodeTree nodeTree;
 
-    protected AbstractModelMapper(NodeTree nodeTree) {
+    AbstractModelMapper(NodeTree nodeTree) {
         this.nodeTree = nodeTree;
     }
 

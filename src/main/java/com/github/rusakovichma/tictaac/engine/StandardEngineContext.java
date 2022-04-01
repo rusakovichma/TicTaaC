@@ -20,13 +20,16 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 
-public class StandardEngineContext implements EngineContext {
+class StandardEngineContext implements EngineContext {
 
     private Collection<Threat> threats = new ArrayList<>();
     private RiskCalculationStrategy riskStrategy = new PlainMatrixRiskStrategy();
 
     private ThreatModel threatModel;
     private Collection<ThreatRule> rules;
+
+    StandardEngineContext() {
+    }
 
     private BoundaryCategory getElementAttackVector(Element element) {
         return threatModel.getBoundaries().stream()

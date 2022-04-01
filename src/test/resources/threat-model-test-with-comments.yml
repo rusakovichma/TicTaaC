@@ -1,3 +1,5 @@
+name: Threat Model Name
+version: 1.0.1
 assets: # comment 1
 	- personal-data
 		sensitivity: sensitive
