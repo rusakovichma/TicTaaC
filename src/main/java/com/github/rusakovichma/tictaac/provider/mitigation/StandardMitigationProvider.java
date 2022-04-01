@@ -17,6 +17,11 @@ public class StandardMitigationProvider implements MitigationLibraryProvider {
         this.reader = new UnifiedReader(params);
     }
 
+    public StandardMitigationProvider(String mitigationsLibraryPath) {
+        this.mitigationsLibraryPath = mitigationsLibraryPath;
+        this.reader = new UnifiedReader();
+    }
+
     @Override
     public MitigationsLibrary getMitigations() {
         return new MitigationsLibraryMapper(

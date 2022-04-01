@@ -144,9 +144,13 @@ abstract class AbstractModelMapper<M> implements ModelMapper<M> {
                 continue;
             }
 
-            Node propertyNode = rootCollectionElementNode.getDescendants()
-                    .filter(node -> fieldOfNewObject.getName().equals(node.getConventionalName()))
-                    .orElse(null);
+            Node propertyNode = null;
+
+            if (rootCollectionElementNode.getDescendants() != null) {
+                propertyNode = rootCollectionElementNode.getDescendants()
+                        .filter(node -> fieldOfNewObject.getName().equals(node.getConventionalName()))
+                        .orElse(null);
+            }
 
             if (fieldOfNewObject.isAnnotationPresent(Ref.class)) {
                 if (propertyNode == null) {
@@ -189,13 +193,15 @@ abstract class AbstractModelMapper<M> implements ModelMapper<M> {
 
                     NodeTree rootCollectionElementNodes = rootNode.getDescendants();
 
-                    for (Node rootCollectionElementNode : rootCollectionElementNodes) {
+                    if (rootCollectionElementNodes != null) {
+                        for (Node rootCollectionElementNode : rootCollectionElementNodes) {
 
-                        Object newRootCollectionObject = Class.forName(parameterType.getTypeName())
-                                .getDeclaredConstructor().newInstance();
-                        rootCollectionAdd.invoke(rootCollection, newRootCollectionObject);
+                            Object newRootCollectionObject = Class.forName(parameterType.getTypeName())
+                                    .getDeclaredConstructor().newInstance();
+                            rootCollectionAdd.invoke(rootCollection, newRootCollectionObject);
 
-                        processFieldsOfRootCollectionObject(newRootCollectionObject, rootCollectionElementNode);
+                            processFieldsOfRootCollectionObject(newRootCollectionObject, rootCollectionElementNode);
+                        }
                     }
                 } else if (isPlainType(rootField.getType())) {
                     setPrimitiveForField(rootField, rootObject, rootNode);

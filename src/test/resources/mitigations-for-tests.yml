@@ -1,0 +1,17 @@
+name: Threats mitigations for the application
+version: 0.1.1
+
+mitigated: # some comment 2
+  - 7eefda5b73808a488729397937fbaf552f380887
+    comment: already mitigated
+  - 98sdfasgd097dfgsdfg9987s00876dfa98df6998
+  - 64778600asdda09sdfa6s8d8a0s0d9f9as7df7f9
+
+accepted:
+
+avoided:
+  - 15789asd0a7s7d8fa7sd5fa0sd0f6asd9f6asd9f
+  - 6d6d6ss9ss0d8f6f5gg44h4h3j3hg66ff7fff88f
+
+transferred:
+
