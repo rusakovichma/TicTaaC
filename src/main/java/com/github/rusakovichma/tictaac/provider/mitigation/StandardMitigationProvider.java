@@ -2,8 +2,8 @@ package com.github.rusakovichma.tictaac.provider.mitigation;
 
 import com.github.rusakovichma.tictaac.mapper.MitigationsLibraryMapper;
 import com.github.rusakovichma.tictaac.model.mitigation.MitigationsLibrary;
-import com.github.rusakovichma.tictaac.reader.Reader;
-import com.github.rusakovichma.tictaac.reader.UnifiedReader;
+import com.github.rusakovichma.tictaac.provider.reader.Reader;
+import com.github.rusakovichma.tictaac.provider.reader.UnifiedReader;
 
 import java.util.Map;
 
