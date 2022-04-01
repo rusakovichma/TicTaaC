@@ -1,7 +1,5 @@
-package com.github.rusakovichma.tictaac.provider;
+package com.github.rusakovichma.tictaac.reader;
 
-import com.github.rusakovichma.tictaac.mapper.ThreatsLibraryMapper;
-import com.github.rusakovichma.tictaac.model.ThreatsLibrary;
 import com.github.rusakovichma.tictaac.parser.impl.NodeTreeParser;
 import com.github.rusakovichma.tictaac.parser.model.NodeTree;
 
@@ -10,22 +8,31 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Base64;
+import java.util.Map;
 
-public class UrlFileThreatProvider implements ThreatProvider {
+class UrlReader implements Reader {
 
-    private final String fileUrl;
     private String username;
     private char[] password;
 
-    public UrlFileThreatProvider(String fileUrl) {
-        this.fileUrl = fileUrl;
+    public UrlReader(Map<String, String> params) {
+        if (params != null) {
+            this.username = params.get("username");
+            String passParam = params.get("password");
+            if (passParam != null) {
+                this.password = passParam.toCharArray();
+            }
+        }
+    }
+
+    public UrlReader() {
     }
 
     @Override
-    public ThreatsLibrary getThreatsLibrary() {
+    public NodeTree read(String path) {
         try {
-            URL fileURL = new URL(fileUrl);
-            
+            URL fileURL = new URL(path);
+
             InputStream inputStream = null;
             if (username != null && password != null) {
                 final String auth = String.format("%s:%s", username, String.valueOf(password));
@@ -38,11 +45,10 @@ public class UrlFileThreatProvider implements ThreatProvider {
                 inputStream = fileURL.openStream();
             }
 
-            NodeTree tree = new NodeTreeParser().getNodeTree(inputStream);
-            return new ThreatsLibraryMapper(tree).getModel();
+            return new NodeTreeParser().getNodeTree(inputStream);
         } catch (IOException ex) {
             ex.printStackTrace();
-            throw new RuntimeException("Cannot init URL file provider [" + fileUrl + "]", ex);
+            throw new RuntimeException("Cannot init URL file [" + path + "]", ex);
         } finally {
             //clear the password after usage
             clearPasswordIfNeeded();
@@ -57,11 +63,4 @@ public class UrlFileThreatProvider implements ThreatProvider {
         }
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(char[] password) {
-        this.password = password;
-    }
 }

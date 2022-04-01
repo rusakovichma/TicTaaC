@@ -1,5 +1,6 @@
 package com.github.rusakovichma.tictaac.model;
 
+import com.github.rusakovichma.tictaac.model.mitigation.MitigationStatus;
 import com.github.rusakovichma.tictaac.model.threatmodel.DataFlow;
 import com.github.rusakovichma.tictaac.util.StringUtils;
 
@@ -12,6 +13,7 @@ public class Threat {
     private String title;
     private ThreatRisk risk;
     private EnumSet<ThreatCategory> categories;
+    private MitigationStatus mitigationStatus = MitigationStatus.NotMitigated;
     private String description;
     private String remediation;
 
@@ -73,6 +75,14 @@ public class Threat {
         this.risk = risk;
     }
 
+    public MitigationStatus getMitigationStatus() {
+        return mitigationStatus;
+    }
+
+    public void setMitigationStatus(MitigationStatus mitigationStatus) {
+        this.mitigationStatus = mitigationStatus;
+    }
+
     public String calculateHash() {
         StringBuilder dump = new StringBuilder()
                 .append(title)
@@ -95,11 +105,14 @@ public class Threat {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Threat threat = (Threat) o;
-        return Objects.equals(id, threat.id) && Objects.equals(title, threat.title) && risk == threat.risk && Objects.equals(categories, threat.categories) && Objects.equals(description, threat.description) && Objects.equals(remediation, threat.remediation) && Objects.equals(dataFlow, threat.dataFlow);
+        return Objects.equals(id, threat.id) && Objects.equals(title, threat.title)
+                && risk == threat.risk && Objects.equals(categories, threat.categories)
+                && mitigationStatus == threat.mitigationStatus && Objects.equals(description, threat.description)
+                && Objects.equals(remediation, threat.remediation);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, risk, categories, description, remediation, dataFlow);
+        return Objects.hash(id, title, risk, categories, mitigationStatus, description, remediation);
     }
 }
