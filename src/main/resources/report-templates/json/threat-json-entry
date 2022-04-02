@@ -1,9 +1,0 @@
-{
-    "id": "%s",
-    "title": "%s",
-    "risk": "%s",
-    "categories": "%s",
-    "description": "%s",
-    "remediation": "%s",
-    "status": "%s"
-}

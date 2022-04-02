@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    </style>
+</head>
+<body>
+<h1>Threat Modeling Report</h1>
+<h4>Name: %s, version: %s, date: %s</h4>
+<p>The purpose of this document is to represent the results of the threat modeling exercise, analyze risks for identified threats and provide the understanding of the mitigation controls needed for the software system.</p>
+<p>Performing threat model at the design level helps in identification of vulnerabilities that need to be closed at the design level and input this into the build phase, identification of information assets that need security controls, mapping of identified security controls into technical/administrative/physical controls, identification of security test cases/security test scenarios to test the security requirements.</p>
+<p>The threat modeling process should be driven by application designers, however, developers and testers should be involved.</p>
+<p><strong>Results of this threat modeling exercise are prioritized by risk level list of identified threats and list of proposed mitigations for those threats.</strong></p>
+<p>&nbsp;</p>
+<h2>Threats List</h2>
+<p><em>Microsoft STRIDE Methodology is used to identify threats relevant to the application. STRIDE was developed to educate developers on how to think about computer security threats.&nbsp;</em></p>
+<p><strong>For a detailed description of STRIDE threats please visit&nbsp;<a class="createlink" href="https://en.wikipedia.org/wiki/STRIDE_(security)">Microsoft STRIDE</a>&nbsp;page.</strong></p>
+<table>
+<thead>
+  <tr>
+    <th>Threat ID</th>
+    <th>Title</th>
+    <th>Risk</th>
+    <th>Threat Categories</th>
+    <th>Description</th>
+    <th>Remediation</th>
+    <th>Mitigation Status</th>
+  </tr>
+</thead>
+<tbody>

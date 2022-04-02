@@ -11,7 +11,7 @@ public class Threat {
 
     private String id;
     private String title;
-    private ThreatRisk risk;
+    private ThreatRisk risk = ThreatRisk.Undefined;
     private EnumSet<ThreatCategory> categories;
     private MitigationStatus mitigationStatus = MitigationStatus.NotMitigated;
     private String description;
