@@ -22,7 +22,8 @@ import com.github.rusakovichma.tictaac.engine.ThreatEngine;
 import com.github.rusakovichma.tictaac.model.Threat;
 import com.github.rusakovichma.tictaac.model.ThreatRisk;
 import com.github.rusakovichma.tictaac.model.ThreatsCollection;
-import com.github.rusakovichma.tictaac.model.exception.NotMitigatedThreatsFound;
+import com.github.rusakovichma.tictaac.model.exception.QualityGateFailed;
+import com.github.rusakovichma.tictaac.model.mitigation.MitigationStatus;
 import com.github.rusakovichma.tictaac.provider.mitigation.*;
 import com.github.rusakovichma.tictaac.provider.model.StandardThreatModelProvider;
 import com.github.rusakovichma.tictaac.provider.model.ThreatModelProvider;
@@ -36,6 +37,7 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Launcher {
 
@@ -95,10 +97,14 @@ public class Launcher {
         if (failOnThreatRiskParam != null) {
             ThreatRisk qualityGate = ThreatRisk.fromString(failOnThreatRiskParam.trim());
             if (qualityGate != ThreatRisk.Undefined) {
-                for (Threat threat : threats) {
-                    if (threat.getRisk().getOrder() >= qualityGate.getOrder()) {
-                        throw new NotMitigatedThreatsFound();
-                    }
+                String notCompliantThreats = threats.stream()
+                        .filter(threat -> threat.getRisk().getOrder() >= qualityGate.getOrder())
+                        .filter(threat -> threat.getMitigationStatus() == MitigationStatus.NotMitigated)
+                        .map(threat -> threat.getId())
+                        .collect(Collectors.joining(", "));
+
+                if (notCompliantThreats != null && !notCompliantThreats.isEmpty()) {
+                    throw new QualityGateFailed(String.format("Non-compliant threats found [%s]", notCompliantThreats));
                 }
             }
         }

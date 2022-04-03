@@ -17,24 +17,24 @@
  */
 package com.github.rusakovichma.tictaac.model.exception;
 
-public class NotMitigatedThreatsFound extends RuntimeException {
+public class QualityGateFailed extends RuntimeException {
 
-    public NotMitigatedThreatsFound() {
+    public QualityGateFailed() {
     }
 
-    public NotMitigatedThreatsFound(String message) {
+    public QualityGateFailed(String message) {
         super(message);
     }
 
-    public NotMitigatedThreatsFound(String message, Throwable cause) {
+    public QualityGateFailed(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public NotMitigatedThreatsFound(Throwable cause) {
+    public QualityGateFailed(Throwable cause) {
         super(cause);
     }
 
-    public NotMitigatedThreatsFound(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    public QualityGateFailed(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }
