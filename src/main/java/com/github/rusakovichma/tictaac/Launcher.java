@@ -32,7 +32,7 @@ public class Launcher {
     private static ThreatModelProvider getThreatModel(Map<String, String> params) {
         String threatModelPath = params.get("threatModel");
         if (threatModelPath == null || threatModelPath.isEmpty()) {
-            throw new IllegalStateException("Threat modeling file: '--threatModel %path_to_file%' parameters should be provider");
+            throw new IllegalStateException("Threat modeling file: '--threatModel %path_to_file%' parameters should be provided");
         }
         return new StandardThreatModelProvider(threatModelPath, params);
     }
@@ -56,7 +56,7 @@ public class Launcher {
     private static ThreatsReporter getThreatsReporter(Map<String, String> params) {
         String outPath = params.get("out");
         if (outPath == null || outPath.isEmpty()) {
-            throw new IllegalStateException("Report output path: '--out %output_report_rid%' parameter should be provider");
+            throw new IllegalStateException("Report output path: '--out %output_report_rid%' parameter should be provided");
         }
         ReportFormat outFormat = ReportFormat.fromString(params.get("outFormat"));
         if (outFormat == null) {

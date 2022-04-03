@@ -14,6 +14,7 @@ public class FileStreamThreatsReporter extends StreamThreatsReporter {
                         new StringBuilder(reportOut)
                                 .append(File.separator)
                                 .append(REPORT_NAME)
+                                .append(".")
                                 .append(reportFormat.name())
                                 .toString())),
                 reportFormat);
