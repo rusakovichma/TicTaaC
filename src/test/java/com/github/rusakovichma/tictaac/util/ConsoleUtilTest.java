@@ -1,0 +1,21 @@
+package com.github.rusakovichma.tictaac.util;
+
+import org.junit.jupiter.api.Test;
+
+import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class ConsoleUtilTest {
+
+    @Test
+    void getParams() {
+        String[] params = {"--threatModel", "${WORKSPACE}/threat-model.yml", "--failOnThreatRisk", "High",
+                "--threatsLibrary", "https://my-site.com/my-threats-library.yml",
+                "--threatsLibraryAccessUsername", "username", "--threatsLibraryAccessPassword", "pass123456",
+                "--mitigations", "\"${WORKSPACE}/mitigations.yml\"", "--outFormat", "html", "--out", "${WORKSPACE}/reports"};
+
+        Map<String, String> paramsMap = ConsoleUtil.getParamsMap(params);
+        assertTrue(paramsMap.size() == 8);
+    }
+}
