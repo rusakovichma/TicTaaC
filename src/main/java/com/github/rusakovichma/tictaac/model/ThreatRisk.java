@@ -16,6 +16,15 @@ public enum ThreatRisk {
         return order;
     }
 
+    public static ThreatRisk fromString(String str) {
+        for (ThreatRisk risk : ThreatRisk.values()) {
+            if (risk.name().equalsIgnoreCase(str)) {
+                return risk;
+            }
+        }
+        return Undefined;
+    }
+
     @Override
     public String toString() {
         return this.name();

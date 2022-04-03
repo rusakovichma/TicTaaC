@@ -2,7 +2,10 @@ package com.github.rusakovichma.tictaac;
 
 import com.github.rusakovichma.tictaac.engine.StandardThreatEngine;
 import com.github.rusakovichma.tictaac.engine.ThreatEngine;
+import com.github.rusakovichma.tictaac.model.Threat;
+import com.github.rusakovichma.tictaac.model.ThreatRisk;
 import com.github.rusakovichma.tictaac.model.ThreatsCollection;
+import com.github.rusakovichma.tictaac.model.exception.NotMitigatedThreatsFound;
 import com.github.rusakovichma.tictaac.provider.mitigation.*;
 import com.github.rusakovichma.tictaac.provider.model.StandardThreatModelProvider;
 import com.github.rusakovichma.tictaac.provider.model.ThreatModelProvider;
@@ -13,6 +16,7 @@ import com.github.rusakovichma.tictaac.util.ConsoleUtil;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
 
@@ -69,6 +73,20 @@ public class Launcher {
         }
     }
 
+    private static void checkQualityGate(Map<String, String> params, Collection<Threat> threats) {
+        String failOnThreatRiskParam = params.get("failOnThreatRisk");
+        if (failOnThreatRiskParam != null) {
+            ThreatRisk qualityGate = ThreatRisk.fromString(failOnThreatRiskParam.trim());
+            if (qualityGate != ThreatRisk.Undefined) {
+                for (Threat threat : threats) {
+                    if (threat.getRisk().getOrder() >= qualityGate.getOrder()) {
+                        throw new NotMitigatedThreatsFound();
+                    }
+                }
+            }
+        }
+    }
+
     public static void main(String[] args) {
         final Map<String, String> params = ConsoleUtil.getParamsMap(args);
 
@@ -90,6 +108,8 @@ public class Launcher {
         } catch (IOException ex) {
             throw new IllegalStateException("Cannot write to file [" + params.get("out") + "]", ex);
         }
+
+        checkQualityGate(params, threats.getThreats());
     }
 
 }
