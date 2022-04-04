@@ -1,0 +1,7 @@
+tic-taac
+
+Copyright (c) 2021-2022 Mikhail Rusakovich. All Rights Reserved.
+
+The licenses for the software listed below can be found in the META-INF/licenses/[dependency name].
+
+This product uses Microsoft STRIDE methodology for threats classification: https://en.wikipedia.org/wiki/STRIDE_(security)

@@ -75,7 +75,7 @@ data-flows:
 		title: Database query
 		authentication-method: credentials
 		authorization: admin
-		encryption: yes
+		encryption: no
 		account-management: local-account
 		transferred-assets:
 			- personal-data

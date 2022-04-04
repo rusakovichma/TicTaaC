@@ -19,9 +19,10 @@ package com.github.rusakovichma.tictaac.provider.reader;
 
 import com.github.rusakovichma.tictaac.parser.impl.NodeTreeParser;
 import com.github.rusakovichma.tictaac.parser.model.NodeTree;
+import com.github.rusakovichma.tictaac.util.ResourceUtil;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.net.URL;
 
 class ClassPathReader implements Reader {
 
@@ -32,8 +33,8 @@ class ClassPathReader implements Reader {
                 path = path.replaceFirst("classpath:", "");
             }
 
-            InputStream inputStream = ClassLoader.class.getResourceAsStream(path);
-            return new NodeTreeParser().getNodeTree(inputStream);
+            URL resource = ResourceUtil.class.getResource(path);
+            return new NodeTreeParser().getNodeTree(resource.openStream());
         } catch (IOException ex) {
             ex.printStackTrace();
             throw new RuntimeException("Cannot init classpath file[" + path + "]", ex);

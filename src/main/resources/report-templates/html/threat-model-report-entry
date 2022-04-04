@@ -1,9 +1,9 @@
 <tr>
-    <td>%s</td>
+    <td>&nbsp;%s&nbsp;</td>
+	<td>%s</td>
+	<td>&nbsp;&nbsp;&nbsp;%s&nbsp;&nbsp;&nbsp;</td>
 	<td>%s</td>
 	<td>%s</td>
 	<td>%s</td>
-	<td>%s</td>
-	<td>%s</td>
-	<td>%s</td>
+	<td>&nbsp;%s&nbsp;</td>
 </tr>

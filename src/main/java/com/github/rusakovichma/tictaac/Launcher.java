@@ -79,7 +79,7 @@ public class Launcher {
     private static ThreatsReporter getThreatsReporter(Map<String, String> params) {
         String outPath = params.get("out");
         if (outPath == null || outPath.isEmpty()) {
-            throw new IllegalStateException("Report output path: '--out %output_report_rid%' parameter should be provided");
+            throw new IllegalStateException("Report output path: '--out %output_report_dir%' parameter should be provided");
         }
         ReportFormat outFormat = ReportFormat.fromString(params.get("outFormat"));
         if (outFormat == null) {
