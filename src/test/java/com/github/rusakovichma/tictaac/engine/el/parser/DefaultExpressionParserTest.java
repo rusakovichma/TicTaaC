@@ -120,6 +120,30 @@ class DefaultExpressionParserTest {
     }
 
     @Test
+    public void testParseContainStoredAssets() throws Exception {
+        LinkedList<Asset> storedAssets = new LinkedList<Asset>();
+
+        Asset asset1 = new Asset();
+        asset1.setId("asset 1");
+        asset1.setSensitivity(AssetSensitivity.nonSensitive);
+        storedAssets.add(asset1);
+
+        Asset asset2 = new Asset();
+        asset2.setId("asset 2");
+        asset2.setSensitivity(AssetSensitivity.nonSensitive);
+        storedAssets.add(asset2);
+
+        externalContext.addParameter("target.storedAssets", storedAssets);
+        externalContext.addParameter("target.type", "database");
+
+        String expressionToParse = "(target.type == database) and (target.storedAssets contain sensitive)";
+        ExpressionParser parser = new DefaultExpressionParser(externalContext);
+        Expression<Boolean> expression = parser.parse(expressionToParse);
+
+        assertFalse(expression.getEvaluationResult());
+    }
+
+    @Test
     public void testParseMultipleConditions() throws Exception {
         externalContext.addParameter("source.type", "proxy-server");
 

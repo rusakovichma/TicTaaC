@@ -35,13 +35,13 @@ public class Element {
     private Boolean inScope;
 
     @Ref(rootCollection = "assets")
-    private LinkedList<Asset> producedAssets;
+    private LinkedList<Asset> producedAssets = new LinkedList<>();
     @Ref(rootCollection = "assets")
-    private LinkedList<Asset> consumedAssets;
+    private LinkedList<Asset> consumedAssets = new LinkedList<>();
     @Ref(rootCollection = "assets")
-    private LinkedList<Asset> processedAssets;
+    private LinkedList<Asset> processedAssets = new LinkedList<>();
     @Ref(rootCollection = "assets")
-    private LinkedList<Asset> storedAssets;
+    private LinkedList<Asset> storedAssets = new LinkedList<>();
 
     public String getId() {
         return id;

@@ -40,7 +40,7 @@ public class DataFlow {
     private Boolean inScope;
 
     @Ref(rootCollection = "assets")
-    private LinkedList<Asset> transferredAssets;
+    private LinkedList<Asset> transferredAssets = new LinkedList<>();
 
     @FlowSource
     private Element source;
