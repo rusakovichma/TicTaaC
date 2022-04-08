@@ -6,7 +6,7 @@ rules:
     title: Information Disclosure and Tampering in Transit for {flow.name}
     severity: High
     categories: information-disclosure, tampering
-    expression: flow.encryption == no
+    expression: (flow.encryption == no) or (flow.encryption == undefined)
     exclude: flow.inScope == false
     description: In network eavesdropping attacks, hackers look for weak connections between clients and servers. By exploiting these weak connections, hackers intercept data packets traversing the network. Any network, web or email traffic, if not encrypted, can be read by the hacker.
     remediation: Ensure strong TLS is configured for the {flow.name} connection
@@ -15,7 +15,16 @@ rules:
     title: Information Disclosure and Tampering at Rest for {target.name}
     severity: High
     categories: information-disclosure, tampering
-    expression: (target.type == database) and (target.storedAssets contain sensitive)
+    expression: (target.type == database) and ((target.storedAssets contain sensitive) or (target.storedAssets contain undefined))
     exclude: flow.inScope == false
     description: In case if an attacker can access lost, stolen, or inappropriately decommissioned hardware, the sensitive assets stored in {target.name} will be compromised
     remediation: 1. Ensure sensitive information is encrypted at rest level in {target.name} using recommended algorithms 2. Ensure encryption keys are properly protected (for example, stored at Vault)
+
+  - anonymous-access
+    title: Anonymous access to {target.name}
+    severity: High
+    categories: spoofing, information-disclosure
+    expression: (flow.authenticationMethod == anonymous) or (flow.authenticationMethod == undefined)
+    exclude: flow.inScope == false
+    description: In case of if anonymous access to {target.name} is enabled, a potential attacker can gather additional information about the target using this public-available source
+    remediation: 1. Enumerate all the publicly-accessible entrypoints on {target.name} 2. Consider access-control protection for the entrypoints with unwanted anonymous access

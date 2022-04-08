@@ -20,7 +20,8 @@ package com.github.rusakovichma.tictaac.model.threatmodel.dataflow;
 public enum Authorization {
     read,
     readWrite,
-    admin;
+    admin,
+    undefined;
 
     @Override
     public String toString() {

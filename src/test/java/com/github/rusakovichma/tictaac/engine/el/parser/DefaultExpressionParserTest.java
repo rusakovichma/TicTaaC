@@ -112,7 +112,7 @@ class DefaultExpressionParserTest {
         externalContext.addParameter("flow.transferredAssets", transferredAssets);
         externalContext.addParameter("source.name", "sourceX");
 
-        String expressionToParse = "(flow.transferredAssets contain sensitive) and (source.name=='sourceX')";
+        String expressionToParse = "((flow.transferredAssets contain sensitive) or (flow.transferredAssets contain undefined)) and (source.name=='sourceX')";
         ExpressionParser parser = new DefaultExpressionParser(externalContext);
         Expression<Boolean> expression = parser.parse(expressionToParse);
 

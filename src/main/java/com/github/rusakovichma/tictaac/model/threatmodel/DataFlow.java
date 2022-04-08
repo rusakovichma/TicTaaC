@@ -32,10 +32,10 @@ public class DataFlow {
 
     private String title;
 
-    private AuthenticationMethod authenticationMethod;
-    private Authorization authorization;
-    private Encryption encryption;
-    private AccountManagement accountManagement;
+    private AuthenticationMethod authenticationMethod = AuthenticationMethod.undefined;
+    private Authorization authorization = Authorization.undefined;
+    private Encryption encryption = Encryption.undefined;
+    private AccountManagement accountManagement = AccountManagement.undefined;
     @DefaultValue("true")
     private Boolean inScope;
 

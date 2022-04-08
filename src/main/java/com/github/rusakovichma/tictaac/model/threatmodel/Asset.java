@@ -26,7 +26,7 @@ public class Asset {
 
     @Id
     private String id;
-    private AssetSensitivity sensitivity;
+    private AssetSensitivity sensitivity = AssetSensitivity.undefined;
     private String description;
 
     public String getId() {

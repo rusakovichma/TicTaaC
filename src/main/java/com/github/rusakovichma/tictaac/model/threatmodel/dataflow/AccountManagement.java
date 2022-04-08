@@ -20,7 +20,8 @@ package com.github.rusakovichma.tictaac.model.threatmodel.dataflow;
 public enum AccountManagement {
     externalSso,
     localAccount,
-    activeDirectory;
+    activeDirectory,
+    undefined;
 
     @Override
     public String toString() {

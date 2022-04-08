@@ -19,7 +19,8 @@ package com.github.rusakovichma.tictaac.model.threatmodel.dataflow;
 
 public enum Encryption {
     no,
-    yes;
+    yes,
+    undefined;
 
     @Override
     public String toString() {

@@ -29,7 +29,8 @@ public enum AuthenticationMethod {
     saml,
     bearer,
     s3,
-    radius;
+    radius,
+    undefined;
 
     @Override
     public String toString() {
