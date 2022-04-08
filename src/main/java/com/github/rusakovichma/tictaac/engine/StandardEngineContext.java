@@ -33,9 +33,8 @@ import com.github.rusakovichma.tictaac.risk.PlainMatrixRiskStrategy;
 import com.github.rusakovichma.tictaac.risk.RiskCalculationStrategy;
 import com.github.rusakovichma.tictaac.util.ReflectionUtil;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Comparator;
+import java.util.*;
+import java.util.stream.Collectors;
 
 class StandardEngineContext implements EngineContext {
 
@@ -114,7 +113,6 @@ class StandardEngineContext implements EngineContext {
                 setThreatId(threat);
 
                 threats.add(threat);
-
             }
         }
     }
@@ -125,12 +123,17 @@ class StandardEngineContext implements EngineContext {
         this.threatModel = threatModel;
         this.rules = rules;
 
-        Collection<DataFlow> flows = threatModel.getDataFlows();
-        for (DataFlow flow : flows) {
-            processFlow(flow);
-        }
+        threatModel.getDataFlows().stream()
+                .forEach(flow -> processFlow(flow));
 
-        return threats;
+        return threats.stream().collect(
+                Collectors.groupingBy(Threat::calculateHash,
+                        Collectors.collectingAndThen(
+                                Collectors.reducing((Threat threatOne, Threat threatAnother) ->
+                                        threatOne.getRiskPriority() > threatAnother.getRiskPriority()
+                                                ? threatOne : threatAnother),
+                                Optional::get)))
+                .values();
     }
 }
 

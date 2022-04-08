@@ -36,6 +36,8 @@ public class Threat {
 
     private DataFlow dataFlow;
 
+    private String hashCached;
+
     public String getId() {
         return id;
     }
@@ -88,6 +90,10 @@ public class Threat {
         return risk;
     }
 
+    public int getRiskPriority() {
+        return risk.getOrder();
+    }
+
     public void setRisk(ThreatRisk risk) {
         this.risk = risk;
     }
@@ -101,9 +107,12 @@ public class Threat {
     }
 
     public String calculateHash() {
+        if (this.hashCached != null) {
+            return this.hashCached;
+        }
+
         StringBuilder dump = new StringBuilder()
-                .append(title)
-                .append(risk.toString());
+                .append(title);
 
         if (categories != null) {
             for (ThreatCategory category : categories) {
@@ -114,7 +123,8 @@ public class Threat {
         dump.append(description)
                 .append(remediation);
 
-        return StringUtils.sha1Hash(dump.toString());
+        this.hashCached = StringUtils.sha1Hash(dump.toString());
+        return this.hashCached;
     }
 
     @Override
@@ -122,14 +132,14 @@ public class Threat {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Threat threat = (Threat) o;
-        return Objects.equals(id, threat.id) && Objects.equals(title, threat.title)
-                && risk == threat.risk && Objects.equals(categories, threat.categories)
-                && mitigationStatus == threat.mitigationStatus && Objects.equals(description, threat.description)
+        return Objects.equals(title, threat.title)
+                && Objects.equals(categories, threat.categories)
+                && Objects.equals(description, threat.description)
                 && Objects.equals(remediation, threat.remediation);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, risk, categories, mitigationStatus, description, remediation);
+        return Objects.hash(title, categories, description, remediation);
     }
 }

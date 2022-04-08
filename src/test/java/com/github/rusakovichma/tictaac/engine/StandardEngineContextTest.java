@@ -9,6 +9,7 @@ import com.github.rusakovichma.tictaac.util.FileUtil;
 import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -44,14 +45,14 @@ class StandardEngineContextTest {
 
         StandardEngineContext engineContext = new StandardEngineContext();
 
-        List<Threat> threats = (List<Threat>) engineContext.eval(model, rules);
+        ArrayList<Threat> threats = new ArrayList<>(engineContext.eval(model, rules));
         assertTrue(threats.size() == 2);
 
-        assertTrue(threats.get(0).getId().equals("7eefda5b73808a488729397937fbaf552f380887"));
+        assertTrue(threats.get(0).getId().equals("e1a127e52365395e8c13388ef9ec3c89b5605280"));
         assertTrue(threats.get(0).getRisk() == ThreatRisk.High);
         assertTrue(threats.get(0).getDescription().equals("threat description 2 for Users Request with source of User and target - Proxy Server"));
 
-        assertTrue(threats.get(1).getId().equals("54d019c662a3baa2e9803cc0e1c05147bc565286"));
+        assertTrue(threats.get(1).getId().equals("bb83b0d3eb7b4cc8a344e4d552b017c59703930d"));
         assertTrue(threats.get(1).getRisk() == ThreatRisk.Low);
         assertTrue(threats.get(1).getDescription().equals("threat description 1 for PostgreSQL"));
     }
