@@ -28,3 +28,12 @@ rules:
     exclude: flow.inScope == false
     description: In case of if anonymous access to {target.name} is enabled, a potential attacker can gather additional information about the target using this public-available source
     remediation: 1. Enumerate all the publicly-accessible entrypoints on {target.name} 2. Consider access-control protection for the entrypoints with unwanted anonymous access
+
+  - local-account-management
+    title: Local account management on {target.name}
+    severity: High
+    categories: spoofing, elevation-of-privilege
+    expression: flow.accountManagement == localAccount
+    exclude: (flow.inScope == false) or (source within demilitarized-zone) or (source within closed-perimeter)
+    description: In case of inappropriate account management on {target.name} side (for example, if account credentials are stored at {target.name} configuration file), it can lead to weak password complexity or rotation issues, that can be used by an attacker to brute force the credentials or for accounts enumeration
+    remediation: Consider transferring the responsibility of account management to centralized SSO or Identity and Access Management system
