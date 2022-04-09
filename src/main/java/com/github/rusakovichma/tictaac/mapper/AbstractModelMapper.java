@@ -107,6 +107,8 @@ abstract class AbstractModelMapper<M> implements ModelMapper<M> {
             } else if (Boolean.class.isAssignableFrom(fieldOfNewObject.getType())) {
                 fieldValue = Boolean.valueOf(propertyNode.getNodeValue());
             }
+        } else if (fieldOfNewObject.get(newObject) != null) {
+            fieldValue = fieldOfNewObject.get(newObject);
         } else if (fieldOfNewObject.isAnnotationPresent(DefaultValue.class)) {
             String defaultValue = fieldOfNewObject.getAnnotation(DefaultValue.class).value();
             if (defaultValue != null) {
