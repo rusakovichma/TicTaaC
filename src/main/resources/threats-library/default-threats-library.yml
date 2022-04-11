@@ -29,6 +29,42 @@ rules:
     description: In case of if anonymous access to {target.name} is enabled, a potential attacker can gather additional information about the target using this public-available source
     remediation: 1. Enumerate all the publicly-accessible entrypoints on {target.name} 2. Consider access-control protection for the entrypoints with unwanted anonymous access
 
+  - weak-authentication-method
+    title: Weak authentication method for {target.name} access
+    severity: High
+    categories: spoofing
+    expression: flow.authenticationMethod == undefined
+    exclude: flow.inScope == false
+    description: In case of of weak authentication for {target.name} connection, a potential attacker can easily spoof another users identity or gain access to any accounts credentials
+    remediation: Consider usage of strong authentication method for {target.Name} access (OpenID, Kerberos, etc)
+
+  - credentials-brute-force
+    title: {target.name} credentials brute-force
+    severity: High
+    categories: spoofing
+    expression: (flow.authenticationMethod == credentials) or (flow.authenticationMethod == basic)
+    exclude: flow.inScope == false
+    description: In case of of basic or simple password authentication on {target.name} side, a potential attacker can brute-force weak credentials and hijack any account
+    remediation: 1. Consider usage of rate-limit protection on {target.name} side 2. (If applicable) Consider usage of MFA on {target.name} side
+
+  - admin-access-hijacking
+    title: {target.name} administrative access hijacking
+    severity: High
+    categories: spoofing, elevation-of-privilege
+    expression: flow.authorization == admin
+    exclude: flow.inScope == false
+    description: In case if potential attacker can hijack administrative account to {target.name} or compromise it, he will gain an unlimited access to {target.name} data and functional assets
+    remediation: 1. Consider protection of administrative accounts with MFA on {target.name} side 2. Consider administrative accounts lockout or permissions limitation if it is possible
+
+  - excessive-permissions
+    title: {target.name} access with excessive permissions
+    severity: High
+    categories: elevation-of-privilege
+    expression: flow.authorization == read
+    exclude: flow.inScope == false
+    description: If {source.name} has excessive permissions (admin, root, etc) for {target.Name} connection, in case of {source.Name} compromise, a potential attacker can gain access to an extra permissions on {target.Name}
+    remediation: 1. Ensure the dedicated account is used by {source.name} for authorization at {target.name} 2. Ensure Read-Only account is used by {target.Name} for {source.Name} access only to the required operations and assets if it is possible
+
   - local-account-management
     title: Local account management on {target.name}
     severity: High
