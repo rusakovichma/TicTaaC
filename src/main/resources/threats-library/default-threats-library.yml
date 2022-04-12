@@ -43,9 +43,18 @@ rules:
     severity: High
     categories: spoofing
     expression: (flow.authenticationMethod == credentials) or (flow.authenticationMethod == basic)
-    exclude: flow.inScope == false
+    exclude: (flow.inScope == false) or (target.type == database)
     description: In case of of basic or simple password authentication on {target.name} side, a potential attacker can brute-force weak credentials and hijack any account
     remediation: 1. Consider usage of rate-limit protection on {target.name} side 2. (If applicable) Consider usage of MFA on {target.name} side
+
+  - default-accout-disabling
+    title: {target.name} default account disabling
+    severity: High
+    categories: spoofing, elevation-of-privilege
+    expression: target.type == database
+    exclude: flow.inScope == false
+    description: A default account for {target.name} (for example, admin, root, sa, postgre, etc) may be used by an attacker to gain access to the information and assets stored in the storage
+    remediation: Ensure the default account is not used or disabled/locked-out on {target.name} side
 
   - admin-access-hijacking
     title: {target.name} administrative access hijacking
@@ -54,16 +63,16 @@ rules:
     expression: flow.authorization == admin
     exclude: flow.inScope == false
     description: In case if potential attacker can hijack administrative account to {target.name} or compromise it, he will gain an unlimited access to {target.name} data and functional assets
-    remediation: 1. Consider protection of administrative accounts with MFA on {target.name} side 2. Consider administrative accounts lockout or permissions limitation if it is possible
+    remediation: 1. Consider protection of administrative accounts with MFA on {target.name} side if it is possible 2. Consider administrative account lockout, replacement by least-privilege account or permissions limitation
 
   - excessive-permissions
     title: {target.name} access with excessive permissions
     severity: High
     categories: elevation-of-privilege
-    expression: flow.authorization == read
-    exclude: flow.inScope == false
-    description: If {source.name} has excessive permissions (admin, root, etc) for {target.Name} connection, in case of {source.Name} compromise, a potential attacker can gain access to an extra permissions on {target.Name}
-    remediation: 1. Ensure the dedicated account is used by {source.name} for authorization at {target.name} 2. Ensure Read-Only account is used by {target.Name} for {source.Name} access only to the required operations and assets if it is possible
+    expression: (flow.authorization == admin) or (flow.authorization == readWrite)
+    exclude: (flow.inScope == false) or (source.type == proxyServer)
+    description: If {source.name} has excessive permissions (admin, root, etc) for {target.name} connection, in case of {source.name} compromise, a potential attacker can gain access to an extra permissions on {target.name}
+    remediation: Ensure least-privilege account (for example, read-only) is used by {target.name} for {source.name} connection with fine-grained access only to the required operations and assets
 
   - local-account-management
     title: Local account management on {target.name}
