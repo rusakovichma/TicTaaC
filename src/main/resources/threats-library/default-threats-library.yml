@@ -47,7 +47,7 @@ rules:
     description: In case of of basic or simple password authentication on {target.name} side, a potential attacker can brute-force weak credentials and hijack any account
     remediation: 1. Consider usage of rate-limit protection on {target.name} side 2. (If applicable) Consider usage of MFA on {target.name} side
 
-  - default-accout-disabling
+  - default-account-disabling
     title: {target.name} default account disabling
     severity: High
     categories: spoofing, elevation-of-privilege
