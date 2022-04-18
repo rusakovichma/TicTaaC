@@ -17,10 +17,13 @@
  */
 package com.github.rusakovichma.tictaac.engine;
 
+import com.github.rusakovichma.tictaac.guesser.Guesser;
+import com.github.rusakovichma.tictaac.guesser.UniversalGuesser;
 import com.github.rusakovichma.tictaac.model.Threat;
 import com.github.rusakovichma.tictaac.model.ThreatModel;
 import com.github.rusakovichma.tictaac.model.ThreatRule;
 import com.github.rusakovichma.tictaac.model.ThreatsCollection;
+import com.github.rusakovichma.tictaac.model.threatmodel.Element;
 import com.github.rusakovichma.tictaac.provider.mitigation.DullMitigator;
 import com.github.rusakovichma.tictaac.provider.mitigation.Mitigator;
 import com.github.rusakovichma.tictaac.provider.rules.ThreatRulesProvider;
@@ -34,12 +37,22 @@ public class StandardThreatEngine implements ThreatEngine {
 
     private Mitigator mitigator = new DullMitigator();
 
+    private Guesser<Element> elementGuesser = new UniversalGuesser();
+
     public StandardThreatEngine(ThreatRulesProvider threatRulesProvider) {
         this.threatRulesProvider = threatRulesProvider;
     }
 
+    private void guessElementTypes(Collection<Element> elements) {
+        for (Element element : elements) {
+            elementGuesser.guess(element);
+        }
+    }
+
     @Override
     public ThreatsCollection generateThreats(ThreatModel threatModel) {
+        guessElementTypes(threatModel.getElements());
+
         Collection<ThreatRule> threatRules = threatRulesProvider.getThreatsLibrary()
                 .getRules();
 
