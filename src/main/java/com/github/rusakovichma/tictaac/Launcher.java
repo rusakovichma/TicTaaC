@@ -129,7 +129,7 @@ public class Launcher {
                     threats.getThreats()
             );
         } catch (IOException ex) {
-            throw new IllegalStateException("Cannot write to file [" + params.get("out") + "]", ex);
+            throw new IllegalStateException("Cannot write threat model report to the file [" + params.get("out") + "]", ex);
         }
 
         checkQualityGate(params, threats.getThreats());

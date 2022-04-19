@@ -9,7 +9,7 @@ public class ProcessGuesser extends ElementGuesser {
 
     @Override
     ElementType getGuessedType() {
-        return ElementType.proxyServer;
+        return ElementType.process;
     }
 
     @Override
