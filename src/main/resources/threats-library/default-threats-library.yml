@@ -38,6 +38,15 @@ rules:
     description: In case of of weak authentication for {target.name} connection, a potential attacker can easily spoof another users identity or gain access to any accounts credentials
     remediation: Consider usage of strong authentication method for {target.Name} access (OpenID, Kerberos, etc)
 
+  - ntlm-protocol-usage
+    title: NTLM protocol usage for {target.name} access
+    severity: High
+    categories: spoofing
+    expression: flow.authenticationMethod == ntlm
+    exclude: flow.inScope == false
+    description: The challenge with having NTLM in your network is that it is easily exploitable and puts an organization at risk for a breach
+    remediation: 1. Ensure LM and NTLMv1 are disabled completely, allowing only the safer NTLMv2 (at least it mitigates some of the replay attacks) or use Kerberos if it is possible 2. If you cant disable the protocol, start with auditing all NTLM traffic, followed by analysis of servers and users that use NTLM, and ultimately determining which uses can be abandoned and which should be set as an exception after restricting NTLM
+
   - credentials-brute-force
     title: {target.name} credentials brute-force
     severity: High

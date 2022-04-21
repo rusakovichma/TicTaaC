@@ -24,6 +24,7 @@ public enum AuthenticationMethod {
     digest,
     openid,
     ldap,
+    ntlm,
     kerberos,
     certificate,
     saml,
