@@ -35,7 +35,7 @@ public class BoundaryGuesser implements Guesser<Boundary> {
             "company", "corp", "corporate", "internal", "wlan"});
 
     private final static List<String> CLOSED_BOUNDARY_SIGNS = Arrays.asList(new String[]{
-            "closed", "vlan", "vpc", "sub-net", "subnet"});
+            "closed", "vlan", "vpc", "sub-net", "subnet", "namespace"});
 
     private boolean findSign(List<String> signs, Boundary boundary) {
         for (String sign : signs) {
