@@ -1,12 +1,15 @@
-package com.github.rusakovichma.tictaac.guesser;
+package com.github.rusakovichma.tictaac.correction;
 
 import com.github.rusakovichma.tictaac.model.threatmodel.element.ElementType;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class ProxyServerGuesser extends ElementGuesser {
 
-    private final static String[] SIGNS = new String[]{
+    private final static List<String> SIGNS = Arrays.asList(new String[]{
             "proxyserver", "proxy-server", "load-balancer", "balancer",
-            "nginx", "gateway", "apache-http"};
+            "nginx", "gateway", "apache-http"});
 
     @Override
     ElementType getGuessedType() {
@@ -14,7 +17,7 @@ public class ProxyServerGuesser extends ElementGuesser {
     }
 
     @Override
-    String[] getDesignatingString() {
+    List<String> getDesignatingString() {
         return SIGNS;
     }
 }

@@ -17,17 +17,19 @@
  */
 package com.github.rusakovichma.tictaac.engine;
 
-import com.github.rusakovichma.tictaac.guesser.Guesser;
-import com.github.rusakovichma.tictaac.guesser.UniversalGuesser;
+import com.github.rusakovichma.tictaac.correction.*;
 import com.github.rusakovichma.tictaac.model.Threat;
 import com.github.rusakovichma.tictaac.model.ThreatModel;
 import com.github.rusakovichma.tictaac.model.ThreatRule;
 import com.github.rusakovichma.tictaac.model.ThreatsCollection;
+import com.github.rusakovichma.tictaac.model.threatmodel.Boundary;
+import com.github.rusakovichma.tictaac.model.threatmodel.DataFlow;
 import com.github.rusakovichma.tictaac.model.threatmodel.Element;
 import com.github.rusakovichma.tictaac.provider.mitigation.DullMitigator;
 import com.github.rusakovichma.tictaac.provider.mitigation.Mitigator;
 import com.github.rusakovichma.tictaac.provider.rules.ThreatRulesProvider;
 
+import javax.xml.crypto.Data;
 import java.util.Collection;
 
 public class StandardThreatEngine implements ThreatEngine {
@@ -37,21 +39,39 @@ public class StandardThreatEngine implements ThreatEngine {
 
     private Mitigator mitigator = new DullMitigator();
 
-    private Guesser<Element> elementGuesser = new UniversalGuesser();
+    private Guesser<Element> elementGuesser = new UniversalElementGuesser();
+    private Corrector<Element> elementNameCorrector = new ElementNameCorrector();
+    private Corrector<DataFlow> flowTitleCorrector = new DataFlowTitleCorrector();
+    private Guesser<Boundary> boundaryGuesser = new BoundaryGuesser();
 
     public StandardThreatEngine(ThreatRulesProvider threatRulesProvider) {
         this.threatRulesProvider = threatRulesProvider;
     }
 
-    private void guessElementTypes(Collection<Element> elements) {
+    private void correctElements(Collection<Element> elements) {
         for (Element element : elements) {
-            elementGuesser.guess(element);
+            elementGuesser.tryToCorrect(element);
+            elementNameCorrector.tryToCorrect(element);
+        }
+    }
+
+    private void correctFlows(Collection<DataFlow> flows) {
+        for (DataFlow flow : flows) {
+            flowTitleCorrector.tryToCorrect(flow);
+        }
+    }
+
+    private void correctBoundaries(Collection<Boundary> boundaries) {
+        for (Boundary boundary : boundaries) {
+            boundaryGuesser.tryToCorrect(boundary);
         }
     }
 
     @Override
     public ThreatsCollection generateThreats(ThreatModel threatModel) {
-        guessElementTypes(threatModel.getElements());
+        correctElements(threatModel.getElements());
+        correctFlows(threatModel.getDataFlows());
+        correctBoundaries(threatModel.getBoundaries());
 
         Collection<ThreatRule> threatRules = threatRulesProvider.getThreatsLibrary()
                 .getRules();

@@ -1,11 +1,11 @@
-package com.github.rusakovichma.tictaac.guesser;
+package com.github.rusakovichma.tictaac.correction;
 
 import com.github.rusakovichma.tictaac.model.threatmodel.Element;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class UniversalGuesser implements Guesser<Element> {
+public class UniversalElementGuesser implements Guesser<Element> {
 
     private Collection<Guesser<Element>> guessers = new ArrayList<>();
 
@@ -19,14 +19,14 @@ public class UniversalGuesser implements Guesser<Element> {
         guessers.add(new ProcessGuesser());
     }
 
-    public UniversalGuesser() {
+    public UniversalElementGuesser() {
         init();
     }
 
     @Override
-    public boolean guess(Element element) {
+    public boolean tryToCorrect(Element element) {
         for (Guesser<Element> guesser : guessers) {
-            if (guesser.guess(element)) {
+            if (guesser.tryToCorrect(element)) {
                 return true;
             }
         }
