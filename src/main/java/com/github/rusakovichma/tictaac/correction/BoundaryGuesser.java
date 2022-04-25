@@ -48,7 +48,7 @@ public class BoundaryGuesser implements Guesser<Boundary> {
 
     @Override
     public boolean tryToCorrect(Boundary boundary) {
-        if (boundary.getCategory() == null || boundary.getId() == null) {
+        if (boundary.getCategory() != null || boundary.getId() == null) {
             return false;
         }
 

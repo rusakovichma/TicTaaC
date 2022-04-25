@@ -88,7 +88,7 @@ rules:
     severity: High
     categories: elevation-of-privilege
     expression: (flow.authorization == admin) or (flow.authorization == readWrite)
-    exclude: (flow.inScope == false) or (source.type == proxyServer)
+    exclude: (flow.inScope == false) or (source.type == proxyServer) or (target.type == proxyServer)
     description: If {source.name} has excessive permissions (admin, root, etc) for {target.name} connection, in case of {source.name} compromise, a potential attacker can gain access to an extra permissions on {target.name}
     remediation: Ensure least-privilege account (for example, read-only) is used by {target.name} for {source.name} connection with fine-grained access only to the required operations and assets
 
