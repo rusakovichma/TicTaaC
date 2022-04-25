@@ -17,7 +17,7 @@ rules:
     categories: information-disclosure, tampering
     expression: (target.type == database) and ((target.storedAssets contain sensitive) or (target.storedAssets contain undefined))
     exclude: flow.inScope == false
-    description: In case if an attacker can access lost, stolen, or inappropriately decommissioned hardware, the sensitive assets stored in {target.name} will be compromised
+    description: In case if an attacker can access lost, stolen, or inappropriately decommissioned hardware, or copy the entire filesystem from the server and run it on its own hardware, as a result the sensitive assets stored in {target.name} will be compromised
     remediation: 1. Ensure sensitive information is encrypted at rest level in {target.name} using recommended algorithms 2. Ensure encryption keys are properly protected (for example, stored at Vault)
 
   - anonymous-access
