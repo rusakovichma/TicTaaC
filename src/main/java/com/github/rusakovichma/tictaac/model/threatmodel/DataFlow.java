@@ -25,6 +25,7 @@ import com.github.rusakovichma.tictaac.model.threatmodel.dataflow.AccountManagem
 import com.github.rusakovichma.tictaac.model.threatmodel.dataflow.AuthenticationMethod;
 import com.github.rusakovichma.tictaac.model.threatmodel.dataflow.Authorization;
 import com.github.rusakovichma.tictaac.model.threatmodel.dataflow.Encryption;
+import com.github.rusakovichma.tictaac.validation.Required;
 
 import java.util.LinkedList;
 
@@ -118,5 +119,13 @@ public class DataFlow {
 
     public void setInScope(Boolean inScope) {
         this.inScope = inScope;
+    }
+
+    @Override
+    public String toString() {
+        return "DataFlow{" +
+                "source=" + source +
+                ", target=" + target +
+                '}';
     }
 }

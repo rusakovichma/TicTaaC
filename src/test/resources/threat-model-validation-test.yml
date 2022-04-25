@@ -1,0 +1,23 @@
+name: Threat Model Name
+version: 1.0.1
+assets:
+  - personal-data
+elements:
+  - legitimate-user
+    produced-assets:
+      - personal-data
+  - proxy-server
+  - web-server
+  - database
+    stored-assets:
+      - personal-data
+boundaries:
+  - internet
+    elements:
+      - legitimate-user
+data-flows:
+  - legitimate-user -> proxy-server
+    title: Users Request
+  - proxy-server -> web-server
+  - web-server -> database
+    title: Database query

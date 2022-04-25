@@ -22,6 +22,7 @@ import com.github.rusakovichma.tictaac.model.threatmodel.Boundary;
 import com.github.rusakovichma.tictaac.model.threatmodel.DataFlow;
 import com.github.rusakovichma.tictaac.model.threatmodel.Element;
 import com.github.rusakovichma.tictaac.model.threatmodel.annotation.RootCollection;
+import com.github.rusakovichma.tictaac.validation.RequiresAtLeast;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -34,10 +35,12 @@ public class ThreatModel {
     @RootCollection
     private LinkedList<Asset> assets;
     @RootCollection
+    @RequiresAtLeast(elements = 2)
     private LinkedList<Element> elements;
     @RootCollection
     private LinkedList<Boundary> boundaries;
     @RootCollection
+    @RequiresAtLeast(elements = 1)
     private LinkedList<DataFlow> dataFlows;
 
     public String getName() {

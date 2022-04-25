@@ -20,6 +20,8 @@ package com.github.rusakovichma.tictaac.model.threatmodel;
 import com.github.rusakovichma.tictaac.model.threatmodel.annotation.Id;
 import com.github.rusakovichma.tictaac.model.threatmodel.annotation.Ref;
 import com.github.rusakovichma.tictaac.model.threatmodel.boundary.BoundaryCategory;
+import com.github.rusakovichma.tictaac.validation.Required;
+import com.github.rusakovichma.tictaac.validation.RequiresAtLeast;
 
 import java.util.LinkedList;
 import java.util.Objects;
@@ -28,7 +30,9 @@ public class Boundary {
 
     @Id
     private String id;
+    @Required
     private BoundaryCategory category;
+    @RequiresAtLeast(elements = 1)
     @Ref(rootCollection = "elements")
     private LinkedList<Element> elements;
 
@@ -71,5 +75,12 @@ public class Boundary {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Boundary{" +
+                "id='" + id + '\'' +
+                '}';
     }
 }

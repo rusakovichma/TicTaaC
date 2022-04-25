@@ -21,6 +21,7 @@ import com.github.rusakovichma.tictaac.model.threatmodel.annotation.DefaultValue
 import com.github.rusakovichma.tictaac.model.threatmodel.annotation.Id;
 import com.github.rusakovichma.tictaac.model.threatmodel.annotation.Ref;
 import com.github.rusakovichma.tictaac.model.threatmodel.element.ElementType;
+import com.github.rusakovichma.tictaac.validation.Required;
 
 import java.util.LinkedList;
 import java.util.Objects;
@@ -30,6 +31,7 @@ public class Element {
     @Id
     private String id;
     private String name;
+    @Required
     private ElementType type;
     @DefaultValue("true")
     private Boolean inScope;
@@ -118,5 +120,12 @@ public class Element {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Element{" +
+                "id='" + id + '\'' +
+                '}';
     }
 }

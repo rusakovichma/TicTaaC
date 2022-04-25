@@ -1,0 +1,11 @@
+name: Threat Model Name
+version: 0.0.1
+assets:
+elements:
+  - legitimate-user
+    type: interactor
+  - web-server
+    type: web-server
+boundaries:
+data-flows:
+  - legitimate-user -> web-server

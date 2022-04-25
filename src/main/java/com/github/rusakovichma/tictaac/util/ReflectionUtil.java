@@ -53,6 +53,19 @@ public class ReflectionUtil {
         return set;
     }
 
+    public static Field findFieldWithName(Class<?> aClass, String name) {
+        Class<?> c = aClass;
+        while (c != null) {
+            for (Field field : c.getDeclaredFields()) {
+                if (field.getName().equalsIgnoreCase(name)) {
+                    return field;
+                }
+            }
+            c = c.getSuperclass();
+        }
+        return null;
+    }
+
     public static <T extends Enum<T>> T createEnumInstance(String name, Type type) {
         return Enum.valueOf((Class<T>) type, name);
     }

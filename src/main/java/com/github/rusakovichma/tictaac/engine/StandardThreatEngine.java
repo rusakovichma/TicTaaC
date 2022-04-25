@@ -28,8 +28,9 @@ import com.github.rusakovichma.tictaac.model.threatmodel.Element;
 import com.github.rusakovichma.tictaac.provider.mitigation.DullMitigator;
 import com.github.rusakovichma.tictaac.provider.mitigation.Mitigator;
 import com.github.rusakovichma.tictaac.provider.rules.ThreatRulesProvider;
+import com.github.rusakovichma.tictaac.validation.Validator;
+import com.github.rusakovichma.tictaac.validation.ValidatorImpl;
 
-import javax.xml.crypto.Data;
 import java.util.Collection;
 
 public class StandardThreatEngine implements ThreatEngine {
@@ -38,6 +39,7 @@ public class StandardThreatEngine implements ThreatEngine {
     private final ThreatRulesProvider threatRulesProvider;
 
     private Mitigator mitigator = new DullMitigator();
+    private Validator validator = new ValidatorImpl();
 
     private Guesser<Element> elementGuesser = new UniversalElementGuesser();
     private Corrector<Element> elementNameCorrector = new ElementNameCorrector();
@@ -72,6 +74,8 @@ public class StandardThreatEngine implements ThreatEngine {
         correctElements(threatModel.getElements());
         correctFlows(threatModel.getDataFlows());
         correctBoundaries(threatModel.getBoundaries());
+
+        validator.validate(threatModel);
 
         Collection<ThreatRule> threatRules = threatRulesProvider.getThreatsLibrary()
                 .getRules();
