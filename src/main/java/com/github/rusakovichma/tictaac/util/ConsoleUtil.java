@@ -18,8 +18,15 @@
 package com.github.rusakovichma.tictaac.util;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 public class ConsoleUtil {
+
+    private final static List<String> PARAMS_WHITELIST = Arrays.asList(new String[]{
+            "-h", "help", "threatModel", "out", "outFormat", "mitigations",
+            "failOnThreatRisk", "threatsLibrary", "threatsLibraryAccessUsername",
+            "threatsLibraryAccessPassword", "-v", "version"
+    });
 
     private ConsoleUtil() {
     }
@@ -66,7 +73,8 @@ public class ConsoleUtil {
         Stack<ConsoleParam> params = new Stack<>();
         if (args != null && args.length != 0) {
             for (int i = 0; i < args.length; i++) {
-                if (args[i].trim().startsWith("--")) {
+                if (args[i].trim().startsWith("--") ||
+                        args[i].trim().startsWith("-v") || args[i].trim().startsWith("-h")) {
                     params.push(new ConsoleParam(args[i].trim()
                             .replaceFirst("--", "")));
                 } else {
@@ -86,6 +94,16 @@ public class ConsoleUtil {
         }
 
         return paramsMap;
+    }
+
+    public static boolean hasOnlyAllowed(Map<String, String> params) {
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            if (!PARAMS_WHITELIST.stream()
+                    .anyMatch(entry.getKey()::equalsIgnoreCase)) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }

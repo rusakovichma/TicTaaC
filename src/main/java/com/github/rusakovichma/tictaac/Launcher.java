@@ -31,6 +31,7 @@ import com.github.rusakovichma.tictaac.provider.rules.StandardThreatRulesProvide
 import com.github.rusakovichma.tictaac.provider.rules.ThreatRulesProvider;
 import com.github.rusakovichma.tictaac.reporter.*;
 import com.github.rusakovichma.tictaac.util.ConsoleUtil;
+import com.github.rusakovichma.tictaac.util.ResourceUtil;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -41,6 +42,7 @@ import java.util.stream.Collectors;
 
 public class Launcher {
 
+    private static final String OUT_PATH_DEFAULT = ".";
     private static final ReportFormat DEFAULT_OUT_FORMAT = ReportFormat.html;
     private static final String DEFAULT_THREAT_LIBRARY = "classpath:/threats-library/default-threats-library.yml";
 
@@ -79,7 +81,7 @@ public class Launcher {
     private static ThreatsReporter getThreatsReporter(Map<String, String> params) {
         String outPath = params.get("out");
         if (outPath == null || outPath.isEmpty()) {
-            throw new IllegalStateException("Report output path: '--out %output_report_dir%' parameter should be provided");
+            outPath = OUT_PATH_DEFAULT;
         }
         ReportFormat outFormat = ReportFormat.fromString(params.get("outFormat"));
         if (outFormat == null) {
@@ -112,6 +114,16 @@ public class Launcher {
 
     public static void main(String[] args) {
         final Map<String, String> params = ConsoleUtil.getParamsMap(args);
+        if (params.isEmpty() || !ConsoleUtil.hasOnlyAllowed(params)
+                || params.containsKey("help") || params.containsKey("-h")) {
+            System.out.println(ResourceUtil.readResource("/help-info"));
+            System.exit(0);
+        }
+
+        if (params.containsKey("version") || params.containsKey("-v")) {
+            System.out.println(ResourceUtil.readResource("/version"));
+            System.exit(0);
+        }
 
         ThreatRulesProvider rulesProvider = getRulesProvider(params);
         Mitigator mitigator = getMitigator(params);

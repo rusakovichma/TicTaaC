@@ -18,4 +18,26 @@ class ConsoleUtilTest {
         Map<String, String> paramsMap = ConsoleUtil.getParamsMap(params);
         assertTrue(paramsMap.size() == 8);
     }
+
+    @Test
+    void getParamsWhitelistPass() {
+        String[] params = {"--threatModel", "${WORKSPACE}/threat-model.yml", "--failOnThreatRisk", "High",
+                "--threatsLibrary", "https://my-site.com/my-threats-library.yml",
+                "--threatsLibraryAccessUsername", "username", "--threatsLibraryAccessPassword", "pass123456",
+                "--mitigations", "\"${WORKSPACE}/mitigations.yml\"", "--outFormat", "html", "--out", "${WORKSPACE}/reports"};
+
+        Map<String, String> paramsMap = ConsoleUtil.getParamsMap(params);
+        assertTrue(ConsoleUtil.hasOnlyAllowed(paramsMap));
+    }
+
+    @Test
+    void getParamsWhitelistNotPassed() {
+        String[] params = {"--threatModel", "${WORKSPACE}/threat-model.yml", "--failOnThreatRisk", "High",
+                "--threatsLibrary", "https://my-site.com/my-threats-library.yml", "--someParam",
+                "--threatsLibraryAccessUsername", "username", "--threatsLibraryAccessPassword", "pass123456",
+                "--mitigations", "\"${WORKSPACE}/mitigations.yml\"", "--outFormat", "html", "--out", "${WORKSPACE}/reports"};
+
+        Map<String, String> paramsMap = ConsoleUtil.getParamsMap(params);
+        assertFalse(ConsoleUtil.hasOnlyAllowed(paramsMap));
+    }
 }

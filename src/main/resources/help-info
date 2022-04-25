@@ -1,0 +1,34 @@
+usage: TicTaaC Core [--help]
+[--threatModel <file>] [--out <file>] [--outFormat <format>][--mitigations <file>]
+[--failOnThreatRisk <score>] [--threatsLibrary <path>]
+[--threatsLibraryAccessUsername <username>] [--threatsLibraryAccessPassword <password>]
+
+TicTaaC (Threat-Modeling-as-a-Code in a Tick) solution may be used to identify threats
+related to an application architecture, design and development process.
+Core will automatically generate threats according to the provided data flow diagram
+file described in a special lightweight format.
+
+ -h, --help                                 Print this help message
+ --threatModel <file>                       (Mandatory) Data flow diagram file to process.
+ --out <file>                               (Optional) The folder to write report to.
+                                            This defaults to the current directory.
+ --outFormat <format>                       (Optional) The report format (HTML, JSON).
+                                            The default is HTML.
+ --mitigations <file>                       (Optional) The file with the mitigation
+                                            strategy for the corresponding threats from
+                                            the report.
+ --failOnThreatRisk <score>                 (Optional) Specifies if the build should be
+                                            failed if a Threat Risk above a specified
+                                            level is identified (Low, Medium, High).
+                                            By default the build will never fail.
+ --threatsLibrary <path>                    (Optional) The path to the file with the rules
+                                            containing threat-generation logic. It may be
+                                            a path to a local file, web-resource file path
+                                            or a classpath.
+ --threatsLibraryAccessUsername <username>  (Optional) If web-resource file with the rules
+                                            protected with authorization, specify this
+                                            parameter.
+ --threatsLibraryAccessPassword <password>  (Optional) If web-resource file with the rules
+                                            protected with authorization, specify this
+                                            parameter.
+ -v, --version                              Print the version information.
