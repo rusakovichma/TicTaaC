@@ -20,6 +20,15 @@ rules:
     description: In case if an attacker can access lost, stolen, or inappropriately decommissioned hardware, or copy the entire filesystem from the server and run it on its own hardware, as a result the sensitive assets stored in {target.name} will be compromised
     remediation: 1. Ensure sensitive information is encrypted at rest level in {target.name} using recommended algorithms 2. Ensure encryption keys are properly protected (for example, stored at Vault)
 
+  - database-rogue-employee-access
+    title: {target.name} rogue employee access
+    severity: High
+    categories: information-disclosure, tampering
+    expression: target.type == database
+    exclude: flow.inScope == false
+    description: In case if wide product development team has unrestricted access to the production environment, the chances of sensitive information disclosure or the whole system compromise are increasing
+    remediation: 1. Ensure only limited number of trusted employees has access to the production environment 2. Consider transfering the production support to the special dedicated team 3. Consider usage of the solutions like Bastion Hosts and privilege access management systems for the production env access
+
   - anonymous-access
     title: Anonymous access to {target.name}
     severity: High
