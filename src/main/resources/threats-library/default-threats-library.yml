@@ -20,13 +20,13 @@ rules:
     description: In case if an attacker can access lost, stolen, or inappropriately decommissioned hardware, or copy the entire filesystem from the server and run it on its own hardware, as a result the sensitive assets stored in {target.name} will be compromised
     remediation: 1. Ensure sensitive information is encrypted at rest level in {target.name} using recommended algorithms 2. Ensure encryption keys are properly protected (for example, stored at Vault)
 
-  - database-rogue-employee-access
-    title: {target.name} rogue employee access
+  - database-broad-development-team-access
+    title: {target.name} broad development team access
     severity: High
     categories: information-disclosure, tampering
     expression: target.type == database
     exclude: flow.inScope == false
-    description: In case if wide product development team has unrestricted access to the production environment, the chances of sensitive information disclosure or the whole system compromise are increasing
+    description: In case if broad product development team has unrestricted access to the production environment, the chances of sensitive information disclosure or the whole system compromise are increasing
     remediation: 1. Ensure only limited number of trusted employees has access to the production environment 2. Consider transfering the production support to the special dedicated team 3. Consider usage of the solutions like Bastion Hosts and privilege access management systems for the production env access
 
   - anonymous-access
@@ -45,7 +45,7 @@ rules:
     expression: flow.authenticationMethod == undefined
     exclude: flow.inScope == false
     description: In case of of weak authentication for {target.name} connection, a potential attacker can easily spoof another users identity or gain access to any accounts credentials
-    remediation: Consider usage of strong authentication method for {target.Name} access (OpenID, Kerberos, etc)
+    remediation: Consider usage of strong authentication method for {target.name} access (OpenID, Kerberos, etc)
 
   - ntlm-protocol-usage
     title: NTLM protocol usage for {target.name} access
@@ -100,3 +100,30 @@ rules:
     exclude: (flow.inScope == false) or (source within demilitarized-zone) or (source within closed-perimeter)
     description: In case of inappropriate account management on {target.name} side (for example, if account credentials are stored at {target.name} configuration file), it can lead to weak password complexity or rotation issues, that can be used by an attacker to brute force the credentials or for accounts enumeration
     remediation: Consider transferring the responsibility of account management to centralized SSO or Identity and Access Management system
+
+  - storage-in-dmz
+    title: {target.name} in DMZ
+    severity: High
+    categories: elevation-of-privilege, information-disclosure, tampering
+    expression: (target.type == database) and (target within demilitarized-zone)
+    exclude: flow.inScope == false
+    description: In case the storage with sensitive information is located in a DMZ, it can be easily discovered and attacked by an internal as well as an external threat agent
+    remediation: Consider placing {target.name} in a secure isolated from internet access segment or in a internal private sub-net
+
+  - storage-broad-company-network-access
+    title: Broad {target.name} access from the Company network
+    severity: High
+    categories: elevation-of-privilege, information-disclosure, tampering
+    expression: (target.type == database) and (source within corporate-network)
+    exclude: flow.inScope == false
+    description: In case if there are no restrictions for {target.name} connection from the whole Company internal network, the chances of sensitive information disclosure in {target.name} or the whole system compromise are increasing due to insider or rogue employee threat
+    remediation: Whitelist connection to {target.name} with firewall rules or Network ACL to restrict access to storage by anyone and from anywhere within the internal Company network
+
+  - storage-access-from-the-internet
+    title: {target.name} exposed to the Internet
+    severity: High
+    categories: elevation-of-privilege, information-disclosure, tampering
+    expression: (target.type == database) and (source within global-network)
+    exclude: flow.inScope == false
+    description: In case if {target.name} exposed to the Internet, it can be easily discovered by an attacker and lead to sensitive information disclosure or the whole system compromise
+    remediation: 1. Do not expose {target.name} to the Internet directly if it is possible 2. Consider placing {target.name} in a secure isolated from internet access segment or in a internal private sub-net

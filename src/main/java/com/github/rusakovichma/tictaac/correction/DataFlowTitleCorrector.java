@@ -29,7 +29,7 @@ public class DataFlowTitleCorrector implements Corrector<DataFlow> {
             String target = flow.getTarget().getName() != null ?
                     flow.getTarget().getName() : flow.getTarget().getId();
 
-            flow.setTitle(String.format("from \"%s\" to \"%s\"", source, target));
+            flow.setTitle(String.format("from \"%s\" to \"%s\" flow", source, target));
             return true;
         }
         return false;

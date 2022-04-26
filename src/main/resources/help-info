@@ -22,8 +22,8 @@ file described in a special lightweight format.
                                             level is identified (Low, Medium, High).
                                             By default the build will never fail.
  --threatsLibrary <path>                    (Optional) The path to the file with the rules
-                                            containing threat-generation logic. It may be
-                                            a path to a local file, web-resource file path
+                                            containing threat-generating logic. It may be
+                                            a path to a local file, a web-resource file path
                                             or a classpath.
  --threatsLibraryAccessUsername <username>  (Optional) If web-resource file with the rules
                                             protected with authorization, specify this
