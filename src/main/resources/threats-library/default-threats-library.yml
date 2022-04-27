@@ -4,7 +4,7 @@ version: 1.0.0
 rules:
   - information-discosure-in-transit
     title: Information Disclosure and Tampering in Transit for {flow.name}
-    severity: High
+    severity: Medium
     categories: information-disclosure, tampering
     expression: (flow.encryption == no) or (flow.encryption == undefined)
     exclude: flow.inScope == false
@@ -22,7 +22,7 @@ rules:
 
   - database-broad-development-team-access
     title: {target.name} broad development team access
-    severity: High
+    severity: Medium
     categories: information-disclosure, tampering
     expression: target.type == database
     exclude: flow.inScope == false
@@ -49,7 +49,7 @@ rules:
 
   - ntlm-protocol-usage
     title: NTLM protocol usage for {target.name} access
-    severity: High
+    severity: Medium
     categories: spoofing
     expression: flow.authenticationMethod == ntlm
     exclude: flow.inScope == false
@@ -85,7 +85,7 @@ rules:
 
   - excessive-permissions
     title: {target.name} access with excessive permissions
-    severity: High
+    severity: Medium
     categories: elevation-of-privilege
     expression: (flow.authorization == admin) or (flow.authorization == readWrite)
     exclude: (flow.inScope == false) or (source.type == proxyServer) or (target.type == proxyServer)
@@ -94,7 +94,7 @@ rules:
 
   - local-account-management
     title: Local account management on {target.name}
-    severity: High
+    severity: Medium
     categories: spoofing, elevation-of-privilege
     expression: (flow.accountManagement == localAccount) or (flow.accountManagement == undefined)
     exclude: (flow.inScope == false) or (source within demilitarized-zone) or (source within closed-perimeter)
@@ -112,7 +112,7 @@ rules:
 
   - storage-broad-company-network-access
     title: Broad {target.name} access from the Company network
-    severity: High
+    severity: Medium
     categories: elevation-of-privilege, information-disclosure, tampering
     expression: (target.type == database) and (source within corporate-network)
     exclude: flow.inScope == false
@@ -130,7 +130,7 @@ rules:
 
   - dos-attack
     title: {target.name} Denial-of-Service (DoS) attack possibility
-    severity: High
+    severity: Medium
     categories: denial-of-service
     expression: ((target.type == proxyServer) or (target.type == webServer)) and (source within global-network)
     exclude: flow.inScope == false
