@@ -125,5 +125,14 @@ rules:
     categories: elevation-of-privilege, information-disclosure, tampering
     expression: (target.type == database) and (source within global-network)
     exclude: flow.inScope == false
-    description: In case if {target.name} exposed to the Internet, it can be easily discovered by an attacker and lead to sensitive information disclosure or the whole system compromise
+    description: In case if {target.name} exposed to the Internet, it can be easily discovered by an attacker that usually lead to sensitive information disclosure or the whole system compromise
     remediation: 1. Do not expose {target.name} to the Internet directly if it is possible 2. Consider placing {target.name} in a secure isolated from internet access segment or in a internal private sub-net
+
+  - dos-attack
+    title: {target.name} Denial-of-Service (DoS) attack possibility
+    severity: High
+    categories: denial-of-service
+    expression: ((target.type == proxyServer) or (target.type == webServer)) and (source within global-network)
+    exclude: flow.inScope == false
+    description: A Denial-of-Service (DoS) attack is an attack meant to shut down a machine or network, making it inaccessible to its intended users. DoS attacks accomplish this by flooding the target with traffic, or sending it information that triggers a crash
+    remediation: 1. Create a DoS Response Plan 2. Continuous monitor the Network Traffic 3. Consider usage a specialized solutions like Cloudflare, AWS Shield, etc

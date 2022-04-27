@@ -52,7 +52,6 @@ boundaries:
 		elements:
 			- legitimate-user
 data-flows:
-	- legitimate-user -> database
 	- legitimate-user -> proxy-server
 		title: Users Request
 		authentication-method: openid
