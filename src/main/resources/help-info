@@ -5,8 +5,8 @@ usage: TicTaaC Core [--help]
 
 TicTaaC (Threat-Modeling-as-a-Code in a Tick) solution may be used to identify threats
 related to an application architecture, design and development process.
-Core will automatically generate threats according to the provided data flow diagram
-file described in a special lightweight format.
+Core will automatically generate threats classified by Microsoft STRIDE and OWASP Top 10
+according to the provided data flow diagram file described in a special lightweight format.
 
  -h, --help                                 Print this help message
  --threatModel <file>                       (Mandatory) Data flow diagram file to process.
