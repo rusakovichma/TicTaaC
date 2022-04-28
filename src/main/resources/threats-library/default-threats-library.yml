@@ -2,7 +2,7 @@ name: Default Threats Library
 version: 1.0.0
 
 rules:
-  - information-discosure-in-transit
+  - information-disclosure-in-transit
     title: Information Disclosure and Tampering in Transit for {flow.name}
     severity: Medium
     categories: information-disclosure, tampering
@@ -11,7 +11,7 @@ rules:
     description: In network eavesdropping attacks, hackers look for weak connections between clients and servers. By exploiting these weak connections, hackers intercept data packets traversing the network. Any network, web or email traffic, if not encrypted, can be read by the hacker.
     remediation: Ensure strong TLS is configured for the {flow.name} connection
 
-  - information-discosure-at-rest
+  - information-disclosure-at-rest
     title: Information Disclosure and Tampering at Rest for {target.name}
     severity: High
     categories: information-disclosure, tampering
