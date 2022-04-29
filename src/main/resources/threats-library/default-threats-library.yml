@@ -90,7 +90,7 @@ rules:
     expression: (flow.authorization == admin) or (flow.authorization == readWrite)
     exclude: (flow.inScope == false) or (source.type == proxyServer) or (target.type == proxyServer)
     description: If {source.name} has excessive permissions (admin, root, etc) for {target.name} connection, in case of {source.name} compromise, a potential attacker can gain access to an extra permissions on {target.name}
-    remediation: Ensure least-privilege account (for example, read-only) is used by {target.name} for {source.name} connection with fine-grained access only to the required operations and assets
+    remediation: 1. Ensure least-privilege account (for example, read-only) is used by {target.name} for {source.name} connection with fine-grained access only to the required operations and assets 2. Ensure deny by default principle is followed
 
   - local-account-management
     title: Local account management on {target.name}
@@ -136,3 +136,30 @@ rules:
     exclude: flow.inScope == false
     description: A Denial-of-Service (DoS) attack is an attack meant to shut down a machine or network, making it inaccessible to its intended users. DoS attacks accomplish this by flooding the target with traffic, or sending it information that triggers a crash
     remediation: 1. Create a DoS Response Plan 2. Continuous monitor the Network Traffic 3. Consider usage a specialized solutions like Cloudflare, AWS Shield, etc
+
+  - sql-nosql-injection
+    title: {target.name} (No)SQL Injection
+    severity: High
+    categories: information-disclosure, tampering
+    expression: (target.type == database) and (source.type == webServer)
+    exclude: flow.inScope == false
+    description: Successful SQLi attacks allow attackers to modify database information, access sensitive data, execute admin tasks on the database, and recover files from the system. In some cases attackers can issue commands to the underlying database operating system.
+    remediation: 1. If {source.name} application is developed by you, review that Object Relational Mapping Tools (ORMs) usage best practices are followed, sanitize user-provided input for special chars and use positive server-side input validation 2. In case {source.name} application is provided and maintained by 3rd-party Vendor, request the Vendor for the actual security and audit report that the application is developed according to the industry security best practices
+
+  - ldap-injection
+    title: LDAP Injection
+    severity: High
+    categories: information-disclosure, tampering
+    expression: flow.authenticationMethod == ldap
+    exclude: flow.inScope == false
+    description: Successful LDAP injection attacks could result in the granting of permissions to unauthorized queries, and content modification inside the LDAP tree.
+    remediation: 1. If the application is developed by you, review that you escape all variables using the right LDAP encoding function or use a framework (like LINQtoLDAP) that escapes automatically  2. In case the application is provided and maintained by 3rd-party Vendor, request the Vendor for the actual security and audit report that the application is developed according to the industry security best practices
+
+  - cross-site-scripting
+    title: {target.name} Cross-site scripting
+    severity: High
+    categories: information-disclosure, tampering
+    expression: (target.type == webServer) and (source.type == interactor)
+    exclude: flow.inScope == false
+    description: Cross-site scripting vulnerabilities normally allow an attacker to masquerade as a victim user, to carry out any actions that the user is able to perform, and to access any of the user's data. If the victim user has privileged access within the application, then the attacker might be able to gain full control over all of the application's functionality and data.
+    remediation: 1. If {target.name} application is developed by you, review that you escape all output channels where user-provided input may be reflected 2. In case the application is provided and maintained by 3rd-party Vendor, request the Vendor for the actual security and audit report that the application is developed according to the industry security best practices
