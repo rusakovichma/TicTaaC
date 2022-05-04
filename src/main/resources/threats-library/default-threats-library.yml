@@ -144,7 +144,7 @@ rules:
     expression: (target.type == database) and (source.type == webServer)
     exclude: flow.inScope == false
     description: Successful SQLi attacks allow attackers to modify database information, access sensitive data, execute admin tasks on the database, and recover files from the system. In some cases attackers can issue commands to the underlying database operating system.
-    remediation: 1. If {source.name} application is developed by you, review that Object Relational Mapping Tools (ORMs) usage best practices are followed, sanitize user-provided input for special chars and use positive server-side input validation 2. In case {source.name} application is provided and maintained by 3rd-party Vendor, request the Vendor for the actual security and audit report that the application is developed according to the industry security best practices
+    remediation: 1. If {source.name} application is developed by you, review that Object Relational Mapping Tools (ORMs) usage best practices are followed, sanitize user-provided input for special chars and use positive server-side input validation 2. In case {source.name} application is provided and maintained by 3rd-party Vendor, request the Vendor for the actual security and audit report to be sure that the application is developed according to the industry security best practices
 
   - ldap-injection
     title: LDAP Injection
@@ -153,13 +153,49 @@ rules:
     expression: flow.authenticationMethod == ldap
     exclude: flow.inScope == false
     description: Successful LDAP injection attacks could result in the granting of permissions to unauthorized queries, and content modification inside the LDAP tree.
-    remediation: 1. If the application is developed by you, review that you escape all variables using the right LDAP encoding function or use a framework (like LINQtoLDAP) that escapes automatically  2. In case the application is provided and maintained by 3rd-party Vendor, request the Vendor for the actual security and audit report that the application is developed according to the industry security best practices
+    remediation: 1. If the application is developed by you, review that you escape all variables using the right LDAP encoding function or use a framework (like LINQtoLDAP) that escapes automatically  2. In case the application is provided and maintained by 3rd-party Vendor, request the Vendor for the actual security and audit report to be sure that the application is developed according to the industry security best practices
 
   - cross-site-scripting
     title: {target.name} Cross-site scripting
     severity: High
     categories: information-disclosure, tampering
-    expression: (target.type == webServer) and (source.type == interactor)
+    expression: target.type == webServer
     exclude: flow.inScope == false
     description: Cross-site scripting vulnerabilities normally allow an attacker to masquerade as a victim user, to carry out any actions that the user is able to perform, and to access any of the user's data. If the victim user has privileged access within the application, then the attacker might be able to gain full control over all of the application's functionality and data.
-    remediation: 1. If {target.name} application is developed by you, review that you escape all output channels where user-provided input may be reflected 2. In case the application is provided and maintained by 3rd-party Vendor, request the Vendor for the actual security and audit report that the application is developed according to the industry security best practices
+    remediation: 1. If {target.name} application is developed by you, use a framework santitization mechanism to be sure that you escape all output channels where user-provided input reflection is possible 2. Be sure that mandatory Browser Security Headers like X-XSS-Protection and Content-Security-Policy are set 3. Ensure session cookies have httpOnly flag were it is possible 4. In case the application is provided and maintained by 3rd-party Vendor, request the Vendor for the actual security and audit report to be sure that the application is developed according to the industry security best practices
+
+  - api-abuse
+    title: {target.name} API abuse
+    severity: High
+    categories: spoofing, tampering, repudiation, information-disclosure, denial-of-service, elevation-of-privilege
+    expression: target.type == webServer
+    exclude: flow.inScope == false
+    description: Successful attack on API could result in unauthorized access to app;ocatopm functions and data, information leakage or remote code execution
+    remediation: 1. If the application is developed by you, ensure {target.name} API is followed OWASP API Security TOP 10 recommendations  2. In case the application is provided and maintained by 3rd-party Vendor, request the Vendor for the actual security and audit report to be sure that the application is developed according to the industry security best practices
+
+  - supply-chain-attack
+    title: Supply chain attack on {target.name}
+    severity: High
+    categories: spoofing, tampering, repudiation, information-disclosure, denial-of-service, elevation-of-privilege
+    expression: (target.type == externalService) or (target.type == internalService)
+    exclude: flow.inScope == false
+    description: Supply chain attacks are designed to exploit trust relationships between an organization and external parties. These relationships could include partnerships, vendor relationships, or the use of third-party software. Cyber threat actors will compromise one organization and then move up the supply chain, taking advantage of these trusted relationships to gain access to other organizations environments.
+    remediation: 1. Request {target.name} Vendor for the actual security and audit report to be sure that the service is developed according to the industry security best practices
+
+  - logging-file-sensitive-information-leakage
+    title: {target.name} logging file sensitive information leakage
+    severity: Medium
+    categories: information-disclosure
+    expression: (target.type == webServer) or (target.type == process)
+    exclude: flow.inScope == false
+    description: Logging files is a potential place for information leakage - they are often shared between different teams and, in case of sensitive information logging (credentials, tokens, PII, etc.), it can be used by Threat Actor
+    remediation: 1. If {target.name} application is developed by you, ensure {target.name} logging file contains no sensitive information logged (users credentials, tokens, cookies, PII, etc.) 2. In case the application is provided and maintained by 3rd-party Vendor, request the Vendor for the actual security and audit report to be sure that the application is developed according to the industry security best practices
+
+  - configuration-file-secrets-leakage
+    title: {target.name} configuration file secrets leakage
+    severity: Medium
+    categories: information-disclosure
+    expression: (target.type == webServer) or (target.type == process)
+    exclude: flow.inScope == false
+    description: Configuration files is a potential place for information leakage - they are often shared between different teams and, in case the file contains any passwords or secrets to database, services, private keys, etc these secrets will be compromised
+    remediation: 1. If {target.name} application is developed by you, consider storage of {target.name} secrets in a Secret Management System or Vault 2. In case the application is provided and maintained by 3rd-party Vendor, request the Vendor for the actual security and audit report to be sure that the application is developed according to the industry security best practices
