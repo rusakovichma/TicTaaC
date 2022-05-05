@@ -198,4 +198,13 @@ rules:
     expression: (target.type == webServer) or (target.type == process)
     exclude: flow.inScope == false
     description: Configuration files is a potential place for information leakage - they are often shared between different teams and, in case the file contains any passwords or secrets to database, services, private keys, etc these secrets will be compromised
-    remediation: 1. If {target.name} application is developed by you, consider storage of {target.name} secrets in a Secret Management System or Vault 2. In case the application is provided and maintained by 3rd-party Vendor, request the Vendor for the actual security and audit report to be sure that the application is developed according to the industry security best practices
+    remediation: 1. If {target.name} application is developed by you, consider storage of {target.name} secrets in a Secret Management System or Secrets Vault 2. In case the application is provided and maintained by 3rd-party Vendor, request the Vendor for the actual security and audit report to be sure that the application is developed according to the industry security best practices
+
+  - process-compromise
+    title: {target.name} compromise
+    severity: Medium
+    categories: elevation-of-privilege
+    expression: target.type == process
+    exclude: flow.inScope == false
+    description: In case if {target.name} runs under root or admin service account and it will be compromised, it may allow an attacker to gain access to any operation or asset with administrative permissions
+    remediation: 1. Consider running {target.name} under dedicated service account with limited permissions
