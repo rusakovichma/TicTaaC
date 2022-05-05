@@ -38,6 +38,9 @@ public class MitigationsLibrary {
     @RootCollection
     private LinkedList<ThreatRef> transferred;
 
+    @RootCollection
+    private LinkedList<ThreatRef> notApplicable;
+
     public LinkedList<ThreatRef> getMitigated() {
         return mitigated;
     }
@@ -68,5 +71,13 @@ public class MitigationsLibrary {
 
     public void setTransferred(LinkedList<ThreatRef> transferred) {
         this.transferred = transferred;
+    }
+
+    public LinkedList<ThreatRef> getNotApplicable() {
+        return notApplicable;
+    }
+
+    public void setNotApplicable(LinkedList<ThreatRef> notApplicable) {
+        this.notApplicable = notApplicable;
     }
 }

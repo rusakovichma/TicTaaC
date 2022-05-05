@@ -19,5 +19,7 @@ class StandardMitigationProviderTest {
         assertTrue(library.getAvoided().size() == 2);
 
         assertTrue(library.getMitigated().get(0).getComment().equals("already mitigated"));
+
+        assertTrue(library.getNotApplicable().size() == 1);
     }
 }

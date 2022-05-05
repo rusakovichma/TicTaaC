@@ -58,5 +58,9 @@ public class StandardMitigator implements Mitigator {
         if (mitigationsLibrary.getTransferred() != null) {
             setStrategy(threats, mitigationsLibrary.getTransferred(), MitigationStatus.Transferred);
         }
+
+        if (mitigationsLibrary.getNotApplicable() != null) {
+            setStrategy(threats, mitigationsLibrary.getNotApplicable(), MitigationStatus.NotApplicable);
+        }
     }
 }

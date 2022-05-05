@@ -22,6 +22,7 @@ public enum MitigationStatus {
     Accepted("Accepted"),
     Transferred("Transferred"),
     Avoided("Avoided"),
+    NotApplicable("Not Applicable"),
     NotMitigated("Not Mitigated");
 
     private final String description;
