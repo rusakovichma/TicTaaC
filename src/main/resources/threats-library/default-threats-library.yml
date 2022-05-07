@@ -208,3 +208,21 @@ rules:
     exclude: flow.inScope == false
     description: In case if {target.name} runs under root or admin service account and it will be compromised, it may allow an attacker to gain access to any operation or asset with administrative permissions
     remediation: 1. Consider running {target.name} under dedicated service account with limited permissions
+
+  - security-misconfiguration
+    title: {target.name} Security misconfiguration
+    severity: High
+    categories: spoofing, tampering, repudiation, information-disclosure, denial-of-service, elevation-of-privilege
+    expression: (target.type == webServer) or (target.type == proxyServer) or (target.type == database)
+    exclude: flow.inScope == false
+    description: In case if {target.name} unproperly configured (for example, unused vulnerable feature is enabled or unnecessary port is opened), it can be used by an attacker to gain access to the organization's data or secrets
+    remediation: 1. Consider hardening {target.name} according to the internationally recognized security standards (for example, follow CIS Benchmark guideline for your database or webserver)
+
+  - insecure-implementation
+    title: {target.name} Insecure implementation
+    severity: High
+    categories: spoofing, tampering, repudiation, information-disclosure, denial-of-service, elevation-of-privilege
+    expression: target.type == webServer
+    exclude: flow.inScope == false
+    description: Mistakes or security coding standards non-compliance during {target.name} development process (for example, weak encryption or hashing alghorithms is used) may lead to the application's data or secrets compromise
+    remediation: 1. If {target.name} application is developed by you, consider following recognized guidelines or coding practices (for example, OWASP Secure Coding Practices guide) and regular application scan by Static Application Security Testing (SAST) tool  2. In case the application is provided and maintained by 3rd-party Vendor, request the Vendor for the actual security and audit report to be sure that the application is developed according to the industry security best practices
