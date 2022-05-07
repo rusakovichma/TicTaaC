@@ -222,7 +222,7 @@ rules:
     title: {target.name} Insecure implementation
     severity: High
     categories: spoofing, tampering, repudiation, information-disclosure, denial-of-service, elevation-of-privilege
-    expression: target.type == webServer
+    expression: (target.type == webServer) or (target.type == process)
     exclude: flow.inScope == false
     description: Mistakes or security coding standards non-compliance during {target.name} development process (for example, weak encryption or hashing alghorithms is used) may lead to the application's data or secrets compromise
     remediation: 1. If {target.name} application is developed by you, consider following recognized guidelines or coding practices (for example, OWASP Secure Coding Practices guide) and regular application scan by Static Application Security Testing (SAST) tool  2. In case the application is provided and maintained by 3rd-party Vendor, request the Vendor for the actual security and audit report to be sure that the application is developed according to the industry security best practices
@@ -231,7 +231,7 @@ rules:
     title: {target.name} Vulnerable or Outdated components or libraries
     severity: High
     categories: spoofing, tampering, repudiation, information-disclosure, denial-of-service, elevation-of-privilege
-    expression: target.type == webServer
+    expression: (target.type == webServer) or (target.type == process)
     exclude: flow.inScope == false
     description: Open source components or libraries used by {target.name} application tends to have vulnerabilities that might impact your data and organization. These are weak or vulnerable code that allows attackers to conduct malicious attacks or perform unintended actions that are not authorized
     remediation: 1. If {target.name} application is developed by you, consider usage only trusted external open source libraries during development process and regular scan with Software Composition Analysis (SCA) tool 2. In case the application is provided and maintained by 3rd-party Vendor, request the Vendor for the actual security and audit report to be sure that the application is developed according to the industry security best practices
