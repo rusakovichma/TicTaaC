@@ -28,6 +28,7 @@ public class ThreatRule {
     private String title;
     private ThreatSeverity severity;
     private EnumSet<ThreatCategory> categories;
+    private EnumSet<OwaspCategory> owasp;
     private String expression;
     private String exclude;
     private String description;
@@ -59,6 +60,14 @@ public class ThreatRule {
 
     public EnumSet<ThreatCategory> getCategories() {
         return categories;
+    }
+
+    public EnumSet<OwaspCategory> getOwasp() {
+        return owasp;
+    }
+
+    public void setOwasp(EnumSet<OwaspCategory> owasp) {
+        this.owasp = owasp;
     }
 
     public void setCategories(EnumSet<ThreatCategory> categories) {

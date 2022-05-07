@@ -2,7 +2,7 @@
     <td>&nbsp;%s&nbsp;</td>
 	<td><b>%s</b></td>
 	<td>Risk:&nbsp;<b>%s</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br><br>Attack Vector:&nbsp;<b>%s</b></td>
-	<td>%s</td>
+	<td>STRIDE:&nbsp;%s<br><br>OWASP:&nbsp;<b>%s</b></td>
 	<td>%s</td>
 	<td>%s</td>
 	<td>&nbsp;<b>%s</b>&nbsp;</td>

@@ -17,6 +17,7 @@
  */
 package com.github.rusakovichma.tictaac.reporter;
 
+import com.github.rusakovichma.tictaac.model.OwaspCategory;
 import com.github.rusakovichma.tictaac.model.Threat;
 import com.github.rusakovichma.tictaac.model.ThreatCategory;
 import com.github.rusakovichma.tictaac.util.ResourceUtil;
@@ -75,6 +76,25 @@ public class StreamThreatsReporter implements ThreatsReporter {
         return categoriesBuilder.toString();
     }
 
+    private String getOwaspTop10Categories(Threat threat) {
+        StringBuilder categoriesBuilder = new StringBuilder();
+
+        if (threat.getOwasp() != null) {
+            for (OwaspCategory category : threat.getOwasp()) {
+                categoriesBuilder.append(category.getDescription())
+                        .append(", ");
+            }
+        }
+
+        if (categoriesBuilder.length() == 0) {
+            categoriesBuilder.append(OwaspCategory.undefined.getDescription());
+        } else {
+            categoriesBuilder.delete(categoriesBuilder.length() - 2, categoriesBuilder.length());
+        }
+
+        return categoriesBuilder.toString();
+    }
+
     private void writeModel(ReportHeader header, Collection<Threat> threats)
             throws IOException {
         outputStream.write(
@@ -93,6 +113,7 @@ public class StreamThreatsReporter implements ThreatsReporter {
                             threat.getRisk().name(),
                             threat.getAttackVector().getDescription(),
                             getCategories(threat),
+                            getOwaspTop10Categories(threat),
                             threat.getDescription(),
                             threat.getRemediation(),
                             threat.getMitigationStatus().getDescription()

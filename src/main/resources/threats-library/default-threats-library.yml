@@ -6,6 +6,7 @@ rules:
     title: Information Disclosure and Tampering in Transit for {flow.name}
     severity: Medium
     categories: information-disclosure, tampering
+    owasp: cryptographic-failures
     expression: (flow.encryption == no) or (flow.encryption == undefined)
     exclude: flow.inScope == false
     description: In network eavesdropping attacks, hackers look for weak connections between clients and servers. By exploiting these weak connections, hackers intercept data packets traversing the network. Any network, web or email traffic, if not encrypted, can be read by the hacker.
@@ -15,6 +16,7 @@ rules:
     title: Information Disclosure and Tampering at Rest for {target.name}
     severity: High
     categories: information-disclosure, tampering
+    owasp: cryptographic-failures
     expression: (target.type == database) and ((target.storedAssets contain sensitive) or (target.storedAssets contain undefined))
     exclude: flow.inScope == false
     description: In case if an attacker can access lost, stolen, or inappropriately decommissioned hardware, or copy the entire filesystem from the server and run it on its own hardware, as a result the sensitive assets stored in {target.name} will be compromised
@@ -24,6 +26,7 @@ rules:
     title: {target.name} broad development team access
     severity: Medium
     categories: information-disclosure, tampering
+    owasp: broken-access-control
     expression: target.type == database
     exclude: flow.inScope == false
     description: In case if broad product development team has unrestricted access to the production environment, the chances of sensitive information disclosure or the whole system compromise are increasing
@@ -33,6 +36,7 @@ rules:
     title: Anonymous access to {target.name}
     severity: High
     categories: spoofing, information-disclosure
+    owasp: broken-access-control
     expression: (flow.authenticationMethod == anonymous) or (flow.authenticationMethod == undefined)
     exclude: flow.inScope == false
     description: In case of if anonymous access to {target.name} is enabled, a potential attacker can gather additional information about the target using this public-available source
@@ -42,6 +46,7 @@ rules:
     title: Weak authentication method for {target.name} access
     severity: High
     categories: spoofing
+    owasp: identification-and-authentication-failures
     expression: flow.authenticationMethod == undefined
     exclude: flow.inScope == false
     description: In case of of weak authentication for {target.name} connection, a potential attacker can easily spoof another users identity or gain access to any accounts credentials
@@ -51,6 +56,7 @@ rules:
     title: NTLM protocol usage for {target.name} access
     severity: Medium
     categories: spoofing
+    owasp: identification-and-authentication-failures
     expression: flow.authenticationMethod == ntlm
     exclude: flow.inScope == false
     description: The challenge with having NTLM in your network is that it is easily exploitable and puts an organization at risk for a breach
@@ -60,6 +66,7 @@ rules:
     title: {target.name} credentials brute-force
     severity: High
     categories: spoofing
+    owasp: identification-and-authentication-failures
     expression: (flow.authenticationMethod == credentials) or (flow.authenticationMethod == basic)
     exclude: (flow.inScope == false) or (target.type == database)
     description: In case of of basic or simple password authentication on {target.name} side, a potential attacker can brute-force weak credentials and hijack any account
@@ -69,6 +76,7 @@ rules:
     title: {target.name} default account disabling
     severity: High
     categories: spoofing, elevation-of-privilege
+    owasp: security-misconfiguration
     expression: target.type == database
     exclude: flow.inScope == false
     description: A default account for {target.name} (for example, admin, root, sa, postgre, etc) may be used by an attacker to gain access to the information and assets stored in the storage
@@ -78,6 +86,7 @@ rules:
     title: {target.name} administrative access hijacking
     severity: High
     categories: spoofing, elevation-of-privilege
+    owasp: broken-access-control, identification-and-authentication-failures
     expression: flow.authorization == admin
     exclude: flow.inScope == false
     description: In case if potential attacker can hijack administrative account to {target.name} or compromise it, he will gain an unlimited access to {target.name} data and functional assets
@@ -87,6 +96,7 @@ rules:
     title: {target.name} access with excessive permissions
     severity: Medium
     categories: elevation-of-privilege
+    owasp: broken-access-control
     expression: (flow.authorization == admin) or (flow.authorization == readWrite)
     exclude: (flow.inScope == false) or (source.type == proxyServer) or (target.type == proxyServer)
     description: If {source.name} has excessive permissions (admin, root, etc) for {target.name} connection, in case of {source.name} compromise, a potential attacker can gain access to an extra permissions on {target.name}
@@ -96,6 +106,7 @@ rules:
     title: Local account management on {target.name}
     severity: Medium
     categories: spoofing, elevation-of-privilege
+    owasp: identification-and-authentication-failures
     expression: (flow.accountManagement == localAccount) or (flow.accountManagement == undefined)
     exclude: (flow.inScope == false) or (source within demilitarized-zone) or (source within closed-perimeter)
     description: In case of inappropriate account management on {target.name} side (for example, if account credentials are stored at {target.name} configuration file), it can lead to weak password complexity or rotation issues, that can be used by an attacker to brute force the credentials or for accounts enumeration
@@ -105,6 +116,7 @@ rules:
     title: {target.name} in DMZ
     severity: High
     categories: elevation-of-privilege, information-disclosure, tampering
+    owasp: insecure-design
     expression: (target.type == database) and (target within demilitarized-zone)
     exclude: flow.inScope == false
     description: In case the storage with sensitive information is located in a DMZ, it can be easily discovered and attacked by an internal as well as an external threat agent
@@ -114,6 +126,7 @@ rules:
     title: Broad {target.name} access from the Company network
     severity: Medium
     categories: elevation-of-privilege, information-disclosure, tampering
+    owasp: insecure-design
     expression: (target.type == database) and (source within corporate-network)
     exclude: flow.inScope == false
     description: In case if there are no restrictions for {target.name} connection from the whole Company internal network, the chances of sensitive information disclosure in {target.name} or the whole system compromise are increasing due to insider or rogue employee threat
@@ -123,6 +136,7 @@ rules:
     title: {target.name} exposed to the Internet
     severity: High
     categories: elevation-of-privilege, information-disclosure, tampering
+    owasp: insecure-design
     expression: (target.type == database) and (source within global-network)
     exclude: flow.inScope == false
     description: In case if {target.name} exposed to the Internet, it can be easily discovered by an attacker that usually lead to sensitive information disclosure or the whole system compromise
@@ -132,6 +146,7 @@ rules:
     title: {target.name} Denial-of-Service (DoS) attack possibility
     severity: Medium
     categories: denial-of-service
+    owasp: insecure-design
     expression: ((target.type == proxyServer) or (target.type == webServer)) and (source within global-network)
     exclude: flow.inScope == false
     description: A Denial-of-Service (DoS) attack is an attack meant to shut down a machine or network, making it inaccessible to its intended users. DoS attacks accomplish this by flooding the target with traffic, or sending it information that triggers a crash
@@ -141,6 +156,7 @@ rules:
     title: {target.name} (No)SQL Injection
     severity: High
     categories: information-disclosure, tampering
+    owasp: injection
     expression: (target.type == database) and (source.type == webServer)
     exclude: flow.inScope == false
     description: Successful SQLi attacks allow attackers to modify database information, access sensitive data, execute admin tasks on the database, and recover files from the system. In some cases attackers can issue commands to the underlying database operating system.
@@ -150,6 +166,7 @@ rules:
     title: LDAP Injection
     severity: High
     categories: information-disclosure, tampering
+    owasp: injection
     expression: flow.authenticationMethod == ldap
     exclude: flow.inScope == false
     description: Successful LDAP injection attacks could result in the granting of permissions to unauthorized queries, and content modification inside the LDAP tree.
@@ -159,6 +176,7 @@ rules:
     title: {target.name} Cross-site scripting
     severity: High
     categories: information-disclosure, tampering
+    owasp: injection
     expression: target.type == webServer
     exclude: flow.inScope == false
     description: Cross-site scripting vulnerabilities normally allow an attacker to masquerade as a victim user, to carry out any actions that the user is able to perform, and to access any of the user's data. If the victim user has privileged access within the application, then the attacker might be able to gain full control over all of the application's functionality and data.
@@ -168,6 +186,7 @@ rules:
     title: {target.name} API abuse
     severity: High
     categories: spoofing, tampering, repudiation, information-disclosure, denial-of-service, elevation-of-privilege
+    owasp: insecure-design, broken-access-control
     expression: target.type == webServer
     exclude: flow.inScope == false
     description: Successful attack on API could result in unauthorized access to app;ocatopm functions and data, information leakage or remote code execution
@@ -177,6 +196,7 @@ rules:
     title: Supply chain attack on {target.name}
     severity: High
     categories: spoofing, tampering, repudiation, information-disclosure, denial-of-service, elevation-of-privilege
+    owasp: software-and-data-integrity-failures
     expression: (target.type == externalService) or (target.type == internalService)
     exclude: flow.inScope == false
     description: Supply chain attacks are designed to exploit trust relationships between an organization and external parties. These relationships could include partnerships, vendor relationships, or the use of third-party software. Cyber threat actors will compromise one organization and then move up the supply chain, taking advantage of these trusted relationships to gain access to other organizations environments.
@@ -186,6 +206,7 @@ rules:
     title: {target.name} logging file sensitive information leakage
     severity: Medium
     categories: information-disclosure
+    owasp: security-logging-and-monitoring-failures
     expression: (target.type == webServer) or (target.type == process)
     exclude: flow.inScope == false
     description: Logging files is a potential place for information leakage - they are often shared between different teams and, in case of sensitive information logging (credentials, tokens, PII, etc.), it can be used by Threat Actor
@@ -195,6 +216,7 @@ rules:
     title: {target.name} configuration file secrets leakage
     severity: Medium
     categories: information-disclosure
+    owasp: security-misconfiguration
     expression: (target.type == webServer) or (target.type == process)
     exclude: flow.inScope == false
     description: Configuration files is a potential place for information leakage - they are often shared between different teams and, in case the file contains any passwords or secrets to database, services, private keys, etc these secrets will be compromised
@@ -204,6 +226,7 @@ rules:
     title: {target.name} compromise
     severity: Medium
     categories: elevation-of-privilege
+    owasp: security-misconfiguration
     expression: target.type == process
     exclude: flow.inScope == false
     description: In case if {target.name} runs under root or admin service account and it will be compromised, it may allow an attacker to gain access to any operation or asset with administrative permissions
@@ -213,6 +236,7 @@ rules:
     title: {target.name} Security misconfiguration
     severity: High
     categories: spoofing, tampering, repudiation, information-disclosure, denial-of-service, elevation-of-privilege
+    owasp: security-misconfiguration
     expression: (target.type == webServer) or (target.type == proxyServer) or (target.type == database)
     exclude: flow.inScope == false
     description: In case if {target.name} unproperly configured (for example, unused vulnerable feature is enabled or unnecessary port is opened), it can be used by an attacker to gain access to the organization's data or secrets
@@ -222,6 +246,7 @@ rules:
     title: {target.name} Insecure implementation
     severity: High
     categories: spoofing, tampering, repudiation, information-disclosure, denial-of-service, elevation-of-privilege
+    owasp: insecure-design
     expression: (target.type == webServer) or (target.type == process)
     exclude: flow.inScope == false
     description: Mistakes or security coding standards non-compliance during {target.name} development process (for example, weak encryption or hashing alghorithms is used) may lead to the application's data or secrets compromise
@@ -231,6 +256,7 @@ rules:
     title: {target.name} Vulnerable or Outdated components or libraries
     severity: High
     categories: spoofing, tampering, repudiation, information-disclosure, denial-of-service, elevation-of-privilege
+    owasp: vulnerable-and-outdated-components, software-and-data-integrity-failures
     expression: (target.type == webServer) or (target.type == process)
     exclude: flow.inScope == false
     description: Open source components or libraries used by {target.name} application tends to have vulnerabilities that might impact your data and organization. These are weak or vulnerable code that allows attackers to conduct malicious attacks or perform unintended actions that are not authorized
@@ -240,6 +266,7 @@ rules:
     title: {target.name} Audit logging and Monitoring Failures
     severity: Medium
     categories: repudiation
+    owasp: security-logging-and-monitoring-failures
     expression: (source.type == externalService) or (source.type == internalService) or (source.type == interactor)
     exclude: flow.inScope == false
     description: Without audit logging and monitoring, attacks and breaches cannot be detected, furthermore it is impossible to perform the forensic if the risk will be realized
@@ -249,6 +276,7 @@ rules:
     title: {target.name} Server-Side Request Forgery
     severity: Medium
     categories: spoofing, information-disclosure, elevation-of-privilege
+    owasp: server-side-request-forgery
     expression: target.type == webServer
     exclude: flow.inScope == false
     description: In a typical SSRF attack, the attacker might cause the server to make a connection to internal-only services within the organization's infrastructure. In other cases, they may be able to force the server to connect to arbitrary external systems, potentially leaking sensitive data such as authorization credentials. The severity of SSRF is becoming higher due to cloud services and the complexity of architectures.

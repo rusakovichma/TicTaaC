@@ -57,6 +57,7 @@ public class ThreatRuleMapper implements ModelMapper<Threat> {
 
         threat.setTitle(solvePlaceholders(rule.getTitle()));
         threat.setCategories(rule.getCategories());
+        threat.setOwasp(rule.getOwasp());
         threat.setDataFlow(flow);
         threat.setDescription(solvePlaceholders(rule.getDescription()));
         threat.setRemediation(solvePlaceholders(rule.getRemediation()));

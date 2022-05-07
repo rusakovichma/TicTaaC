@@ -4,6 +4,7 @@
             "risk": "%s",
             "attack-vector": "%s",
             "categories": "%s",
+            "owasp-categories": "%s",
             "description": "%s",
             "remediation": "%s",
             "status": "%s"

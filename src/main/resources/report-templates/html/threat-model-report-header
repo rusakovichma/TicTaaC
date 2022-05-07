@@ -17,8 +17,15 @@
 <p><strong>Results of this threat modeling exercise are prioritized by risk level list of identified threats and list of proposed mitigations for those threats.</strong></p>
 <p>&nbsp;</p>
 <h2>Threats List</h2>
-<p><em>Microsoft STRIDE Methodology is used to identify threats relevant to the application. STRIDE was developed to educate developers on how to think about computer security threats.&nbsp;</em></p>
-<p><strong>For a detailed description of STRIDE threats please visit&nbsp;<a class="createlink" href="https://en.wikipedia.org/wiki/STRIDE_(security)">Microsoft STRIDE</a>&nbsp;page.</strong></p>
+<p>The following methodologies are used for threats classification during the assessment:</p>
+<ul>
+<li><p><em><b>Microsoft STRIDE</b> Methodology is used to identify threats relevant to the application. STRIDE was developed to educate developers on how to think about computer security threats.&nbsp;</em>
+<strong>For a detailed description of STRIDE threats please visit&nbsp;<a class="createlink" href="https://www.microsoft.com/security/blog/2007/09/11/stride-chart/">Microsoft STRIDE</a>&nbsp;page.</strong></p>
+</li>
+<li><p><em>The <b>OWASP Top 10</b> is a standard awareness methodology for developers and web application security. It represents a broad consensus about the most critical security risks to web applications.&nbsp;</em>
+<strong>For the addition information please see&nbsp;<a class="createlink" href="https://owasp.org/www-project-top-ten/">OWASP Top Ten</a>.&nbsp;</strong></p>
+</li>
+</ul>
 <table>
 <thead>
   <tr>

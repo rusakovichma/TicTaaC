@@ -31,6 +31,7 @@ public class Threat {
     private String title;
     private ThreatRisk risk = ThreatRisk.Undefined;
     private EnumSet<ThreatCategory> categories;
+    private EnumSet<OwaspCategory> owasp;
     private MitigationStatus mitigationStatus = MitigationStatus.NotMitigated;
     private String description;
     private String remediation;
@@ -113,6 +114,14 @@ public class Threat {
 
     public void setAttackVector(BoundaryCategory attackVector) {
         this.attackVector = attackVector;
+    }
+
+    public EnumSet<OwaspCategory> getOwasp() {
+        return owasp;
+    }
+
+    public void setOwasp(EnumSet<OwaspCategory> owasp) {
+        this.owasp = owasp;
     }
 
     public String calculateHash() {
