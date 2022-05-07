@@ -1,9 +1,9 @@
 <tr>
     <td>&nbsp;%s&nbsp;</td>
+	<td><b>%s</b></td>
+	<td>Risk:&nbsp;<b>%s</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br><br>Attack Vector:&nbsp;<b>%s</b></td>
 	<td>%s</td>
-	<td>&nbsp;&nbsp;&nbsp;%s&nbsp;&nbsp;&nbsp;<br>Attack Vector:&nbsp;%s</td>
 	<td>%s</td>
 	<td>%s</td>
-	<td>%s</td>
-	<td>&nbsp;%s&nbsp;</td>
+	<td>&nbsp;<b>%s</b>&nbsp;</td>
 </tr>

@@ -24,7 +24,7 @@
   <tr>
     <th>Threat ID</th>
     <th>Title</th>
-    <th>Risk</th>
+    <th>Risk Score</th>
     <th>Threat Categories</th>
     <th>Description</th>
     <th>Remediation</th>
