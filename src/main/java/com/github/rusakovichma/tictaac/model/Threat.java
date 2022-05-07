@@ -36,7 +36,7 @@ public class Threat {
     private String remediation;
 
     private DataFlow dataFlow;
-    private BoundaryCategory attackVector;
+    private BoundaryCategory attackVector = BoundaryCategory.undefined;
     private String hashCached;
 
     public String getId() {

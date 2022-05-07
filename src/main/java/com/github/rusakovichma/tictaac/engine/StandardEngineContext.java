@@ -135,7 +135,9 @@ class StandardEngineContext implements EngineContext {
                                         threatOne.getRiskPriority() > threatAnother.getRiskPriority()
                                                 ? threatOne : threatAnother),
                                 Optional::get)))
-                .values();
+                .values().stream()
+                .sorted(Comparator.comparingInt(Threat::getRiskPriority).reversed())
+                .collect(Collectors.toList());
     }
 }
 
