@@ -235,3 +235,21 @@ rules:
     exclude: flow.inScope == false
     description: Open source components or libraries used by {target.name} application tends to have vulnerabilities that might impact your data and organization. These are weak or vulnerable code that allows attackers to conduct malicious attacks or perform unintended actions that are not authorized
     remediation: 1. If {target.name} application is developed by you, consider usage only trusted external open source libraries during development process and regular scan with Software Composition Analysis (SCA) tool 2. In case the application is provided and maintained by 3rd-party Vendor, request the Vendor for the actual security and audit report to be sure that the application is developed according to the industry security best practices
+
+  - audit-logging-and-monitoring-failures
+    title: {target.name} Audit logging and Monitoring Failures
+    severity: Medium
+    categories: repudiation
+    expression: (source.type == externalService) or (source.type == internalService) or (source.type == interactor)
+    exclude: flow.inScope == false
+    description: Without audit logging and monitoring, attacks and breaches cannot be detected, furthermore it is impossible to perform the forensic if the risk will be realized
+    remediation: 1. Ensure {target.name} performs audit logging of {source.name} actions in a seprate file and ships it to Security information and event management (SIEM) system 2. Ensure important auditable events, such as logins, failed logins, and high-value transactions, are logged 3. Ensure audit logs are protected properly with authorization and integrity checks
+
+  - server-side-request-forgery
+    title: {target.name} Server-Side Request Forgery
+    severity: Medium
+    categories: spoofing, information-disclosure, elevation-of-privilege
+    expression: target.type == webServer
+    exclude: flow.inScope == false
+    description: In a typical SSRF attack, the attacker might cause the server to make a connection to internal-only services within the organization's infrastructure. In other cases, they may be able to force the server to connect to arbitrary external systems, potentially leaking sensitive data such as authorization credentials. The severity of SSRF is becoming higher due to cloud services and the complexity of architectures.
+    remediation: 1. If {target.name} application is developed by you, that the application sanitize and validate all client-supplied input data, enforces the URL schema, port, and destination with a positive allow list and doesn't send raw responses to clients  2. In case the application is provided and maintained by 3rd-party Vendor, request the Vendor for the actual security and audit report to be sure that the application is developed according to the industry security best practices
