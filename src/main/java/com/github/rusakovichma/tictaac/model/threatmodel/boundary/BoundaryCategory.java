@@ -18,20 +18,26 @@
 package com.github.rusakovichma.tictaac.model.threatmodel.boundary;
 
 public enum BoundaryCategory {
-    globalNetwork(3),
-    demilitarizedZone(2),
-    corporateNetwork(1),
-    closedPerimeter(0),
-    undefined(-1);
+    globalNetwork(3, "External Network"),
+    demilitarizedZone(2, "DMZ"),
+    corporateNetwork(1, "Internal Network"),
+    closedPerimeter(0, "Local"),
+    undefined(-1, "Undefined");
 
     private final int order;
+    private final String description;
 
-    BoundaryCategory(int order) {
+    BoundaryCategory(int order, String description) {
         this.order = order;
+        this.description = description;
     }
 
     public int getOrder() {
         return order;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     @Override

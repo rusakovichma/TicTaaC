@@ -19,6 +19,7 @@ package com.github.rusakovichma.tictaac.model;
 
 import com.github.rusakovichma.tictaac.model.mitigation.MitigationStatus;
 import com.github.rusakovichma.tictaac.model.threatmodel.DataFlow;
+import com.github.rusakovichma.tictaac.model.threatmodel.boundary.BoundaryCategory;
 import com.github.rusakovichma.tictaac.util.StringUtils;
 
 import java.util.EnumSet;
@@ -35,7 +36,7 @@ public class Threat {
     private String remediation;
 
     private DataFlow dataFlow;
-
+    private BoundaryCategory attackVector;
     private String hashCached;
 
     public String getId() {
@@ -104,6 +105,14 @@ public class Threat {
 
     public void setMitigationStatus(MitigationStatus mitigationStatus) {
         this.mitigationStatus = mitigationStatus;
+    }
+
+    public BoundaryCategory getAttackVector() {
+        return attackVector;
+    }
+
+    public void setAttackVector(BoundaryCategory attackVector) {
+        this.attackVector = attackVector;
     }
 
     public String calculateHash() {

@@ -29,6 +29,8 @@ import java.util.Date;
 
 public class StreamThreatsReporter implements ThreatsReporter {
 
+    private static final String TEMPLATE_DIR = "/report-templates";
+
     private final OutputStream outputStream;
     private final ReportFormat reportFormat;
 
@@ -39,13 +41,13 @@ public class StreamThreatsReporter implements ThreatsReporter {
 
     private final void init(ReportFormat format) {
         this.headerTemplate = ResourceUtil.readResource(
-                String.format("/report-templates/%s/threat-model-report-header", format.name()));
+                String.format(TEMPLATE_DIR + "/%s/threat-model-report-header", format.name()));
         this.entryTemplate = ResourceUtil.readResource(
-                String.format("/report-templates/%s/threat-model-report-entry", format.name()));
+                String.format(TEMPLATE_DIR + "/%s/threat-model-report-entry", format.name()));
         this.entrySeparator = ResourceUtil.readResource(
-                String.format("/report-templates/%s/threat-model-report-entry-separator", format.name()));
+                String.format(TEMPLATE_DIR + "/%s/threat-model-report-entry-separator", format.name()));
         this.footerTemplate = ResourceUtil.readResource(
-                String.format("/report-templates/%s/threat-model-report-footer", format.name()));
+                String.format(TEMPLATE_DIR + "/%s/threat-model-report-footer", format.name()));
     }
 
     public StreamThreatsReporter(OutputStream outputStream, ReportFormat reportFormat) {
@@ -89,6 +91,7 @@ public class StreamThreatsReporter implements ThreatsReporter {
                             threat.getId(),
                             threat.getTitle(),
                             threat.getRisk().name(),
+                            threat.getAttackVector().getDescription(),
                             getCategories(threat),
                             threat.getDescription(),
                             threat.getRemediation(),

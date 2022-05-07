@@ -72,6 +72,8 @@ class StandardEngineContext implements EngineContext {
 
     private void setThreatRisk(Threat threat, ThreatRule rule) {
         BoundaryCategory attackVector = getAttackVector(threat.getDataFlow());
+        threat.setAttackVector(attackVector);
+
         ThreatSeverity baseImpact = rule.getSeverity();
 
         threat.setRisk(riskStrategy.calc(baseImpact, attackVector));

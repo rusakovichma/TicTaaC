@@ -1,7 +1,7 @@
 <tr>
     <td>&nbsp;%s&nbsp;</td>
 	<td>%s</td>
-	<td>&nbsp;&nbsp;&nbsp;%s&nbsp;&nbsp;&nbsp;</td>
+	<td>&nbsp;&nbsp;&nbsp;%s&nbsp;&nbsp;&nbsp;<br>Attack Vector:&nbsp;%s</td>
 	<td>%s</td>
 	<td>%s</td>
 	<td>%s</td>
