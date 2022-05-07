@@ -26,6 +26,7 @@ public class InteractorGuesser extends ElementGuesser {
 
     private final static List<String> SIGNS = Arrays.asList(new String[]{
             "user", "human", "employee", "actor", "attacker",
+            "mobile", "android", "ios", "phone",
             "threat-agent", "threatagent", "browser", "hacker"});
 
     @Override
