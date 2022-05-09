@@ -2,15 +2,15 @@ name: Simplest Data Flow for Threat Modeling
 version: 1.0.0
 assets: #We know nothing about application's data
 elements: #Here we describe the main elements of the data flow
-  - user-browser #Application User
-  - application-web-server #Web application server
+  - user-browser #Application's User
+  - application-web-server #Web application's server
   - database #Application's Database
-boundaries: #Here we define data flow diagram boundaries and context
+boundaries: #Here we define the data flow diagram boundaries and the context
   - internet #Users connect to the application from the Internet
     elements:
       - user-browser # Reference to the user element
   - amazon-vpc #Our application in Amazon VPC, for example
-    elements: #Application's components references, in VPC we have...
+    elements: #Application's components references. In VPC we have...
       - application-web-server #Web-server element ...
       - database # ... and the database
 data-flows: #Section for the flows between the elements
