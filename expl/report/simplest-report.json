@@ -1,0 +1,216 @@
+{
+    "threat-model-name": "Simplest Data Flow for Threat Modeling",
+    "version": "1.0.0",
+    "date": "2022-05-09 16:51",
+    "threats":[        {
+            "id": "a1f414a971477e24e41739e0ea6387105709b639",
+            "title": "application-web-server logging file sensitive information leakage",
+            "risk": "High",
+            "attack-vector": "External Network",
+            "categories": "Information Disclosure",
+            "owasp-categories": "A09:2021 - Security Logging and Monitoring Failures",
+            "description": "Logging files is a potential place for information leakage - they are often shared between different teams and, in case of sensitive information logging (credentials, tokens, PII, etc.), it can be used by Threat Actor",
+            "remediation": "1. If application-web-server application is developed by you, ensure application-web-server logging file contains no sensitive information logged (users credentials, tokens, cookies, PII, etc.) 2. In case the application is provided and maintained by 3rd-party Vendor, request the Vendor for the actual security and audit report to be sure that the application is developed according to the industry security best practices",
+            "status": "Not Mitigated"
+        },        {
+            "id": "764bc978b1f45c7c3bce9ee8688ad631b77e9b8d",
+            "title": "Information Disclosure and Tampering in Transit for "user-browser" to "application-web-server" flow",
+            "risk": "High",
+            "attack-vector": "External Network",
+            "categories": "Tampering, Information Disclosure",
+            "owasp-categories": "A02:2021 - Cryptographic Failures",
+            "description": "In network eavesdropping attacks, hackers look for weak connections between clients and servers. By exploiting these weak connections, hackers intercept data packets traversing the network. Any network, web or email traffic, if not encrypted, can be read by the hacker.",
+            "remediation": "Ensure strong TLS is configured for the "user-browser" to "application-web-server" flow connection",
+            "status": "Not Mitigated"
+        },        {
+            "id": "de39d92432b46fcf92158664d1cbae53c6ecea92",
+            "title": "application-web-server API abuse",
+            "risk": "High",
+            "attack-vector": "External Network",
+            "categories": "Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege",
+            "owasp-categories": "A01:2021 - Broken Access Control, A04:2021 - Insecure Design",
+            "description": "Successful attack on API could result in unauthorized access to app;ocatopm functions and data, information leakage or remote code execution",
+            "remediation": "1. If the application is developed by you, ensure application-web-server API is followed OWASP API Security TOP 10 recommendations  2. In case the application is provided and maintained by 3rd-party Vendor, request the Vendor for the actual security and audit report to be sure that the application is developed according to the industry security best practices",
+            "status": "Not Mitigated"
+        },        {
+            "id": "053c4d35c61918238a22a56f6fb1cf99fba46e66",
+            "title": "application-web-server Server-Side Request Forgery",
+            "risk": "High",
+            "attack-vector": "External Network",
+            "categories": "Spoofing, Information Disclosure, Elevation of Privilege",
+            "owasp-categories": "A10:2021 - Server-Side Request Forgery",
+            "description": "In a typical SSRF attack, the attacker might cause the server to make a connection to internal-only services within the organization's infrastructure. In other cases, they may be able to force the server to connect to arbitrary external systems, potentially leaking sensitive data such as authorization credentials. The severity of SSRF is becoming higher due to cloud services and the complexity of architectures.",
+            "remediation": "1. If application-web-server application is developed by you, that the application sanitize and validate all client-supplied input data, enforces the URL schema, port, and destination with a positive allow list and doesn't send raw responses to clients  2. In case the application is provided and maintained by 3rd-party Vendor, request the Vendor for the actual security and audit report to be sure that the application is developed according to the industry security best practices",
+            "status": "Not Mitigated"
+        },        {
+            "id": "6b1e011a3fbc3ed9733be2e3a481f1a4610a88f3",
+            "title": "Anonymous access to application-web-server",
+            "risk": "High",
+            "attack-vector": "External Network",
+            "categories": "Spoofing, Information Disclosure",
+            "owasp-categories": "A01:2021 - Broken Access Control",
+            "description": "In case of if anonymous access to application-web-server is enabled, a potential attacker can gather additional information about the target using this public-available source",
+            "remediation": "1. Enumerate all the publicly-accessible entrypoints on application-web-server 2. Consider access-control protection for the entrypoints with unwanted anonymous access",
+            "status": "Not Mitigated"
+        },        {
+            "id": "4fbc14a69b5008f2fd0fc2244273045b99d32c3f",
+            "title": "application-web-server Vulnerable or Outdated components or libraries",
+            "risk": "High",
+            "attack-vector": "External Network",
+            "categories": "Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege",
+            "owasp-categories": "A06:2021 - Vulnerable and Outdated Components, A08:2021 - Software and Data Integrity Failures",
+            "description": "Open source components or libraries used by application-web-server application tends to have vulnerabilities that might impact your data and organization. These are weak or vulnerable code that allows attackers to conduct malicious attacks or perform unintended actions that are not authorized",
+            "remediation": "1. If application-web-server application is developed by you, consider usage only trusted external open source libraries during development process and regular scan with Software Composition Analysis (SCA) tool 2. In case the application is provided and maintained by 3rd-party Vendor, request the Vendor for the actual security and audit report to be sure that the application is developed according to the industry security best practices",
+            "status": "Not Mitigated"
+        },        {
+            "id": "83de390ac57c5eb8cbb3a99ce999cd16261b8dd7",
+            "title": "Local account management on application-web-server",
+            "risk": "High",
+            "attack-vector": "External Network",
+            "categories": "Spoofing, Elevation of Privilege",
+            "owasp-categories": "A07:2021 - Identification and Authentication Failures",
+            "description": "In case of inappropriate account management on application-web-server side (for example, if account credentials are stored at application-web-server configuration file), it can lead to weak password complexity or rotation issues, that can be used by an attacker to brute force the credentials or for accounts enumeration",
+            "remediation": "Consider transferring the responsibility of account management to centralized SSO or Identity and Access Management system",
+            "status": "Not Mitigated"
+        },        {
+            "id": "21f273268f9458dd8889d21b30ee5ab6294976c1",
+            "title": "application-web-server configuration file secrets leakage",
+            "risk": "High",
+            "attack-vector": "External Network",
+            "categories": "Information Disclosure",
+            "owasp-categories": "A05:2021 - Security Misconfiguration",
+            "description": "Configuration files is a potential place for information leakage - they are often shared between different teams and, in case the file contains any passwords or secrets to database, services, private keys, etc these secrets will be compromised",
+            "remediation": "1. If application-web-server application is developed by you, consider storage of application-web-server secrets in a Secret Management System or Secrets Vault 2. In case the application is provided and maintained by 3rd-party Vendor, request the Vendor for the actual security and audit report to be sure that the application is developed according to the industry security best practices",
+            "status": "Not Mitigated"
+        },        {
+            "id": "dac39cd04c0b79b6f2736c448ed3082e163aed2c",
+            "title": "Weak authentication method for application-web-server access",
+            "risk": "High",
+            "attack-vector": "External Network",
+            "categories": "Spoofing",
+            "owasp-categories": "A07:2021 - Identification and Authentication Failures",
+            "description": "In case of of weak authentication for application-web-server connection, a potential attacker can easily spoof another users identity or gain access to any accounts credentials",
+            "remediation": "Consider usage of strong authentication method for application-web-server access (OpenID, Kerberos, etc)",
+            "status": "Not Mitigated"
+        },        {
+            "id": "033398959ba3a5e5a0ec2e8afd7c2cbe47322af9",
+            "title": "application-web-server Audit logging and Monitoring Failures",
+            "risk": "High",
+            "attack-vector": "External Network",
+            "categories": "Repudiation",
+            "owasp-categories": "A09:2021 - Security Logging and Monitoring Failures",
+            "description": "Without audit logging and monitoring, attacks and breaches cannot be detected, furthermore it is impossible to perform the forensic if the risk will be realized",
+            "remediation": "1. Ensure application-web-server performs audit logging of user-browser actions in a seprate file and ships it to Security information and event management (SIEM) system 2. Ensure important auditable events, such as logins, failed logins, and high-value transactions, are logged 3. Ensure audit logs are protected properly with authorization and integrity checks",
+            "status": "Not Mitigated"
+        },        {
+            "id": "3b4b81802fbe55c249102a2c5d8b577a4c70912b",
+            "title": "application-web-server Insecure implementation",
+            "risk": "High",
+            "attack-vector": "External Network",
+            "categories": "Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege",
+            "owasp-categories": "A04:2021 - Insecure Design",
+            "description": "Mistakes or security coding standards non-compliance during application-web-server development process (for example, weak encryption or hashing alghorithms is used) may lead to the application's data or secrets compromise",
+            "remediation": "1. If application-web-server application is developed by you, consider following recognized guidelines or coding practices (for example, OWASP Secure Coding Practices guide) and regular application scan by Static Application Security Testing (SAST) tool  2. In case the application is provided and maintained by 3rd-party Vendor, request the Vendor for the actual security and audit report to be sure that the application is developed according to the industry security best practices",
+            "status": "Not Mitigated"
+        },        {
+            "id": "5b966503fd0921cfc3a1a948f31f277810aa1fee",
+            "title": "Application Infrastructure Security Misconfiguration",
+            "risk": "High",
+            "attack-vector": "External Network",
+            "categories": "Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege",
+            "owasp-categories": "A04:2021 - Insecure Design, A05:2021 - Security Misconfiguration",
+            "description": "In case if the application environment unproperly configured (for example, unnecessary port is opened or unused vulnerable services are enabled), these weakneses can be used by an attacker to gather additional information about application components or to gain full access to the application's data or secrets in the worst case",
+            "remediation": "1. If the application is hosted on-prem, consider hardening the application machines and the infrastructure according to the industry security best practice (for example, use CIS Becnhmarks for Windows, Linux application machines or CIS Benchmark for Docker, Kubernetes for containerized environment)  2. If the application is hosted on-cloud, consider following the security best practices for your type of Cloud (for example, CIS Benchmark for AWS, GCP or Azure)",
+            "status": "Not Mitigated"
+        },        {
+            "id": "d5e4f254b8be26515aa2e94588f9492c44348f09",
+            "title": "application-web-server Cross-site scripting",
+            "risk": "High",
+            "attack-vector": "External Network",
+            "categories": "Tampering, Information Disclosure",
+            "owasp-categories": "A03:2021 - Injection",
+            "description": "Cross-site scripting vulnerabilities normally allow an attacker to masquerade as a victim user, to carry out any actions that the user is able to perform, and to access any of the user's data. If the victim user has privileged access within the application, then the attacker might be able to gain full control over all of the application's functionality and data.",
+            "remediation": "1. If application-web-server application is developed by you, use a framework santitization mechanism to be sure that you escape all output channels where user-provided input reflection is possible 2. Be sure that mandatory Browser Security Headers like X-XSS-Protection and Content-Security-Policy are set 3. Ensure session cookies have httpOnly flag were it is possible 4. In case the application is provided and maintained by 3rd-party Vendor, request the Vendor for the actual security and audit report to be sure that the application is developed according to the industry security best practices",
+            "status": "Not Mitigated"
+        },        {
+            "id": "90a7ba06777d4239c956e23a06160a87b5354b76",
+            "title": "application-web-server Denial-of-Service (DoS) attack possibility",
+            "risk": "High",
+            "attack-vector": "External Network",
+            "categories": "Denial of Service",
+            "owasp-categories": "A04:2021 - Insecure Design",
+            "description": "A Denial-of-Service (DoS) attack is an attack meant to shut down a machine or network, making it inaccessible to its intended users. DoS attacks accomplish this by flooding the target with traffic, or sending it information that triggers a crash",
+            "remediation": "1. Create a DoS Response Plan 2. Continuous monitor the Network Traffic 3. Consider usage a specialized solutions like Cloudflare, AWS Shield, etc",
+            "status": "Not Mitigated"
+        },        {
+            "id": "f6be65f1f06bc13140ce60ba7b8116c4733dd9c9",
+            "title": "database Security misconfiguration",
+            "risk": "Low",
+            "attack-vector": "Local",
+            "categories": "Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege",
+            "owasp-categories": "A05:2021 - Security Misconfiguration",
+            "description": "In case if database unproperly configured (for example, unused vulnerable feature is enabled or unnecessary port is opened), it can be used by an attacker to gain access to the organization's data or secrets",
+            "remediation": "1. Consider hardening database according to the internationally recognized security standards (for example, follow CIS Benchmark guideline for your database or webserver)",
+            "status": "Not Mitigated"
+        },        {
+            "id": "aae3b9f2c3381209980a5f54f3d1badd397bd4b2",
+            "title": "Weak authentication method for database access",
+            "risk": "Low",
+            "attack-vector": "Local",
+            "categories": "Spoofing",
+            "owasp-categories": "A07:2021 - Identification and Authentication Failures",
+            "description": "In case of of weak authentication for database connection, a potential attacker can easily spoof another users identity or gain access to any accounts credentials",
+            "remediation": "Consider usage of strong authentication method for database access (OpenID, Kerberos, etc)",
+            "status": "Not Mitigated"
+        },        {
+            "id": "ab0b77a39356dbdbcd73de9cebeeb22aa6e5f474",
+            "title": "Anonymous access to database",
+            "risk": "Low",
+            "attack-vector": "Local",
+            "categories": "Spoofing, Information Disclosure",
+            "owasp-categories": "A01:2021 - Broken Access Control",
+            "description": "In case of if anonymous access to database is enabled, a potential attacker can gather additional information about the target using this public-available source",
+            "remediation": "1. Enumerate all the publicly-accessible entrypoints on database 2. Consider access-control protection for the entrypoints with unwanted anonymous access",
+            "status": "Not Mitigated"
+        },        {
+            "id": "65c60a63c021ced9f77f45ab4f73c77871b7b5c6",
+            "title": "Information Disclosure and Tampering in Transit for "application-web-server" to "database" flow",
+            "risk": "Low",
+            "attack-vector": "Local",
+            "categories": "Tampering, Information Disclosure",
+            "owasp-categories": "A02:2021 - Cryptographic Failures",
+            "description": "In network eavesdropping attacks, hackers look for weak connections between clients and servers. By exploiting these weak connections, hackers intercept data packets traversing the network. Any network, web or email traffic, if not encrypted, can be read by the hacker.",
+            "remediation": "Ensure strong TLS is configured for the "application-web-server" to "database" flow connection",
+            "status": "Not Mitigated"
+        },        {
+            "id": "b687f33a92f5de4cdab14c21b4a16089085caaf2",
+            "title": "database broad development team access",
+            "risk": "Low",
+            "attack-vector": "Local",
+            "categories": "Tampering, Information Disclosure",
+            "owasp-categories": "A01:2021 - Broken Access Control",
+            "description": "In case if broad product development team has unrestricted access to the production environment, the chances of sensitive information disclosure or the whole system compromise are increasing",
+            "remediation": "1. Ensure only limited number of trusted employees has access to the production environment 2. Consider transfering the production support to the special dedicated team 3. Consider usage of the solutions like Bastion Hosts and privilege access management systems for the production env access",
+            "status": "Not Mitigated"
+        },        {
+            "id": "58d6395e192f50c6fbdb52e26e7708fa953357d0",
+            "title": "database default account disabling",
+            "risk": "Low",
+            "attack-vector": "Local",
+            "categories": "Spoofing, Elevation of Privilege",
+            "owasp-categories": "A05:2021 - Security Misconfiguration",
+            "description": "A default account for database (for example, admin, root, sa, postgre, etc) may be used by an attacker to gain access to the information and assets stored in the storage",
+            "remediation": "Ensure the default account is not used or disabled/locked-out on database side",
+            "status": "Not Mitigated"
+        },        {
+            "id": "f0b715f0ac6bae1281fc51fdcb671a6daf750486",
+            "title": "database (No)SQL Injection",
+            "risk": "Low",
+            "attack-vector": "Local",
+            "categories": "Tampering, Information Disclosure",
+            "owasp-categories": "A03:2021 - Injection",
+            "description": "Successful SQLi attacks allow attackers to modify database information, access sensitive data, execute admin tasks on the database, and recover files from the system. In some cases attackers can issue commands to the underlying database operating system.",
+            "remediation": "1. If application-web-server application is developed by you, review that Object Relational Mapping Tools (ORMs) usage best practices are followed, sanitize user-provided input for special chars and use positive server-side input validation 2. In case application-web-server application is provided and maintained by 3rd-party Vendor, request the Vendor for the actual security and audit report to be sure that the application is developed according to the industry security best practices",
+            "status": "Not Mitigated"
+        }    ]
+}
