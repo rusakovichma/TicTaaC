@@ -1,0 +1,196 @@
+{
+    "threat-model-name": "Threat Model Name",
+    "version": "1.0.1",
+    "date": "2022-05-09 11:08",
+    "threats":[        {
+            "id": "692dacf27b792bdf665fdf59ebe50d2dfbe69a33",
+            "title": "API Server Vulnerable or Outdated components or libraries",
+            "risk": "High",
+            "attack-vector": "DMZ",
+            "categories": "Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege",
+            "owasp-categories": "A06:2021 - Vulnerable and Outdated Components, A08:2021 - Software and Data Integrity Failures",
+            "description": "Open source components or libraries used by API Server application tends to have vulnerabilities that might impact your data and organization. These are weak or vulnerable code that allows attackers to conduct malicious attacks or perform unintended actions that are not authorized",
+            "remediation": "1. If API Server application is developed by you, consider usage only trusted external open source libraries during development process and regular scan with Software Composition Analysis (SCA) tool 2. In case the application is provided and maintained by 3rd-party Vendor, request the Vendor for the actual security and audit report to be sure that the application is developed according to the industry security best practices",
+            "status": "Not Mitigated"
+        },        {
+            "id": "7d68abfc47231b9039f757ab756dcc242e512a2d",
+            "title": "Proxy Server Audit logging and Monitoring Failures",
+            "risk": "High",
+            "attack-vector": "External Network",
+            "categories": "Repudiation",
+            "owasp-categories": "A09:2021 - Security Logging and Monitoring Failures",
+            "description": "Without audit logging and monitoring, attacks and breaches cannot be detected, furthermore it is impossible to perform the forensic if the risk will be realized",
+            "remediation": "1. Ensure Proxy Server performs audit logging of User actions in a seprate file and ships it to Security information and event management (SIEM) system 2. Ensure important auditable events, such as logins, failed logins, and high-value transactions, are logged 3. Ensure audit logs are protected properly with authorization and integrity checks",
+            "status": "Not Mitigated"
+        },        {
+            "id": "3d153c528541793405016b426e2d909d5c2efebf",
+            "title": "Proxy Server Security misconfiguration",
+            "risk": "High",
+            "attack-vector": "External Network",
+            "categories": "Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege",
+            "owasp-categories": "A05:2021 - Security Misconfiguration",
+            "description": "In case if Proxy Server unproperly configured (for example, unused vulnerable feature is enabled or unnecessary port is opened), it can be used by an attacker to gain access to the organization's data or secrets",
+            "remediation": "1. Consider hardening Proxy Server according to the internationally recognized security standards (for example, follow CIS Benchmark guideline for your database or webserver)",
+            "status": "Not Mitigated"
+        },        {
+            "id": "9b02b1ffe0dff5c53e0312afff01be3da58bf58a",
+            "title": "API Server Cross-site scripting",
+            "risk": "High",
+            "attack-vector": "DMZ",
+            "categories": "Tampering, Information Disclosure",
+            "owasp-categories": "A03:2021 - Injection",
+            "description": "Cross-site scripting vulnerabilities normally allow an attacker to masquerade as a victim user, to carry out any actions that the user is able to perform, and to access any of the user's data. If the victim user has privileged access within the application, then the attacker might be able to gain full control over all of the application's functionality and data.",
+            "remediation": "1. If API Server application is developed by you, use a framework santitization mechanism to be sure that you escape all output channels where user-provided input reflection is possible 2. Be sure that mandatory Browser Security Headers like X-XSS-Protection and Content-Security-Policy are set 3. Ensure session cookies have httpOnly flag were it is possible 4. In case the application is provided and maintained by 3rd-party Vendor, request the Vendor for the actual security and audit report to be sure that the application is developed according to the industry security best practices",
+            "status": "Not Mitigated"
+        },        {
+            "id": "2fd16ab59997d2952972efd15c1f1b4c4aabb9b1",
+            "title": "Proxy Server Denial-of-Service (DoS) attack possibility",
+            "risk": "High",
+            "attack-vector": "External Network",
+            "categories": "Denial of Service",
+            "owasp-categories": "A04:2021 - Insecure Design",
+            "description": "A Denial-of-Service (DoS) attack is an attack meant to shut down a machine or network, making it inaccessible to its intended users. DoS attacks accomplish this by flooding the target with traffic, or sending it information that triggers a crash",
+            "remediation": "1. Create a DoS Response Plan 2. Continuous monitor the Network Traffic 3. Consider usage a specialized solutions like Cloudflare, AWS Shield, etc",
+            "status": "Not Mitigated"
+        },        {
+            "id": "dbdf9c849043adf0b729da67191a380742a843ab",
+            "title": "API Server Insecure implementation",
+            "risk": "High",
+            "attack-vector": "DMZ",
+            "categories": "Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege",
+            "owasp-categories": "A04:2021 - Insecure Design",
+            "description": "Mistakes or security coding standards non-compliance during API Server development process (for example, weak encryption or hashing alghorithms is used) may lead to the application's data or secrets compromise",
+            "remediation": "1. If API Server application is developed by you, consider following recognized guidelines or coding practices (for example, OWASP Secure Coding Practices guide) and regular application scan by Static Application Security Testing (SAST) tool  2. In case the application is provided and maintained by 3rd-party Vendor, request the Vendor for the actual security and audit report to be sure that the application is developed according to the industry security best practices",
+            "status": "Not Mitigated"
+        },        {
+            "id": "432956da6c26bc6c46dbe595412d7935f92cea7d",
+            "title": "API Server API abuse",
+            "risk": "High",
+            "attack-vector": "DMZ",
+            "categories": "Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege",
+            "owasp-categories": "A01:2021 - Broken Access Control, A04:2021 - Insecure Design",
+            "description": "Successful attack on API could result in unauthorized access to app;ocatopm functions and data, information leakage or remote code execution",
+            "remediation": "1. If the application is developed by you, ensure API Server API is followed OWASP API Security TOP 10 recommendations  2. In case the application is provided and maintained by 3rd-party Vendor, request the Vendor for the actual security and audit report to be sure that the application is developed according to the industry security best practices",
+            "status": "Not Mitigated"
+        },        {
+            "id": "674c33248c7c9815710788001074d969368f08b2",
+            "title": "API Server logging file sensitive information leakage",
+            "risk": "Medium",
+            "attack-vector": "DMZ",
+            "categories": "Information Disclosure",
+            "owasp-categories": "A09:2021 - Security Logging and Monitoring Failures",
+            "description": "Logging files is a potential place for information leakage - they are often shared between different teams and, in case of sensitive information logging (credentials, tokens, PII, etc.), it can be used by Threat Actor",
+            "remediation": "1. If API Server application is developed by you, ensure API Server logging file contains no sensitive information logged (users credentials, tokens, cookies, PII, etc.) 2. In case the application is provided and maintained by 3rd-party Vendor, request the Vendor for the actual security and audit report to be sure that the application is developed according to the industry security best practices",
+            "status": "Not Mitigated"
+        },        {
+            "id": "7abc4486817ec6242cbdbf09ca22e57cdd2ca36f",
+            "title": "Information Disclosure and Tampering in Transit for Request to WebServer",
+            "risk": "Medium",
+            "attack-vector": "DMZ",
+            "categories": "Tampering, Information Disclosure",
+            "owasp-categories": "A02:2021 - Cryptographic Failures",
+            "description": "In network eavesdropping attacks, hackers look for weak connections between clients and servers. By exploiting these weak connections, hackers intercept data packets traversing the network. Any network, web or email traffic, if not encrypted, can be read by the hacker.",
+            "remediation": "Ensure strong TLS is configured for the Request to WebServer connection",
+            "status": "Not Mitigated"
+        },        {
+            "id": "f7a3681ad27f962811dacbe949dfbb5c0a52d150",
+            "title": "API Server Server-Side Request Forgery",
+            "risk": "Medium",
+            "attack-vector": "DMZ",
+            "categories": "Spoofing, Information Disclosure, Elevation of Privilege",
+            "owasp-categories": "A10:2021 - Server-Side Request Forgery",
+            "description": "In a typical SSRF attack, the attacker might cause the server to make a connection to internal-only services within the organization's infrastructure. In other cases, they may be able to force the server to connect to arbitrary external systems, potentially leaking sensitive data such as authorization credentials. The severity of SSRF is becoming higher due to cloud services and the complexity of architectures.",
+            "remediation": "1. If API Server application is developed by you, that the application sanitize and validate all client-supplied input data, enforces the URL schema, port, and destination with a positive allow list and doesn't send raw responses to clients  2. In case the application is provided and maintained by 3rd-party Vendor, request the Vendor for the actual security and audit report to be sure that the application is developed according to the industry security best practices",
+            "status": "Not Mitigated"
+        },        {
+            "id": "e2e1708c1047ec3879928ec451ef59683a536c1c",
+            "title": "API Server configuration file secrets leakage",
+            "risk": "Medium",
+            "attack-vector": "DMZ",
+            "categories": "Information Disclosure",
+            "owasp-categories": "A05:2021 - Security Misconfiguration",
+            "description": "Configuration files is a potential place for information leakage - they are often shared between different teams and, in case the file contains any passwords or secrets to database, services, private keys, etc these secrets will be compromised",
+            "remediation": "1. If API Server application is developed by you, consider storage of API Server secrets in a Secret Management System or Secrets Vault 2. In case the application is provided and maintained by 3rd-party Vendor, request the Vendor for the actual security and audit report to be sure that the application is developed according to the industry security best practices",
+            "status": "Not Mitigated"
+        },        {
+            "id": "17e53ce02dad0923f9438af1ce21a7a1b5b7244c",
+            "title": "PostgreSQL (No)SQL Injection",
+            "risk": "Low",
+            "attack-vector": "Local",
+            "categories": "Tampering, Information Disclosure",
+            "owasp-categories": "A03:2021 - Injection",
+            "description": "Successful SQLi attacks allow attackers to modify database information, access sensitive data, execute admin tasks on the database, and recover files from the system. In some cases attackers can issue commands to the underlying database operating system.",
+            "remediation": "1. If API Server application is developed by you, review that Object Relational Mapping Tools (ORMs) usage best practices are followed, sanitize user-provided input for special chars and use positive server-side input validation 2. In case API Server application is provided and maintained by 3rd-party Vendor, request the Vendor for the actual security and audit report to be sure that the application is developed according to the industry security best practices",
+            "status": "Not Mitigated"
+        },        {
+            "id": "0af1c7c4051fdd37514437ed83a3208868f7e211",
+            "title": "Information Disclosure and Tampering in Transit for Database query",
+            "risk": "Low",
+            "attack-vector": "Local",
+            "categories": "Tampering, Information Disclosure",
+            "owasp-categories": "A02:2021 - Cryptographic Failures",
+            "description": "In network eavesdropping attacks, hackers look for weak connections between clients and servers. By exploiting these weak connections, hackers intercept data packets traversing the network. Any network, web or email traffic, if not encrypted, can be read by the hacker.",
+            "remediation": "Ensure strong TLS is configured for the Database query connection",
+            "status": "Not Mitigated"
+        },        {
+            "id": "ea4f15ee5b0b2bebf41e1cb83e36a9c690c49fdc",
+            "title": "PostgreSQL Security misconfiguration",
+            "risk": "Low",
+            "attack-vector": "Local",
+            "categories": "Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege",
+            "owasp-categories": "A05:2021 - Security Misconfiguration",
+            "description": "In case if PostgreSQL unproperly configured (for example, unused vulnerable feature is enabled or unnecessary port is opened), it can be used by an attacker to gain access to the organization's data or secrets",
+            "remediation": "1. Consider hardening PostgreSQL according to the internationally recognized security standards (for example, follow CIS Benchmark guideline for your database or webserver)",
+            "status": "Not Mitigated"
+        },        {
+            "id": "425bcdee06526432e007161cc93e27d1bbb71726",
+            "title": "PostgreSQL access with excessive permissions",
+            "risk": "Low",
+            "attack-vector": "Local",
+            "categories": "Elevation of Privilege",
+            "owasp-categories": "A01:2021 - Broken Access Control",
+            "description": "If API Server has excessive permissions (admin, root, etc) for PostgreSQL connection, in case of API Server compromise, a potential attacker can gain access to an extra permissions on PostgreSQL",
+            "remediation": "1. Ensure least-privilege account (for example, read-only) is used by PostgreSQL for API Server connection with fine-grained access only to the required operations and assets 2. Ensure deny by default principle is followed",
+            "status": "Not Mitigated"
+        },        {
+            "id": "a8dfda6a9559e892efd4e36229ac396841668dc0",
+            "title": "Information Disclosure and Tampering at Rest for PostgreSQL",
+            "risk": "Low",
+            "attack-vector": "Local",
+            "categories": "Tampering, Information Disclosure",
+            "owasp-categories": "A02:2021 - Cryptographic Failures",
+            "description": "In case if an attacker can access lost, stolen, or inappropriately decommissioned hardware, or copy the entire filesystem from the server and run it on its own hardware, as a result the sensitive assets stored in PostgreSQL will be compromised",
+            "remediation": "1. Ensure sensitive information is encrypted at rest level in PostgreSQL using recommended algorithms 2. Ensure encryption keys are properly protected (for example, stored at Vault)",
+            "status": "Not Mitigated"
+        },        {
+            "id": "32ae10d9690f0e4f915e535f7ae1dc8540744ab6",
+            "title": "PostgreSQL administrative access hijacking",
+            "risk": "Low",
+            "attack-vector": "Local",
+            "categories": "Spoofing, Elevation of Privilege",
+            "owasp-categories": "A01:2021 - Broken Access Control, A07:2021 - Identification and Authentication Failures",
+            "description": "In case if potential attacker can hijack administrative account to PostgreSQL or compromise it, he will gain an unlimited access to PostgreSQL data and functional assets",
+            "remediation": "1. Consider protection of administrative accounts with MFA on PostgreSQL side if it is possible 2. Consider administrative account lockout, replacement by least-privilege account or permissions limitation",
+            "status": "Not Mitigated"
+        },        {
+            "id": "ae106e5cb316766a25051f4b479eced11bab7470",
+            "title": "PostgreSQL default account disabling",
+            "risk": "Low",
+            "attack-vector": "Local",
+            "categories": "Spoofing, Elevation of Privilege",
+            "owasp-categories": "A05:2021 - Security Misconfiguration",
+            "description": "A default account for PostgreSQL (for example, admin, root, sa, postgre, etc) may be used by an attacker to gain access to the information and assets stored in the storage",
+            "remediation": "Ensure the default account is not used or disabled/locked-out on PostgreSQL side",
+            "status": "Not Mitigated"
+        },        {
+            "id": "8d795094f2b6c003c9ca2f3befb3f38c82270a71",
+            "title": "PostgreSQL broad development team access",
+            "risk": "Low",
+            "attack-vector": "Local",
+            "categories": "Tampering, Information Disclosure",
+            "owasp-categories": "A01:2021 - Broken Access Control",
+            "description": "In case if broad product development team has unrestricted access to the production environment, the chances of sensitive information disclosure or the whole system compromise are increasing",
+            "remediation": "1. Ensure only limited number of trusted employees has access to the production environment 2. Consider transfering the production support to the special dedicated team 3. Consider usage of the solutions like Bastion Hosts and privilege access management systems for the production env access",
+            "status": "Not Mitigated"
+        }    ]
+}
