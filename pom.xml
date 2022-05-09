@@ -6,7 +6,7 @@
 
     <groupId>com.github.rusakovichma</groupId>
     <artifactId>tictaac</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.3</version>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -26,6 +26,24 @@
                         </manifest>
                     </archive>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/lib/</outputDirectory>
+                            <excludeGroupIds>org.junit.jupiter</excludeGroupIds>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

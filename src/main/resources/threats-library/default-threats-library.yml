@@ -281,3 +281,13 @@ rules:
     exclude: flow.inScope == false
     description: In a typical SSRF attack, the attacker might cause the server to make a connection to internal-only services within the organization's infrastructure. In other cases, they may be able to force the server to connect to arbitrary external systems, potentially leaking sensitive data such as authorization credentials. The severity of SSRF is becoming higher due to cloud services and the complexity of architectures.
     remediation: 1. If {target.name} application is developed by you, that the application sanitize and validate all client-supplied input data, enforces the URL schema, port, and destination with a positive allow list and doesn't send raw responses to clients  2. In case the application is provided and maintained by 3rd-party Vendor, request the Vendor for the actual security and audit report to be sure that the application is developed according to the industry security best practices
+
+  - infrastructure-security-misconfiguration
+    title: Application Infrastructure Security Misconfiguration
+    severity: High
+    categories: spoofing, tampering, repudiation, information-disclosure, denial-of-service, elevation-of-privilege
+    owasp: insecure-design, security-misconfiguration
+    expression: (source within global-network) and ((target within demilitarized-zone) or (target within corporate-network) or (target within closed-perimeter))
+    exclude: flow.inScope == false
+    description: In case if the application environment unproperly configured (for example, unnecessary port is opened or unused vulnerable services are enabled), these weakneses can be used by an attacker to gather additional information about application components or to gain full access to the application's data or secrets in the worst case
+    remediation: 1. If the application is hosted on-prem, consider hardening the application machines and the infrastructure according to the industry security best practice (for example, use CIS Becnhmarks for Windows, Linux application machines or CIS Benchmark for Docker, Kubernetes for containerized environment)  2. If the application is hosted on-cloud, consider following the security best practices for your type of Cloud (for example, CIS Benchmark for AWS, GCP or Azure)

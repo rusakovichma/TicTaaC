@@ -34,6 +34,7 @@ import com.github.rusakovichma.tictaac.risk.RiskCalculationStrategy;
 import com.github.rusakovichma.tictaac.util.ReflectionUtil;
 
 import java.util.*;
+import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 
 class StandardEngineContext implements EngineContext {
@@ -131,9 +132,18 @@ class StandardEngineContext implements EngineContext {
         return threats.stream().collect(
                 Collectors.groupingBy(Threat::calculateHash,
                         Collectors.collectingAndThen(
-                                Collectors.reducing((Threat threatOne, Threat threatAnother) ->
-                                        threatOne.getRiskPriority() > threatAnother.getRiskPriority()
-                                                ? threatOne : threatAnother),
+                                Collectors.reducing(new BinaryOperator<Threat>() {
+                                    @Override
+                                    public Threat apply(Threat threatOne, Threat threatAnother) {
+                                        if (threatOne.getRiskPriority() == threatAnother.getRiskPriority()) {
+                                            return threatOne.getAttackVector().getOrder() > threatAnother.getAttackVector().getOrder()
+                                                    ? threatOne : threatAnother;
+                                        }
+
+                                        return threatOne.getRiskPriority() > threatAnother.getRiskPriority()
+                                                ? threatOne : threatAnother;
+                                    }
+                                }),
                                 Optional::get)))
                 .values().stream()
                 .sorted(Comparator.comparingInt(Threat::getRiskPriority).reversed())
