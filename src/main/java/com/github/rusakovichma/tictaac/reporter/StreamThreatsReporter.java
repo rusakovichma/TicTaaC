@@ -20,13 +20,17 @@ package com.github.rusakovichma.tictaac.reporter;
 import com.github.rusakovichma.tictaac.model.OwaspCategory;
 import com.github.rusakovichma.tictaac.model.Threat;
 import com.github.rusakovichma.tictaac.model.ThreatCategory;
+import com.github.rusakovichma.tictaac.model.mitigation.MitigationStatus;
+import com.github.rusakovichma.tictaac.model.threatmodel.boundary.BoundaryCategory;
+import com.github.rusakovichma.tictaac.reporter.analytics.ThreatAnalytics;
+import com.github.rusakovichma.tictaac.reporter.chart.ChartPlotter;
+import com.github.rusakovichma.tictaac.reporter.chart.XChartPlotter;
 import com.github.rusakovichma.tictaac.util.ResourceUtil;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class StreamThreatsReporter implements ThreatsReporter {
 
@@ -95,8 +99,68 @@ public class StreamThreatsReporter implements ThreatsReporter {
         return categoriesBuilder.toString();
     }
 
+    private String[] getCharts(Collection<Threat> threats) {
+        List<String> charts = new ArrayList<>();
+        ThreatAnalytics analytics = new ThreatAnalytics();
+
+        for (Threat threat : threats) {
+            if (threat.getOwasp() != null) {
+                for (OwaspCategory category : threat.getOwasp()) {
+                    analytics.getByOwasp().get(category).incrementAndGet();
+                }
+            }
+
+            if (threat.getCategories() != null) {
+                for (ThreatCategory category : threat.getCategories()) {
+                    analytics.getByStride().get(category).incrementAndGet();
+                }
+            }
+
+            if (threat.getAttackVector() != null) {
+                analytics.getByAttackVector().get(threat.getAttackVector()).incrementAndGet();
+            }
+            if (threat.getMitigationStatus() != null) {
+                analytics.getByStatus().get(threat.getMitigationStatus()).incrementAndGet();
+            }
+        }
+
+        ChartPlotter owaspChartPlotter = new XChartPlotter("By OWASP Top 10");
+        for (Map.Entry<OwaspCategory, AtomicInteger> entry : analytics.getByOwasp().entrySet()) {
+            owaspChartPlotter.addSeries(entry.getKey().getShortDescription(), entry.getValue().intValue());
+        }
+        charts.add(Base64.getEncoder().encodeToString(owaspChartPlotter.getImageBytes()));
+
+        ChartPlotter strideChartPlotter = new XChartPlotter("By STRIDE");
+        for (Map.Entry<ThreatCategory, AtomicInteger> entry : analytics.getByStride().entrySet()) {
+            strideChartPlotter.addSeries(entry.getKey().getDescription(), entry.getValue().intValue());
+        }
+        charts.add(Base64.getEncoder().encodeToString(strideChartPlotter.getImageBytes()));
+
+        ChartPlotter vectorChartPlotter = new XChartPlotter("By Attack Vector");
+        for (Map.Entry<BoundaryCategory, AtomicInteger> entry : analytics.getByAttackVector().entrySet()) {
+            vectorChartPlotter.addSeries(entry.getKey().getDescription(), entry.getValue().intValue());
+        }
+        charts.add(Base64.getEncoder().encodeToString(vectorChartPlotter.getImageBytes()));
+
+        ChartPlotter statusChartPlotter = new XChartPlotter("By Mitigation Status");
+        for (Map.Entry<MitigationStatus, AtomicInteger> entry : analytics.getByStatus().entrySet()) {
+            statusChartPlotter.addSeries(entry.getKey().getDescription(), entry.getValue().intValue());
+        }
+        charts.add(Base64.getEncoder().encodeToString(statusChartPlotter.getImageBytes()));
+
+        return charts.toArray(new String[charts.size()]);
+    }
+
     private void writeModel(ReportHeader header, Collection<Threat> threats)
             throws IOException {
+        if (reportFormat == ReportFormat.html) {
+            String[] charts = getCharts(threats);
+            headerTemplate = headerTemplate.replace("%owasp-chart%", charts[0])
+                    .replace("%stride-chart%", charts[1])
+                    .replace("%vectors-chart%", charts[2])
+                    .replace("%mitigations-chart%", charts[3]);
+        }
+
         outputStream.write(
                 String.format(headerTemplate, header.getName(), header.getVersion(),
                         new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date()))

@@ -2,10 +2,12 @@
 <html>
 <head>
     <style>
-    table, th, td {
-      border: 1px solid black;
-      border-collapse: collapse;
-    }
+    .tg  {border-collapse:collapse;border-color:#9ABAD9;border-spacing:0;}
+    .tg td{background-color:#EBF5FF;border-color:#9ABAD9;border-style:solid;border-width:1px;color:#444;
+      font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;}
+    .tg th{background-color:#409cff;border-color:#9ABAD9;border-style:solid;border-width:1px;color:#fff;
+      font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+    .tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
     </style>
 </head>
 <body>
@@ -16,7 +18,29 @@
 <p>The threat modeling process should be driven by application designers, however, developers and testers should be involved.</p>
 <p><strong>Results of this threat modeling exercise are prioritized by risk level list of identified threats and list of proposed mitigations for those threats.</strong></p>
 <p>&nbsp;</p>
-<h2>Threats List</h2>
+<h2>Threat Analysis</h2>
+<table cellspacing="0" cellpadding="0">
+<thead>
+  <tr>
+    <td>&nbsp;&nbsp;&nbsp;
+        <img src="data:image/png;base64, %owasp-chart%" alt="Threats by OWASP Top 10" />
+        &nbsp;&nbsp;&nbsp;
+    </td>
+    <td>&nbsp;&nbsp;&nbsp;
+        <img src="data:image/png;base64, %stride-chart%" alt="Threats by STRIDE" />
+        &nbsp;&nbsp;&nbsp;
+    </td>
+    <td>&nbsp;&nbsp;&nbsp;
+        <img src="data:image/png;base64, %vectors-chart%" alt="Threats by Attack Vector" />
+        &nbsp;&nbsp;&nbsp;
+    </td>
+    <td>&nbsp;&nbsp;&nbsp;
+        <img src="data:image/png;base64, %mitigations-chart%" alt="Threats by Mitigation Status" />
+        &nbsp;&nbsp;&nbsp;
+    </td>
+  </tr>
+</thead>
+</table>
 <p>The following methodologies are used for threats classification during the assessment:</p>
 <ul>
 <li><p><em><b>Microsoft STRIDE</b> Methodology is used to identify threats relevant to the application. STRIDE was developed to educate developers on how to think about computer security threats.&nbsp;</em>
@@ -26,7 +50,7 @@
 <strong>For the addition information please see&nbsp;<a class="createlink" href="https://owasp.org/www-project-top-ten/">OWASP Top Ten</a>.&nbsp;</strong></p>
 </li>
 </ul>
-<table>
+<table class="tg">
 <thead>
   <tr>
     <th>Threat ID</th>
