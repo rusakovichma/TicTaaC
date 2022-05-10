@@ -16,4 +16,3 @@ boundaries: #Here we define the data flow diagram boundaries and the context
 data-flows: #Section for the flows between the elements
   - user-browser -> application-web-server #User's Browser connects to the application flow
   - application-web-server -> database #The application connects to the database to fetch data
-#Thats it
