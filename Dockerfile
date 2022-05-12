@@ -18,12 +18,12 @@ ADD target/tic-taac-${VERSION}-release.zip /
 RUN apk update                                                                                       && \
     apk add unzip                                                                                    && \
     apk --no-cache add fontconfig ttf-dejavu                                                         && \
-    unzip tic-taac-${VERSION}-release.zip -d /usr/share/                                     		 && \
-    rm tic-taac-${VERSION}-release.zip                                                       		 && \
+    unzip tic-taac-${VERSION}-release.zip -d /usr/share/                                             && \
+    rm tic-taac-${VERSION}-release.zip                                                               && \
     addgroup -S -g ${GID} ${user} && adduser -S -D -u ${UID} -G ${user} ${user}                      && \
     mkdir /usr/share/tic-taac/data                                                                   && \
-    chown -R ${user}:0 /usr/share/tic-taac                                                   		 && \
-    chmod -R g=u /usr/share/tic-taac                                                        		 && \
+    chown -R ${user}:0 /usr/share/tic-taac                                                           && \
+    chmod -R g=u /usr/share/tic-taac                                                                 && \
     mkdir /report                                                                                    && \
     chown -R ${user}:0 /report                                                                       && \
     chmod -R g=u /report                                                                             && \
