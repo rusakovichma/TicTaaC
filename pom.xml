@@ -258,8 +258,88 @@
                             <goal>copy-dependencies</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${project.build.directory}/lib/</outputDirectory>
+                            <outputDirectory>${project.build.directory}/tic-taac/lib/</outputDirectory>
                             <excludeGroupIds>org.junit</excludeGroupIds>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-archive-resources</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <targetPath>${basedir}/target/tic-taac/bin</targetPath>
+                                    <directory>cli</directory>
+                                    <filtering>false</filtering>
+                                </resource>
+                                <resource>
+                                    <targetPath>${basedir}/target/tic-taac/example</targetPath>
+                                    <directory>expl</directory>
+                                    <filtering>false</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>create-and-copy-achieve-files</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <mkdir dir="${basedir}/target/tic-taac/licenses"/>
+                                <mkdir dir="${basedir}/target/tic-taac/plugins"/>
+                                <copy file="LICENSE.txt" tofile="${basedir}/target/tic-taac/LICENSE.txt"/>
+                                <copy file="NOTICE.txt" tofile="${basedir}/target/tic-taac/NOTICE.txt"/>
+                                <copy file="README.md" tofile="${basedir}/target/tic-taac/README.md"/>
+                            </target>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-main-jar-to-lib</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <copy file="target/tictaac-${project.version}.jar"
+                                      tofile="target/tic-taac/lib/tictaac-${project.version}.jar"/>
+                            </target>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>zip-artifacts</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <zip destfile="${project.build.directory}/tic-taac-${project.version}-release.zip"
+                                     update="true"
+                                     comment="TicTaaC Threat Modeling">
+                                    <fileset dir="${project.build.directory}/tic-taac"/>
+                                </zip>
+                            </target>
                         </configuration>
                     </execution>
                 </executions>
