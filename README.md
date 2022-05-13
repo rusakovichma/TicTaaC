@@ -1,4 +1,4 @@
-## [![TicTaaC](https://raw.githubusercontent.com/rusakovichma/TicTaaC/master/etc/tic-taac-logo-40per.png)](https://github.com/rusakovichma/TicTaaC) Threat modeling-as-a-Code in a Tick (TicTaaC)
+# [![TicTaaC](https://raw.githubusercontent.com/rusakovichma/TicTaaC/master/etc/tic-taac-logo-40per.png)](https://github.com/rusakovichma/TicTaaC) Threat modeling-as-a-Code in a Tick (TicTaaC)
 Lightweight and easy-to-use Threat modeling solution following DevSecOps principles
 
 ## Preface
