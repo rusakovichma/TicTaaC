@@ -1,4 +1,5 @@
 # Threat modeling-as-a-Code in a Tick (TicTaaC)
+Lightweight and easy-to-use Threat modeling solution following DevSecOps principles
 
 ## Preface
 "One day the customer asked to perform threat modeling for our product. Of course, we have heard about it a lot
