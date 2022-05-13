@@ -68,7 +68,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
 
-        <target.dir>target/tic-taac</target.dir>
+        <target.dir>target/artifacts/tic-taac</target.dir>
 
         <xchart.version>3.8.1</xchart.version>
         <junit.version>5.8.1</junit.version>
@@ -260,7 +260,7 @@
                             <goal>copy-dependencies</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${project.build.directory}/tic-taac/lib/</outputDirectory>
+                            <outputDirectory>${project.build.directory}/artifacts/tic-taac/lib/</outputDirectory>
                             <excludeGroupIds>org.junit</excludeGroupIds>
                         </configuration>
                     </execution>
@@ -339,7 +339,7 @@
                                 <zip destfile="${project.build.directory}/tic-taac-${project.version}-release.zip"
                                      update="true"
                                      comment="TicTaaC Threat Modeling">
-                                    <fileset dir="${project.build.directory}/tic-taac"/>
+                                    <fileset dir="${project.build.directory}/artifacts"/>
                                 </zip>
                             </target>
                         </configuration>
