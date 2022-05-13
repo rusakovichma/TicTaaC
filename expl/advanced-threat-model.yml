@@ -1,0 +1,83 @@
+name: Advanced Data Flow for Threat Modeling
+version: 1.0.1
+assets:
+  - personal-data
+    sensitivity: sensitive
+    description: name, email
+  - image-file
+    sensitivity: sensitive
+  - comments
+    sensitivity: non-sensitive
+elements:
+  - legitimate-user
+    name: User
+    type: interactor
+    produced-assets:
+      - personal-data
+      - image-file
+      - comments
+  - proxy-server
+    name: Proxy Server
+    type: proxy-server
+    processed-assets:
+      - personal-data
+      - image-file
+      - comments
+  - web-server
+    name: API Server
+    type: web-server
+    processed-assets:
+      - personal-data
+      - image-file
+      - comments
+  - database
+    name: PostgreSQL
+    type: database
+    stored-assets:
+      - personal-data
+      - image-file
+      - comments
+boundaries:
+  - dmz
+    category: demilitarized-zone
+    elements:
+      - proxy-server
+  - internal-network
+    category: closed-perimeter
+    elements:
+      - web-server
+      - database
+  - internet
+    category: global-network
+    elements:
+      - legitimate-user
+data-flows:
+  - legitimate-user -> proxy-server
+    title: Users Request
+    authentication-method: openid
+    authorization: read-write
+    account-management: external-sso
+    encryption: yes
+    transferred-assets:
+      - personal-data
+      - image-file
+      - comments
+  - proxy-server -> web-server
+    title: Request to WebServer
+    authentication-method: certificate
+    authorization: read-write
+    encryption: no
+    transferred-assets:
+      - personal-data
+      - image-file
+      - comments
+  - web-server -> database
+    title: Database query
+    authentication-method: credentials
+    authorization: admin
+    encryption: no
+    account-management: local-account
+    transferred-assets:
+      - personal-data
+      - image-file
+      - comments
