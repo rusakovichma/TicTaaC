@@ -6,7 +6,7 @@
 
     <groupId>com.github.rusakovichma</groupId>
     <artifactId>tictaac</artifactId>
-    <version>1.0.3</version>
+    <version>1.1.3</version>
 
     <name>TicTaaC</name>
     <url>https://github.com/rusakovichma/TicTaaC.git</url>
@@ -67,6 +67,8 @@
 
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+
+        <target.dir>target/tic-taac</target.dir>
 
         <xchart.version>3.8.1</xchart.version>
         <junit.version>5.8.1</junit.version>
@@ -278,12 +280,12 @@
                             <outputDirectory>${project.build.directory}</outputDirectory>
                             <resources>
                                 <resource>
-                                    <targetPath>${basedir}/target/tic-taac/bin</targetPath>
+                                    <targetPath>${basedir}/${target.dir}/bin</targetPath>
                                     <directory>cli</directory>
                                     <filtering>false</filtering>
                                 </resource>
                                 <resource>
-                                    <targetPath>${basedir}/target/tic-taac/example</targetPath>
+                                    <targetPath>${basedir}/${target.dir}/example</targetPath>
                                     <directory>expl</directory>
                                     <filtering>false</filtering>
                                 </resource>
@@ -305,11 +307,11 @@
                         </goals>
                         <configuration>
                             <target>
-                                <mkdir dir="${basedir}/target/tic-taac/licenses"/>
-                                <mkdir dir="${basedir}/target/tic-taac/plugins"/>
-                                <copy file="LICENSE.txt" tofile="${basedir}/target/tic-taac/LICENSE.txt"/>
-                                <copy file="NOTICE.txt" tofile="${basedir}/target/tic-taac/NOTICE.txt"/>
-                                <copy file="README.md" tofile="${basedir}/target/tic-taac/README.md"/>
+                                <mkdir dir="${basedir}/${target.dir}/licenses"/>
+                                <mkdir dir="${basedir}/${target.dir}/plugins"/>
+                                <copy file="LICENSE.txt" tofile="${basedir}/${target.dir}/LICENSE.txt"/>
+                                <copy file="NOTICE.txt" tofile="${basedir}/${target.dir}/NOTICE.txt"/>
+                                <copy file="README.md" tofile="${basedir}/${target.dir}/README.md"/>
                             </target>
                         </configuration>
                     </execution>
@@ -322,7 +324,7 @@
                         <configuration>
                             <target>
                                 <copy file="target/tictaac-${project.version}.jar"
-                                      tofile="target/tic-taac/lib/tictaac-${project.version}.jar"/>
+                                      tofile="${target.dir}/lib/tictaac-${project.version}.jar"/>
                             </target>
                         </configuration>
                     </execution>
