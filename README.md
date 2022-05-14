@@ -60,5 +60,6 @@ For TicTaaC usage at Jenkins pipeline, see [Jenkinsfile example](https://github.
 
 ## Features
 * [x] No *required* additional dependencies
+* [x] Special lightweight and easy-to-understand format for data flows description
 * [x] Automatic Threats Attack Vector & Risk Score calculation based on the data flow context
-* [x] Ideal for Security Teams - it has flexible [Threats Library](https://github.com/rusakovichma/TicTaaC/blob/master/src/main/resources/threats-library/default-threats-library.yml) customization in a separate file with special expression language support 
+* [x] Ideal for Security Teams - it has flexible [Threats Library logic](https://github.com/rusakovichma/TicTaaC/blob/master/src/main/resources/threats-library/default-threats-library.yml) customization in a separate file with special expression language support 
