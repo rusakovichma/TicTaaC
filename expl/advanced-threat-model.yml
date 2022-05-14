@@ -3,15 +3,15 @@ version: 1.0.1
 assets:
   - personal-data
     sensitivity: sensitive
-    description: name, email
+    description: name, email #Any string. Description of the asset to be viewed in the report
   - image-file
     sensitivity: sensitive
   - comments
     sensitivity: non-sensitive
 elements:
   - legitimate-user
-    name: User
-    type: interactor
+    name: User #Element's name to be viewed in the report
+    type: interactor # Setting element type explicitly. Values: interactor, proxy-server, web-server, database, external-service, internal-service, process
     produced-assets:
       - personal-data
       - image-file
@@ -39,7 +39,7 @@ elements:
       - comments
 boundaries:
   - dmz
-    category: demilitarized-zone
+    category: demilitarized-zone #Setting boundary type. Values: global-network, demilitarized-zone, corporate-network, closed-perimeter
     elements:
       - proxy-server
   - internal-network
@@ -53,11 +53,11 @@ boundaries:
       - legitimate-user
 data-flows:
   - legitimate-user -> proxy-server
-    title: Users Request
-    authentication-method: openid
-    authorization: read-write
-    account-management: external-sso
-    encryption: yes
+    title: Users Request #Data flow description or name to be viewed in the report
+    authentication-method: openid #Authentication type of the source at the destination. Values: anonymous, credentials, basic, digest, openid, ldap, ntlm, kerberos, certificate, saml, bearer, s3, radius
+    authorization: read-write #How authorize what permission types has the source at the destination. Values: read, read-write, admin
+    account-management: external-sso #Setting account management responsibility at the destination. Values: external-sso, local-account, active-directory
+    encryption: yes #Values: yes, no
     transferred-assets:
       - personal-data
       - image-file

@@ -1,11 +1,11 @@
 name: Intermediate Data Flow for Threat Modeling
 version: 1.0.1
 assets:
-  - credit-card
-    sensitivity: sensitive
+  - credit-card #Application's data asset
+    sensitivity: sensitive #Values: sensitive, non-sensitive
 elements:
   - legitimate-user
-    produced-assets:
+    produced-assets: #Element may has: produced-assets, consumed-assets, processed-assets, stored-assets lists
       - credit-card
   - proxy-server
     processed-assets:
@@ -29,7 +29,7 @@ boundaries:
       - legitimate-user
 data-flows:
   - legitimate-user -> proxy-server
-    transferred-assets:
+    transferred-assets: #In this option we define assets references passed through the data flow
       - credit-card
   - proxy-server -> web-server
     transferred-assets:
