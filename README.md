@@ -53,6 +53,7 @@ docker run --rm \
     --outFormat html \
     --out /report
     # Set mitigation strategy for the corresponding threats
+    # see https://github.com/rusakovichma/TicTaaC/blob/master/expl/mitigations.yml 
     # --mitigations /threat-model/mitigations.yml
 ```
 ### Jenkins pipeline
