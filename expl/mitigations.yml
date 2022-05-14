@@ -1,0 +1,20 @@
+name: Threats mitigations for the application
+version: 0.1.1
+
+mitigated: # Threats ID with Mitigated status
+  - 7eefda5b73808a488729397937fbaf552f380887
+    comment: already mitigated #Some details of the mitigation
+  - 98sdfasgd097dfgsdfg9987s00876dfa98df6998
+  - 64778600asdda09sdfa6s8d8a0s0d9f9as7df7f9
+
+accepted: # Threats with accepted risk status
+
+avoided:
+  - 15789asd0a7s7d8fa7sd5fa0sd0f6asd9f6asd9f
+  - 6d6d6ss9ss0d8f6f5gg44h4h3j3hg66ff7fff88f
+
+transferred: # Threats with transferred responsibility to different teams, vendors or any other parties
+
+notApplicable: # False-Positive Threats or threats that is not applicable due to some architecture aspects or business requirements
+  - 34dfsdf788as6da98sd689ad76a98s76da98s6d8
+
