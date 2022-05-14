@@ -4,4 +4,6 @@ Copyright (c) 2021-2022 Mikhail Rusakovich. All Rights Reserved.
 
 The licenses for the software listed below can be found in the META-INF/licenses/[dependency name].
 
+This product includes software developed by knowm.org (https://knowm.org/open-source/xchart/).
+
 This product uses Microsoft STRIDE methodology and OWASP Top 10 for threats classification: see https://en.wikipedia.org/wiki/STRIDE_(security) and https://owasp.org/Top10/
