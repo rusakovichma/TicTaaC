@@ -6,7 +6,7 @@ Lightweight and easy-to-use Threat modeling solution following DevSecOps princip
 from different teams, I have even read several articles and looked through a book to get familiar with this process,
 but they were too abstract as for me and didn't give me a certainty at all. Then we have faced several enterprise - level 
 products which theoretically would help us, but we didn't want to deploy the whole security program because of it, 
-we just waned to get the threats list for our product. Nothing else"
+we just wanted to get the threats list for our product. Nothing else"
 <p align="right"><em>Anonymous Developer</em></p>
 
 ## Idea
