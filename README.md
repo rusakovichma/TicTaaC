@@ -62,7 +62,7 @@ For TicTaaC usage at Jenkins pipeline, see [Jenkinsfile example](https://github.
 ## Features
 * [x] Ideal for Security Teams - it has flexible [Threats Library logic](https://github.com/rusakovichma/TicTaaC/blob/master/src/main/resources/threats-library/default-threats-library.yml) customization in a separate file with special expression language support
 * [x] Suitable for [CICD pipeline integration](https://github.com/rusakovichma/TicTaaC/blob/master/cicd/Jenkinsfile)
-* [X] Setting Quality Gate that can block the product release in case of unmitigated threats are present
+* [X] Setting Quality Gate that can block the product release in case if unmitigated threats are presented
 * [x] No *required* additional dependencies
 * [x] Special [lightweight and easy-to-understand format](https://github.com/rusakovichma/TicTaaC/blob/master/expl/simpest-threat-model.yml) for data flows description
 * [x] Automatic Threats Attack Vector & Risk Score calculation based on the data flow context
