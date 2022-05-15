@@ -66,3 +66,4 @@ For TicTaaC usage at Jenkins pipeline, see [Jenkinsfile example](https://github.
 * [x] Special [lightweight and easy-to-understand format](https://github.com/rusakovichma/TicTaaC/blob/master/expl/simpest-threat-model.yml) for data flows description
 * [x] Automatic Threats Attack Vector & Risk Score calculation based on the data flow context
 * [x] Threats classification by OWASP Top 10 and Microsoft STRIDE
+* [x] Setting Threats mitigation strategy in [one place](https://github.com/rusakovichma/TicTaaC/blob/master/expl/mitigations.yml)
