@@ -11,7 +11,7 @@ we just wanted to get the prioritized threats list for our product to put it in 
 
 ## Idea
 The idea behind this product is clear - I want to create something simple that would help to solve this difficult problem.
-Ideally, with <em>one click</em> or <em>a command</em> and with a possibility to integrate it into a pipeline if needed. Inspired by <em>dependency-check</em> architecture and simplicity plus taking in mind that <em>developers just love mapping</em> everything in code, I've created <strong>"TicTaaC"</strong>, which means <em>"Threat modeling-as-a-Code in a Tick"</em>
+Ideally, with <em>one click</em> or <em>a command</em> and with a possibility to integrate it into a pipeline if needed. Inspired by <em>dependency-check</em> architecture and simplicity plus taking in mind that <em>developers just love mapping</em> everything in code, I've created <strong>"TicTaaC"</strong>, which means <em>"<strong>T</strong>hreat modeling-<strong>a</strong>s-<strong>a</strong>-<strong>C</strong>ode in a <strong>Tic</strong>k"</em>
 
 ## Usage
 All the tool is needed is a <strong>data flow code file</strong> described in the <em>yml-like format</em> specially designed for this.<br>
