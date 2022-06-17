@@ -1,4 +1,4 @@
-# [![TicTaaC](https://raw.githubusercontent.com/rusakovichma/TicTaaC/master/etc/tic-taac-logo-40per.png)](https://github.com/rusakovichma/TicTaaC) [![Join the chat at https://gitter.im/TicTaaC/TicTaaC-support](https://badges.gitter.im/TicTaaC/TicTaaC-support.svg)](https://gitter.im/TicTaaC/TicTaaC-support?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![CI with Maven](https://github.com/rusakovichma/TicTaaC/actions/workflows/maven.yml/badge.svg?branch=master)](https://github.com/rusakovichma/TicTaaC/actions/workflows/maven.yml) Threat modeling-as-a-Code in a Tick (TicTaaC)
+# [![TicTaaC](https://raw.githubusercontent.com/rusakovichma/TicTaaC/master/etc/tic-taac-logo-40per.png)](https://github.com/rusakovichma/TicTaaC) [![Join the chat at https://gitter.im/TicTaaC/TicTaaC-support](https://badges.gitter.im/TicTaaC/TicTaaC-support.svg)](https://gitter.im/TicTaaC/TicTaaC-support?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![CI with Maven](https://github.com/rusakovichma/TicTaaC/actions/workflows/maven.yml/badge.svg?branch=master)](https://github.com/rusakovichma/TicTaaC/actions/workflows/maven.yml)<br> Threat modeling-as-a-Code in a Tick (TicTaaC)
 Lightweight and easy-to-use Threat modeling solution following DevSecOps principles
 
 ## Preface
@@ -74,3 +74,9 @@ For TicTaaC usage at Jenkins pipeline, see [Jenkinsfile example](https://github.
 * [x] Threats classification by OWASP Top 10 and Microsoft STRIDE
 * [x] Setting Threats mitigation strategy in [one place](https://github.com/rusakovichma/TicTaaC/blob/master/expl/mitigations.yml)
 * [x] Reporting in html or json format
+
+## License
+
+Copyright (c) Mikhail Rusakovich
+
+Licensed under the [Apache License version 2.0](LICENSE)
