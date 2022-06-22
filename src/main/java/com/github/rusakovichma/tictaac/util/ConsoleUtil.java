@@ -33,7 +33,7 @@ public class ConsoleUtil {
 
     private static class ConsoleParam {
         private String key;
-        private String value;
+        private List<String> values = new ArrayList<>();
 
         public ConsoleParam(String key) {
             this.key = key;
@@ -47,12 +47,12 @@ public class ConsoleUtil {
             this.key = key;
         }
 
-        public String getValue() {
-            return value;
+        public List<String> getValues() {
+            return values;
         }
 
-        public void setValue(String value) {
-            this.value = value;
+        public void addValue(String value) {
+            this.values.add(value);
         }
 
         @Override
@@ -60,16 +60,16 @@ public class ConsoleUtil {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             ConsoleParam that = (ConsoleParam) o;
-            return Objects.equals(key, that.key) && Objects.equals(value, that.value);
+            return Objects.equals(key, that.key) && Objects.equals(values, that.values);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(key, value);
+            return Objects.hash(key, values);
         }
     }
 
-    public static Map<String, String> getParamsMap(String[] args) {
+    public static Map<String, List<String>> getParamsMap(String[] args) {
         Stack<ConsoleParam> params = new Stack<>();
         if (args != null && args.length != 0) {
             for (int i = 0; i < args.length; i++) {
@@ -79,7 +79,7 @@ public class ConsoleUtil {
                             .replaceFirst("--", "")));
                 } else {
                     if (!params.empty()) {
-                        params.peek().setValue(
+                        params.peek().addValue(
                                 args[i].trim().replaceAll("\"", "")
                                         .replaceAll("'", ""));
                     }
@@ -87,23 +87,35 @@ public class ConsoleUtil {
             }
         }
 
-        Map<String, String> paramsMap = new HashMap<>();
+        Map<String, List<String>> paramsMap = new HashMap<>();
         while (!params.empty()) {
             ConsoleParam param = params.pop();
-            paramsMap.put(param.getKey(), param.getValue());
+            paramsMap.put(param.getKey(), param.getValues());
         }
 
         return paramsMap;
     }
 
-    public static boolean hasOnlyAllowed(Map<String, String> params) {
-        for (Map.Entry<String, String> entry : params.entrySet()) {
+    public static boolean hasOnlyAllowed(Map<String, List<String>> params) {
+        for (Map.Entry<String, List<String>> entry : params.entrySet()) {
             if (!PARAMS_WHITELIST.stream()
                     .anyMatch(entry.getKey()::equalsIgnoreCase)) {
                 return false;
             }
         }
         return true;
+    }
+
+    public static Map<String, String> copySingleValueParamsWithDefinedArg(Map<String, List<String>> params,
+                                                                          String paramName, String paramValue) {
+        Map<String, String> singleValueParams = new HashMap<>();
+        for (Map.Entry<String, List<String>> entry : params.entrySet()) {
+            if (entry.getValue() != null) {
+                String value = paramName.equalsIgnoreCase(entry.getKey()) ? paramValue : entry.getValue().get(0);
+                singleValueParams.put(entry.getKey(), value);
+            }
+        }
+        return singleValueParams;
     }
 
 }

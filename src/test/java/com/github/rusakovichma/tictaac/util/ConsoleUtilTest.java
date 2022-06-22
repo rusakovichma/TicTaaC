@@ -2,6 +2,7 @@ package com.github.rusakovichma.tictaac.util;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,7 +16,7 @@ class ConsoleUtilTest {
                 "--threatsLibraryAccessUsername", "username", "--threatsLibraryAccessPassword", "pass123456",
                 "--mitigations", "\"${WORKSPACE}/mitigations.yml\"", "--outFormat", "html", "--out", "${WORKSPACE}/reports"};
 
-        Map<String, String> paramsMap = ConsoleUtil.getParamsMap(params);
+        Map<String, List<String>> paramsMap = ConsoleUtil.getParamsMap(params);
         assertTrue(paramsMap.size() == 8);
     }
 
@@ -26,7 +27,7 @@ class ConsoleUtilTest {
                 "--threatsLibraryAccessUsername", "username", "--threatsLibraryAccessPassword", "pass123456",
                 "--mitigations", "\"${WORKSPACE}/mitigations.yml\"", "--outFormat", "html", "--out", "${WORKSPACE}/reports"};
 
-        Map<String, String> paramsMap = ConsoleUtil.getParamsMap(params);
+        Map<String, List<String>> paramsMap = ConsoleUtil.getParamsMap(params);
         assertTrue(ConsoleUtil.hasOnlyAllowed(paramsMap));
     }
 
@@ -37,7 +38,7 @@ class ConsoleUtilTest {
                 "--threatsLibraryAccessUsername", "username", "--threatsLibraryAccessPassword", "pass123456",
                 "--mitigations", "\"${WORKSPACE}/mitigations.yml\"", "--outFormat", "html", "--out", "${WORKSPACE}/reports"};
 
-        Map<String, String> paramsMap = ConsoleUtil.getParamsMap(params);
+        Map<String, List<String>> paramsMap = ConsoleUtil.getParamsMap(params);
         assertFalse(ConsoleUtil.hasOnlyAllowed(paramsMap));
     }
 }
