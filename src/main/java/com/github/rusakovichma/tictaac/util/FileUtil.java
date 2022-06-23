@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.function.Consumer;
@@ -43,5 +44,18 @@ public class FileUtil {
         File file = new File(filePath);
         return new FileInputStream(file);
     }
+
+    public static boolean findString(File file, String string) {
+        try {
+            try (Stream<String> lines = Files.lines(file.toPath(), Charset.defaultCharset())) {
+                return (lines.filter(line -> line.contains(string))
+                        .findFirst()
+                        .get()) != null;
+            }
+        } catch (Exception ex) {
+            return false;
+        }
+    }
+
 
 }

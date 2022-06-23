@@ -125,7 +125,7 @@ public class Launcher {
 
         List<String> threatModelsParams = multipleValueParams.get("threatModel");
 
-        if (threatModelsParams == null) {
+        if (threatModelsParams == null || threatModelsParams.isEmpty()) {
             throw new IllegalStateException("Threat modeling files: '--threatModel %path_to_files_or_folder%' parameters should be provided");
         }
 
