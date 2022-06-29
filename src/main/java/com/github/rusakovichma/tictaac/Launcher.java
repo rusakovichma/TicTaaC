@@ -27,10 +27,12 @@ import com.github.rusakovichma.tictaac.model.mitigation.MitigationStatus;
 import com.github.rusakovichma.tictaac.provider.mitigation.*;
 import com.github.rusakovichma.tictaac.provider.model.StandardThreatModelProvider;
 import com.github.rusakovichma.tictaac.provider.model.ThreatModelProvider;
+import com.github.rusakovichma.tictaac.provider.reader.ThreatModelFilter;
 import com.github.rusakovichma.tictaac.provider.rules.StandardThreatRulesProvider;
 import com.github.rusakovichma.tictaac.provider.rules.ThreatRulesProvider;
 import com.github.rusakovichma.tictaac.reporter.*;
 import com.github.rusakovichma.tictaac.util.ConsoleUtil;
+import com.github.rusakovichma.tictaac.util.FileUtil;
 import com.github.rusakovichma.tictaac.util.ResourceUtil;
 
 import java.io.FileNotFoundException;
@@ -129,8 +131,9 @@ public class Launcher {
             throw new IllegalStateException("Threat modeling files: '--threatModel %path_to_files_or_folder%' parameters should be provided");
         }
 
+        List<String> threatModelsFilesOnlyParams = FileUtil.extractFiles(threatModelsParams, new ThreatModelFilter());
 
-        for (String threatModelsParam : threatModelsParams) {
+        for (String threatModelsParam : threatModelsFilesOnlyParams) {
             Map<String, String> singleValueParams = ConsoleUtil.copySingleValueParamsWithDefinedArg(multipleValueParams,
                     "threatModel", threatModelsParam);
 

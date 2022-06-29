@@ -17,13 +17,13 @@
  */
 package com.github.rusakovichma.tictaac.util;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
@@ -55,6 +55,33 @@ public class FileUtil {
         } catch (Exception ex) {
             return false;
         }
+    }
+
+    public static List<String> extractFiles(List<String> paths, FileFilter filter) {
+        if (paths == null || paths.isEmpty()) {
+            return Collections.EMPTY_LIST;
+        }
+
+        List<String> extractedFiles = new ArrayList<>();
+
+        for (String path : paths) {
+            File file = new File(path);
+            if (file.exists()) {
+                if (file.isFile()) {
+                    extractedFiles.add(path);
+                } else {
+                    File[] filesInFolder = (filter != null)
+                            ? file.listFiles(filter) : file.listFiles();
+                    if (filesInFolder != null && filesInFolder.length != 0) {
+                        for (File fileInFolder : filesInFolder) {
+                            extractedFiles.add(fileInFolder.getAbsolutePath());
+                        }
+                    }
+                }
+            }
+        }
+
+        return extractedFiles;
     }
 
 
