@@ -20,6 +20,7 @@ package com.github.rusakovichma.tictaac.util;
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -82,6 +83,27 @@ public class FileUtil {
         }
 
         return extractedFiles;
+    }
+
+    public static String getFilenameWithoutExtensionFromPath(String filePath) {
+        if (filePath == null) return null;
+
+        Path path = Paths.get(filePath);
+        String fileName = path.getFileName().toString();
+
+        int extPosition = fileName.lastIndexOf(".");
+        if (extPosition == -1) return fileName;
+
+        return fileName.substring(0, extPosition);
+    }
+
+    public static String getParentFolderFromFilePath(String filePath) {
+        if (filePath == null) return null;
+
+        Path path = Paths.get(filePath);
+        String fileName = path.getFileName().toString();
+
+        return filePath.replaceAll(fileName, "");
     }
 
 
