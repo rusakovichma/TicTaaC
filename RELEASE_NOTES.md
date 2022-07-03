@@ -1,6 +1,6 @@
 # Release Notes
 
-## [Version 1.2.3](https://github.com/jeremylong/DependencyCheck/releases/tag/v7.1.1) (2022-07-03)
+## [Version 1.2.3](https://github.com/rusakovichma/TicTaaC/releases/tag/1.2.3) (2022-07-03)
 
 **Changes**
 
