@@ -43,6 +43,7 @@ import java.util.stream.Collectors;
 
 public class Launcher {
 
+    private static final String DEFAULT_REPORT_NAME = "threat-model-report";
     private static final String OUT_PATH_DEFAULT = ".";
     private static final ReportFormat DEFAULT_OUT_FORMAT = ReportFormat.html;
     private static final String DEFAULT_THREAT_LIBRARY = "classpath:/threats-library/default-threats-library.yml";
@@ -116,8 +117,15 @@ public class Launcher {
         if (outFormat == null) {
             outFormat = DEFAULT_OUT_FORMAT;
         }
+
+        String reportName = DEFAULT_REPORT_NAME;
+        String threatModelPath = params.get("threatModel");
+        if (threatModelPath != null || !threatModelPath.isEmpty()) {
+            reportName = FileUtil.getFilenameWithoutExtensionFromPath(threatModelPath);
+        }
+
         try {
-            return new FileStreamThreatsReporter(outPath, outFormat);
+            return new FileStreamThreatsReporter(outPath, reportName, outFormat);
         } catch (FileNotFoundException ex) {
             throw new IllegalStateException(ex);
         }

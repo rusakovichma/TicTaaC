@@ -23,14 +23,12 @@ import java.io.FileOutputStream;
 
 public class FileStreamThreatsReporter extends StreamThreatsReporter {
 
-    private static final String REPORT_NAME = "threat-model-report";
-
-    public FileStreamThreatsReporter(String reportOut, ReportFormat reportFormat)
+    public FileStreamThreatsReporter(String reportOut, String reportName, ReportFormat reportFormat)
             throws FileNotFoundException {
         super(new FileOutputStream(new File(
                         new StringBuilder(reportOut)
                                 .append(File.separator)
-                                .append(REPORT_NAME)
+                                .append(reportName)
                                 .append(".")
                                 .append(reportFormat.name())
                                 .toString())),
