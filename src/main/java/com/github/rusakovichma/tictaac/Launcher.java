@@ -27,21 +27,23 @@ import com.github.rusakovichma.tictaac.model.mitigation.MitigationStatus;
 import com.github.rusakovichma.tictaac.provider.mitigation.*;
 import com.github.rusakovichma.tictaac.provider.model.StandardThreatModelProvider;
 import com.github.rusakovichma.tictaac.provider.model.ThreatModelProvider;
+import com.github.rusakovichma.tictaac.provider.reader.ThreatModelFilter;
 import com.github.rusakovichma.tictaac.provider.rules.StandardThreatRulesProvider;
 import com.github.rusakovichma.tictaac.provider.rules.ThreatRulesProvider;
 import com.github.rusakovichma.tictaac.reporter.*;
 import com.github.rusakovichma.tictaac.util.ConsoleUtil;
+import com.github.rusakovichma.tictaac.util.FileUtil;
 import com.github.rusakovichma.tictaac.util.ResourceUtil;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Launcher {
 
+    private static final String DEFAULT_REPORT_NAME = "threat-model-report";
     private static final String OUT_PATH_DEFAULT = ".";
     private static final ReportFormat DEFAULT_OUT_FORMAT = ReportFormat.html;
     private static final String DEFAULT_THREAT_LIBRARY = "classpath:/threats-library/default-threats-library.yml";
@@ -64,6 +66,36 @@ public class Launcher {
 
     private static Mitigator getMitigator(Map<String, String> params) {
         String mitigationsPath = params.get("mitigations");
+
+        String threatModelPath = params.get("threatModel");
+        if (threatModelPath != null || !threatModelPath.isEmpty()) {
+            String threatModelDir = FileUtil.getParentFolderFromFilePath(threatModelPath);
+            String threatModelName = FileUtil.getFilenameWithoutExtensionFromPath(threatModelPath);
+
+            File threatModelMitigationsFile = new File(
+                    threatModelDir + File.separator + threatModelName + "-mitigations.yml");
+            if (threatModelMitigationsFile.exists()) {
+                mitigationsPath = threatModelMitigationsFile.getAbsolutePath();
+            }
+        }
+
+        if (mitigationsPath != null && !mitigationsPath.isEmpty()) {
+            File mitigationsFile = new File(mitigationsPath);
+            if (mitigationsFile.exists() && mitigationsFile.isDirectory()) {
+                if (threatModelPath != null || !threatModelPath.isEmpty()) {
+                    String threatModelName = FileUtil.getFilenameWithoutExtensionFromPath(threatModelPath);
+
+                    File threatModelMitigationsFile = new File(
+                            mitigationsFile.getAbsolutePath() + File.separator + threatModelName + "-mitigations.yml");
+                    if (threatModelMitigationsFile.exists()) {
+                        mitigationsPath = threatModelMitigationsFile.getAbsolutePath();
+                    } else {
+                        mitigationsPath = null;
+                    }
+                }
+            }
+        }
+
         if (mitigationsPath == null) {
             return new DullMitigator();
         }
@@ -87,64 +119,97 @@ public class Launcher {
         if (outFormat == null) {
             outFormat = DEFAULT_OUT_FORMAT;
         }
+
+        String reportName = DEFAULT_REPORT_NAME;
+        String threatModelPath = params.get("threatModel");
+        if (threatModelPath != null || !threatModelPath.isEmpty()) {
+            reportName = FileUtil.getFilenameWithoutExtensionFromPath(threatModelPath);
+        }
+
         try {
-            return new FileStreamThreatsReporter(outPath, outFormat);
+            return new FileStreamThreatsReporter(outPath, reportName, outFormat);
         } catch (FileNotFoundException ex) {
             throw new IllegalStateException(ex);
         }
     }
 
-    private static void checkQualityGate(Map<String, String> params, Collection<Threat> threats) {
-        String failOnThreatRiskParam = params.get("failOnThreatRisk");
-        if (failOnThreatRiskParam != null) {
-            ThreatRisk qualityGate = ThreatRisk.fromString(failOnThreatRiskParam.trim());
+    private static void checkQualityGate(Map<String, List<String>> params, Map<String, Collection<Threat>> threats) {
+        List<String> failOnThreatRiskParam = params.get("failOnThreatRisk");
+        if (failOnThreatRiskParam != null && failOnThreatRiskParam.size() != 0) {
+            ThreatRisk qualityGate = ThreatRisk.fromString(failOnThreatRiskParam.get(0).trim());
             if (qualityGate != ThreatRisk.Undefined) {
-                String notCompliantThreats = threats.stream()
-                        .filter(threat -> threat.getRisk().getOrder() >= qualityGate.getOrder())
-                        .filter(threat -> threat.getMitigationStatus() == MitigationStatus.NotMitigated)
-                        .map(threat -> threat.getId())
-                        .collect(Collectors.joining(", "));
+                StringBuilder nonComplianceAccumulator = new StringBuilder();
 
-                if (notCompliantThreats != null && !notCompliantThreats.isEmpty()) {
-                    throw new QualityGateFailed(String.format("Non-compliant threats found [%s]", notCompliantThreats));
+                for (Map.Entry<String, Collection<Threat>> entry : threats.entrySet()) {
+                    String notCompliantThreats = entry.getValue().stream()
+                            .filter(threat -> threat.getRisk().getOrder() >= qualityGate.getOrder())
+                            .filter(threat -> threat.getMitigationStatus() == MitigationStatus.NotMitigated)
+                            .map(threat -> threat.getId())
+                            .collect(Collectors.joining(", "));
+
+                    if (notCompliantThreats != null && !notCompliantThreats.isEmpty()) {
+                        nonComplianceAccumulator.append(String.format("%s: [%s]", entry.getKey(), notCompliantThreats))
+                                .append(System.lineSeparator());
+                    }
+                }
+
+                if (nonComplianceAccumulator.length() != 0) {
+                    throw new QualityGateFailed(String.format("Non-compliant threats found: ",
+                            nonComplianceAccumulator.toString()));
                 }
             }
         }
     }
 
     public static void main(String[] args) {
-        final Map<String, String> params = ConsoleUtil.getParamsMap(args);
-        if (params.isEmpty() || !ConsoleUtil.hasOnlyAllowed(params)
-                || params.containsKey("help") || params.containsKey("-h")) {
+        final Map<String, List<String>> multipleValueParams = ConsoleUtil.getParamsMap(args);
+        if (multipleValueParams.isEmpty() || !ConsoleUtil.hasOnlyAllowed(multipleValueParams)
+                || multipleValueParams.containsKey("help") || multipleValueParams.containsKey("-h")) {
             System.out.println(ResourceUtil.readResource("/help-info"));
             System.exit(0);
         }
 
-        if (params.containsKey("version") || params.containsKey("-v")) {
+        if (multipleValueParams.containsKey("version") || multipleValueParams.containsKey("-v")) {
             System.out.println(ResourceUtil.readResource("/version"));
             System.exit(0);
         }
 
-        ThreatRulesProvider rulesProvider = getRulesProvider(params);
-        Mitigator mitigator = getMitigator(params);
+        List<String> threatModelsParams = multipleValueParams.get("threatModel");
 
-        ThreatEngine threatEngine = getThreatEngine(rulesProvider, mitigator);
-
-        ThreatModelProvider threatModelProvider = getThreatModel(params);
-        ThreatsCollection threats = threatEngine.generateThreats(threatModelProvider.getModel());
-
-        try {
-            getThreatsReporter(params).publish(
-                    new ReportHeader(
-                            threats.getName(), threats.getVersion(), new Date()
-                    ),
-                    threats.getThreats()
-            );
-        } catch (IOException ex) {
-            throw new IllegalStateException("Cannot write threat model report to the file [" + params.get("out") + "]", ex);
+        if (threatModelsParams == null || threatModelsParams.isEmpty()) {
+            throw new IllegalStateException("Threat modeling files: '--threatModel %path_to_files_or_folder%' parameters should be provided");
         }
 
-        checkQualityGate(params, threats.getThreats());
+        List<String> threatModelsFilesOnlyParams = FileUtil.extractFiles(threatModelsParams, new ThreatModelFilter());
+        Map<String, Collection<Threat>> modelThreats = new LinkedHashMap<>();
+
+        for (String threatModelsParam : threatModelsFilesOnlyParams) {
+            Map<String, String> singleValueParams = ConsoleUtil.copySingleValueParamsWithDefinedArg(multipleValueParams,
+                    "threatModel", threatModelsParam);
+
+            ThreatRulesProvider rulesProvider = getRulesProvider(singleValueParams);
+            Mitigator mitigator = getMitigator(singleValueParams);
+
+            ThreatEngine threatEngine = getThreatEngine(rulesProvider, mitigator);
+
+            ThreatModelProvider threatModelProvider = getThreatModel(singleValueParams);
+            ThreatsCollection threats = threatEngine.generateThreats(threatModelProvider.getModel());
+
+            modelThreats.put(threatModelsParam, threats.getThreats());
+
+            try {
+                getThreatsReporter(singleValueParams).publish(
+                        new ReportHeader(
+                                threats.getName(), threats.getVersion(), new Date()
+                        ),
+                        threats.getThreats()
+                );
+            } catch (IOException ex) {
+                throw new IllegalStateException("Cannot write threat model report to the path [" + singleValueParams.get("out") + "]", ex);
+            }
+        }
+
+        checkQualityGate(multipleValueParams, modelThreats);
     }
 
 }

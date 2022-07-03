@@ -22,19 +22,26 @@ All the tool is needed is a <strong>data flow code file</strong> described in th
 More detailed instructions can be found on the
 [github wiki](https://github.com/rusakovichma/TicTaaC/wiki).
 The latest CLI can be downloaded from github in the [releases section](https://github.com/rusakovichma/TicTaaC/releases). <br>
-On *nix
+<strong>On *nix:</strong>
 ```
 $ ./bin/tic-taac.sh -h
-$ ./bin/tic-taac.sh --out . --threatModel [path to threat model file]
+$ ./bin/tic-taac.sh --out . --threatModel [path to threat model file(s) or folder to scan]
 ```
-On Windows
+<strong>On Windows:</strong>
 ```
 > .\bin\tic-taac.bat -h
-> .\bin\tic-taac.bat --out . --threatModel [path to threat model file]
+> .\bin\tic-taac.bat --out . --threatModel [path to threat model file(s) or folder to scan]
 ```
 
 ### Docker
 See [TicTaaC Docker Hub repository](https://hub.docker.com/r/rusakovichma/tic-taac).
+
+<strong>Quickstart on Windows:</strong>
+```
+> docker run --volume /D/threat-model:/threat-model --volume /D/report:/report rusakovichma/tic-taac:latest --threatModel /threat-model/ --out /report
+```
+
+<strong>*nix script:</strong>
 ```console
 #!/bin/sh
 
@@ -50,12 +57,13 @@ docker run --rm \
     --volume $THREAT_MODEL_DIR:/threat-model:z \
     --volume $(pwd)/report:/report:z \
     rusakovichma/tic-taac:$TT_VERSION \
-    --threatModel /threat-model/simpest-threat-model.yml \
+    --threatModel /threat-model \
     --outFormat html \
     --out /report
     # Set mitigation strategy for the corresponding threats
     # see https://github.com/rusakovichma/TicTaaC/blob/master/expl/mitigations.yml 
-    # --mitigations /threat-model/mitigations.yml
+    # --mitigations /threat-model/mitigations.yml 
+    # or set the folder where scan the mitigations files: --mitigations /mitigations
 ```
 ### Jenkins pipeline
 For TicTaaC usage at Jenkins pipeline, see [Jenkinsfile example](https://github.com/rusakovichma/TicTaaC/blob/master/cicd/Jenkinsfile).
