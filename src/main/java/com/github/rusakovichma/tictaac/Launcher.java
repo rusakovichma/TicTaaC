@@ -35,6 +35,7 @@ import com.github.rusakovichma.tictaac.util.ConsoleUtil;
 import com.github.rusakovichma.tictaac.util.FileUtil;
 import com.github.rusakovichma.tictaac.util.ResourceUtil;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
@@ -64,6 +65,34 @@ public class Launcher {
 
     private static Mitigator getMitigator(Map<String, String> params) {
         String mitigationsPath = params.get("mitigations");
+
+        String threatModelPath = params.get("threatModel");
+        if (threatModelPath != null || !threatModelPath.isEmpty()) {
+            String threatModelDir = FileUtil.getParentFolderFromFilePath(threatModelPath);
+            String threatModelName = FileUtil.getFilenameWithoutExtensionFromPath(threatModelPath);
+
+            File threatModelMitigationsFile = new File(
+                    threatModelDir + File.separator + threatModelName + "-mitigations.yml");
+            if (threatModelMitigationsFile.exists()) {
+                mitigationsPath = threatModelMitigationsFile.getAbsolutePath();
+            }
+        }
+
+        if (mitigationsPath != null && !mitigationsPath.isEmpty()) {
+            File mitigationsFile = new File(mitigationsPath);
+            if (mitigationsFile.exists() && mitigationsFile.isDirectory()) {
+                if (threatModelPath != null || !threatModelPath.isEmpty()) {
+                    String threatModelName = FileUtil.getFilenameWithoutExtensionFromPath(threatModelPath);
+
+                    File threatModelMitigationsFile = new File(
+                            mitigationsFile.getAbsolutePath() + File.separator + threatModelName + "-mitigations.yml");
+                    if (threatModelMitigationsFile.exists()) {
+                        mitigationsPath = threatModelMitigationsFile.getAbsolutePath();
+                    }
+                }
+            }
+        }
+
         if (mitigationsPath == null) {
             return new DullMitigator();
         }
