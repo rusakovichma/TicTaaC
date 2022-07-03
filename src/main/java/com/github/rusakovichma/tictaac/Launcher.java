@@ -89,6 +89,8 @@ public class Launcher {
                             mitigationsFile.getAbsolutePath() + File.separator + threatModelName + "-mitigations.yml");
                     if (threatModelMitigationsFile.exists()) {
                         mitigationsPath = threatModelMitigationsFile.getAbsolutePath();
+                    } else {
+                        mitigationsPath = null;
                     }
                 }
             }
