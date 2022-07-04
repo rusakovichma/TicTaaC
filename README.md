@@ -73,6 +73,9 @@ For TicTaaC usage at Jenkins pipeline, see [Jenkinsfile example](https://github.
 * [Intermediate Model](https://github.com/rusakovichma/TicTaaC/blob/master/expl/intermediate-threat-model.yml)
 * [Advanced Model](https://github.com/rusakovichma/TicTaaC/blob/master/expl/advanced-threat-model.yml)
 
+## Generated report example
+[![Threat Modeling Report Example](https://raw.githubusercontent.com/rusakovichma/TicTaaC/master/etc/threat-modeling-report-example.png)]
+
 ## Features
 * [x] Ideal for Security Teams - it has flexible [Threats Library logic](https://github.com/rusakovichma/TicTaaC/blob/master/src/main/resources/threats-library/default-threats-library.yml) customization in a separate file with special expression language support
 * [x] Suitable for [CICD pipeline integration](https://github.com/rusakovichma/TicTaaC/blob/master/cicd/Jenkinsfile)
