@@ -53,7 +53,7 @@ class StreamThreatsReporterTest {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         StreamThreatsReporter reporter = new StreamThreatsReporter(stream, ReportFormat.json);
 
-        reporter.publish(getReportHeader(), getThreats());
+        reporter.publish(getReportHeader(), null, getThreats());
 
         assertTrue(!new String(stream.toByteArray()).isEmpty());
     }
@@ -63,7 +63,7 @@ class StreamThreatsReporterTest {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         StreamThreatsReporter reporter = new StreamThreatsReporter(stream, ReportFormat.html);
 
-        reporter.publish(getReportHeader(), getThreats());
+        reporter.publish(getReportHeader(), null, getThreats());
 
         assertTrue(!new String(stream.toByteArray()).isEmpty());
     }

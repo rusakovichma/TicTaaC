@@ -15,17 +15,14 @@
  *
  * Copyright (c) 2022 Mikhail Rusakovich. All Rights Reserved.
  */
-package com.github.rusakovichma.tictaac.reporter;
+package com.github.rusakovichma.tictaac.reporter.dfd;
 
-import com.github.rusakovichma.tictaac.model.Threat;
 import com.github.rusakovichma.tictaac.model.ThreatModel;
 
 import java.io.IOException;
-import java.util.Collection;
 
-public interface ThreatsReporter {
+public interface DataFlowRender {
 
-    public void publish(ReportHeader header, ThreatModel threatModel, Collection<Threat> threats)
-            throws IOException;
+    public byte[] createDataFlow(ThreatModel threatModel) throws IOException;
 
 }

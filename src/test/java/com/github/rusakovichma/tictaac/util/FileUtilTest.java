@@ -26,7 +26,7 @@ class FileUtilTest {
         paths.add("src/test/resources/");
 
         List<String> threatModels = FileUtil.extractFiles(paths, new ThreatModelFilter());
-        assertEquals(6, threatModels.size());
+        assertEquals(7, threatModels.size());
     }
 
     @Test

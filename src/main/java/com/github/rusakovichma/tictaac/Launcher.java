@@ -20,6 +20,7 @@ package com.github.rusakovichma.tictaac;
 import com.github.rusakovichma.tictaac.engine.StandardThreatEngine;
 import com.github.rusakovichma.tictaac.engine.ThreatEngine;
 import com.github.rusakovichma.tictaac.model.Threat;
+import com.github.rusakovichma.tictaac.model.ThreatModel;
 import com.github.rusakovichma.tictaac.model.ThreatRisk;
 import com.github.rusakovichma.tictaac.model.ThreatsCollection;
 import com.github.rusakovichma.tictaac.model.exception.QualityGateFailed;
@@ -193,7 +194,9 @@ public class Launcher {
             ThreatEngine threatEngine = getThreatEngine(rulesProvider, mitigator);
 
             ThreatModelProvider threatModelProvider = getThreatModel(singleValueParams);
-            ThreatsCollection threats = threatEngine.generateThreats(threatModelProvider.getModel());
+
+            ThreatModel threatModel = threatModelProvider.getModel();
+            ThreatsCollection threats = threatEngine.generateThreats(threatModel);
 
             modelThreats.put(threatModelsParam, threats.getThreats());
 
@@ -202,6 +205,7 @@ public class Launcher {
                         new ReportHeader(
                                 threats.getName(), threats.getVersion(), new Date()
                         ),
+                        threatModel,
                         threats.getThreats()
                 );
             } catch (IOException ex) {
