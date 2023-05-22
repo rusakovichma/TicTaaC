@@ -13,6 +13,6 @@ class ThreatModelFilterTest {
         File dir = new File("src/test/resources");
         File[] modelFiles = dir.listFiles(new ThreatModelFilter());
 
-        assertTrue(modelFiles.length == 5);
+        assertTrue(modelFiles.length == 6);
     }
 }

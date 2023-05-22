@@ -18,6 +18,9 @@
 <p>The threat modeling process should be driven by application designers, however, developers and testers should be involved.</p>
 <p><strong>Results of this threat modeling exercise are prioritized by risk level list of identified threats and list of proposed mitigations for those threats.</strong></p>
 <p>&nbsp;</p>
+<h2>Data Flow Diagram</h2>
+<img src="data:image/png;base64, %data-flow-diagram%" alt="Data Flow Diagram" />
+<p>&nbsp;</p>
 <h2>Threat Analysis</h2>
 <table cellspacing="0" cellpadding="0">
 <thead>

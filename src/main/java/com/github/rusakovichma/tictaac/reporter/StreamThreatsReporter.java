@@ -20,11 +20,14 @@ package com.github.rusakovichma.tictaac.reporter;
 import com.github.rusakovichma.tictaac.model.OwaspCategory;
 import com.github.rusakovichma.tictaac.model.Threat;
 import com.github.rusakovichma.tictaac.model.ThreatCategory;
+import com.github.rusakovichma.tictaac.model.ThreatModel;
 import com.github.rusakovichma.tictaac.model.mitigation.MitigationStatus;
 import com.github.rusakovichma.tictaac.model.threatmodel.boundary.BoundaryCategory;
 import com.github.rusakovichma.tictaac.reporter.analytics.ThreatAnalytics;
 import com.github.rusakovichma.tictaac.reporter.chart.ChartPlotter;
 import com.github.rusakovichma.tictaac.reporter.chart.XChartPlotter;
+import com.github.rusakovichma.tictaac.reporter.dfd.DataFlowRender;
+import com.github.rusakovichma.tictaac.reporter.dfd.GraphvizDataFlowRender;
 import com.github.rusakovichma.tictaac.util.ResourceUtil;
 
 import java.io.*;
@@ -38,6 +41,8 @@ public class StreamThreatsReporter implements ThreatsReporter {
 
     private final OutputStream outputStream;
     private final ReportFormat reportFormat;
+
+    private DataFlowRender dataFlowRender = new GraphvizDataFlowRender();
 
     private String headerTemplate;
     private String entryTemplate;
@@ -151,19 +156,22 @@ public class StreamThreatsReporter implements ThreatsReporter {
         return charts.toArray(new String[charts.size()]);
     }
 
-    private void writeModel(ReportHeader header, Collection<Threat> threats)
+    private void writeModel(ReportHeader header, ThreatModel threatModel, Collection<Threat> threats)
             throws IOException {
         if (reportFormat == ReportFormat.html) {
             String[] charts = getCharts(threats);
             headerTemplate = headerTemplate.replace("%owasp-chart%", charts[0])
                     .replace("%stride-chart%", charts[1])
                     .replace("%vectors-chart%", charts[2])
-                    .replace("%mitigations-chart%", charts[3]);
+                    .replace("%mitigations-chart%", charts[3])
+                    .replace("%data-flow-diagram%",
+                            Base64.getEncoder().encodeToString(
+                                    dataFlowRender.createDataFlow(threatModel)));
         }
 
         outputStream.write(
                 String.format(headerTemplate, header.getName(), header.getVersion(),
-                        new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date()))
+                                new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date()))
                         .getBytes()
         );
 
@@ -193,8 +201,8 @@ public class StreamThreatsReporter implements ThreatsReporter {
     }
 
     @Override
-    public void publish(ReportHeader header, Collection<Threat> threats)
+    public void publish(ReportHeader header, ThreatModel threatModel, Collection<Threat> threats)
             throws IOException {
-        writeModel(header, threats);
+        writeModel(header, threatModel, threats);
     }
 }
