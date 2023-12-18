@@ -49,7 +49,7 @@ rules:
     owasp: identification-and-authentication-failures
     expression: flow.authenticationMethod == undefined
     exclude: flow.inScope == false
-    description: In case of of weak authentication for {target.name} connection, a potential attacker can easily spoof another users identity or gain access to any accounts credentials
+    description: In case of weak authentication for {target.name} connection, a potential attacker can easily spoof another users identity or gain access to any accounts credentials
     remediation: Consider usage of strong authentication method for {target.name} access (OpenID, Kerberos, etc)
 
   - ntlm-protocol-usage
@@ -69,7 +69,7 @@ rules:
     owasp: identification-and-authentication-failures
     expression: (flow.authenticationMethod == credentials) or (flow.authenticationMethod == basic)
     exclude: (flow.inScope == false) or (target.type == database)
-    description: In case of of basic or simple password authentication on {target.name} side, a potential attacker can brute-force weak credentials and hijack any account
+    description: In case of basic or simple password authentication on {target.name} side, a potential attacker can brute-force weak credentials and hijack any account
     remediation: 1. Consider usage of rate-limit protection on {target.name} side 2. (If applicable) Consider usage of MFA on {target.name} side
 
   - default-account-disabling
@@ -290,4 +290,4 @@ rules:
     expression: (source within global-network) and ((target within demilitarized-zone) or (target within corporate-network) or (target within closed-perimeter))
     exclude: flow.inScope == false
     description: In case if the application environment unproperly configured (for example, unnecessary port is opened or unused vulnerable services are enabled), these weakneses can be used by an attacker to gather additional information about application components or to gain full access to the application's data or secrets in the worst case
-    remediation: 1. If the application is hosted on-prem, consider hardening the application machines and the infrastructure according to the industry security best practice (for example, use CIS Becnhmarks for Windows, Linux application machines or CIS Benchmark for Docker, Kubernetes for containerized environment)  2. If the application is hosted on-cloud, consider following the security best practices for your type of Cloud (for example, CIS Benchmark for AWS, GCP or Azure)
+    remediation: 1. If the application is hosted on-prem, consider hardening the application machines and the infrastructure according to the industry security best practice (for example, use CIS Benchmarks for Windows, Linux application machines or CIS Benchmark for Docker, Kubernetes for containerized environment)  2. If the application is hosted on-cloud, consider following the security best practices for your type of Cloud (for example, CIS Benchmark for AWS, GCP or Azure)
