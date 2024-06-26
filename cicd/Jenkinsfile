@@ -5,7 +5,7 @@ pipeline {
 		stage("threat modeling") {
 			agent {
 				docker {
-					image "rusakovichma/tic-taac:1.1.4"
+					image "rusakovichma/tic-taac:latest"
 					args '''\
 						--user 0 \
 						--volume ${WORKSPACE}/threat-model:/threat-model:ro \
