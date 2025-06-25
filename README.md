@@ -3,11 +3,7 @@
 Lightweight and easy-to-use Threat modeling solution following DevSecOps principles
 
 ## Preface
-"One day the customer asked to perform threat modeling for our product. Of course, we have heard about it a lot
-from different teams, I have even read several articles and looked through a book to get familiar with this process,
-but they were too abstract as for me and didn't give me a certainty at all. Then we have faced several enterprise - level 
-products which theoretically would help us, but we didn't want to deploy the whole security program because of it, 
-we just wanted to get the prioritized threats list for our product to put it in our security backlog. Nothing else"
+"At one point, a customer requested that we conduct threat modeling for our product. While we were familiar with the concept—having heard about it extensively from various teams—I found the available resources, such as articles and books, to be overly abstract and lacking in practical clarity. When we explored several enterprise-level solutions that purported to assist with threat modeling, we realized they were designed to support comprehensive security programs. However, our goal was far more focused: we simply wanted to generate a prioritized list of threats specific to our product so we could incorporate them into our security backlog. Nothing more, nothing less."
 <p align="right"><em>Anonymous Developer</em></p>
 
 ## Idea
