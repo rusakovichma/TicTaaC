@@ -7,8 +7,7 @@ Lightweight and easy-to-use Threat modeling solution following DevSecOps princip
 <p align="right"><em>Anonymous Developer</em></p>
 
 ## Idea
-The idea behind this product is clear - I want to create something simple that would help to solve this difficult problem.
-Ideally, with <em>one click</em> or <em>a command</em> and with a possibility to integrate it into a pipeline and do it <em>continuously</em> if needed. Inspired by <em>dependency-check</em> architecture and simplicity plus taking in mind that <em>developers just love mapping</em> everything in code, I've created <strong>"TicTaaC"</strong>, which means <em>"<strong>T</strong>hreat modeling-<strong>a</strong>s-<strong>a</strong>-<strong>C</strong>ode in a <strong>Tic</strong>k"</em>
+The concept behind this product is straightforward: I aim to create a simple yet effective solution to address a complex problem. Ideally, it should work with <em>a single click</em> or <em>command</em>, while also offering the flexibility to integrate seamlessly into a pipeline for <em>continuous use</em>, if necessary. Drawing inspiration from the architecture and simplicity of <em>dependency-check</em> tools—and recognizing that developers have a strong preference for mapping <em>everything in code</em>—I developed <strong>"TicTaaC"</strong>, which stands for <em>"<strong>T</strong>hreat modeling-<strong>a</strong>s-<strong>a</strong>-<strong>C</strong>ode in a <strong>Tic</strong>k"</em>
 
 ## Usage
 All the tool is needed is a <strong>data flow code file</strong> described in the <em>yml-like format</em> specially designed for this.<br>
